@@ -9,7 +9,7 @@
     "url": "git@github.com:BelinChung/HiApp.git"
   },
   "scripts": {
-    "clean": "rm -fr ./www",
+    "clean": "rimraf ./www",
     "dev": "webpack --config build/webpack/development.js --progress --watch",
     "build": "cross-env NODE_ENV=production npm run clean && webpack --config build/webpack/production.js --progress",
     "build_with_source_map": "npm run build --devtool source-map"
@@ -24,6 +24,7 @@
     "copy-webpack-plugin": "^1.1.1",
     "less": "^2.5.3",
     "less-loader": "^2.2.2",
+    "rimraf": "^2.5.4",
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.7",
     "webpack": "^1.12.11",
