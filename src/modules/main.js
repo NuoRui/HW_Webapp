@@ -1,4 +1,3 @@
-require('framework7');
 require('../style/less/app.less');
 
 var appFunc = require('./utils/appFunc'),

@@ -95,3 +95,4 @@ plugins/
 hooks/
 cordova/
 platforms/
+src/libs
