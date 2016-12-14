@@ -7,7 +7,7 @@ var index = require('./app/app'),
     messageModule = require('./message/message');
 
 module.exports = {
-    init: function() {
+    init: function () {
         var that = this;
         $$(document).on('pageBeforeInit', function (e) {
             var page = e.detail.page;
@@ -19,17 +19,17 @@ module.exports = {
             that.pageAfterAnimation(page);
         });
     },
-    pageAfterAnimation: function(page){
+    pageAfterAnimation: function (page) {
         var name = page.name;
         var from = page.from;
 
-        if(name === 'homeView' || name === 'contactView' || name === 'setting' ){
-            if(from === 'left'){
+        if (name === 'homeView' || name === 'contactView' || name === 'setting') {
+            if (from === 'left') {
                 appFunc.showToolbar();
             }
         }
     },
-    pageBeforeInit: function(page) {
+    pageBeforeInit: function (page) {
         var name = page.name;
         var query = page.query;
 

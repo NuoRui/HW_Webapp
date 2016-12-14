@@ -1,7 +1,7 @@
 var xhr = require('../utils/xhr');
 
 module.exports = {
-    loadContacts: function(callback) {
+    loadContacts: function (callback) {
         xhr.simpleCall({
             func: 'contacts'
         }, function (res) {

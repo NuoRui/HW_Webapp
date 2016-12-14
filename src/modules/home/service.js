@@ -1,24 +1,24 @@
 var xhr = require('../utils/xhr');
 
 module.exports = {
-    getTimeline: function(callback){
+    getTimeline: function (callback) {
         xhr.simpleCall({
-            func:'timeline'
-        },function(res){
+            func: 'timeline'
+        }, function (res) {
             callback(res.data);
         });
     },
-    refreshTimeline: function(callback){
+    refreshTimeline: function (callback) {
         xhr.simpleCall({
-            func:'refresh_timeline'
-        },function(res){
+            func: 'refresh_timeline'
+        }, function (res) {
             callback(res.data);
         });
     },
-    infiniteTimeline: function(callback){
+    infiniteTimeline: function (callback) {
         xhr.simpleCall({
-            func:'more_timeline'
-        },function(res){
+            func: 'more_timeline'
+        }, function (res) {
             callback(res.data);
         });
     }

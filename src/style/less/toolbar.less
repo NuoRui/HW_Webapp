@@ -1,40 +1,35 @@
-.toolbar{
-  i{
-    &.icon {
-      font-size: 28px;
-      line-height: 28px;
+.toolbar {
+    i {
+        &.icon {
+            font-size: 28px;
+            line-height: 28px;
+        }
     }
-  }
-
-  .active{
-    .ios7-home-outline{
-      &:before {
-        content: "\e619";
-      }
+    .active {
+        .ios7-home-outline {
+            &:before {
+                content: "\e619";
+            }
+        }
+        .ios7-chatbubble-outline {
+            &:before {
+                content: "\e61b";
+            }
+        }
+        .ios7-gear-outline {
+            &:before {
+                content: "\e60c";
+            }
+        }
     }
-
-    .ios7-chatbubble-outline{
-      &:before {
-        content: "\e61b";
-      }
+    a {
+        &.active {
+            color: @mainColor;
+        }
     }
-
-    .ios7-gear-outline{
-      &:before {
-        content: "\e60c";
-      }
+    span {
+        &.tabbar-label {
+            font-size: 12px;
+        }
     }
-  }
-
-  a{
-    &.active {
-      color: @mainColor;
-    }
-  }
-
-  span{
-    &.tabbar-label {
-      font-size: 12px;
-    }
-  }
 }

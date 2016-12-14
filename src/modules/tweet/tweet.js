@@ -7,7 +7,7 @@ var appFunc = require('../utils/appFunc'),
 var id;
 
 var tweetModule = {
-    init: function(query){
+    init: function (query) {
         id = query.id;
         appFunc.hideToolbar();
 
@@ -19,8 +19,8 @@ var tweetModule = {
         // init comment module
         commentModule.init();
     },
-    getTweet: function(){
-        var $this = $$('#homeView .home-timeline .card[data-id="'+ id +'"]');
+    getTweet: function () {
+        var $this = $$('#homeView .home-timeline .card[data-id="' + id + '"]');
 
         var item = {
             id: $this.data('id'),
@@ -30,20 +30,20 @@ var tweetModule = {
             text: $this.find('.card-content-inner>p').html()
         };
 
-        if($this.find('.item-image>img')[0])
+        if ($this.find('.item-image>img')[0])
             item.image = $this.find('.item-image img').attr('src');
 
         var output = appFunc.renderTpl(template, item);
 
         $$('#itemContent').html(output);
     },
-    bindEvents: function(){
+    bindEvents: function () {
         var bindings = [{
             element: '#commentContent',
             selector: '.comment-item',
             event: 'click',
             handler: commentModule.createActionSheet
-        },{
+        }, {
             element: '#homeView .item-comment-btn',
             event: 'click',
             handler: commentModule.commentPopup

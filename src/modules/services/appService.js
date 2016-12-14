@@ -1,8 +1,8 @@
 module.exports = {
-    getLocal: function(){
+    getLocal: function () {
         return localStorage.getItem('lang') || 'en-us';
     },
-    setLocal: function(lang){
+    setLocal: function (lang) {
         localStorage.setItem('lang', lang);
     }
 };
