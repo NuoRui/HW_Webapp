@@ -11,5 +11,14 @@ module.exports = {
 				callback(res);
 			}
 		});
-	}
+	},
+
+        xhr.simpleGet('list/indent', {
+            sessionId: sessionId
+        }, function (res) {
+            if (callback && typeof(callback) == 'function') {
+                callback(res);
+            }
+        });
+    }
 };
