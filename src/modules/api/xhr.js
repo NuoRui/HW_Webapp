@@ -20,20 +20,7 @@ module.exports = {
     },
 
     getRequestURL: function (path) {
-
-        //var port = options.port || window.location.port;
-        var query = options.query || {};
-        var func = options.func || '';
-
-        var apiServer = 'api/' + func + '.json' +
-            (appFunc.isEmpty(query) ? '' : '?');
-
-        var name;
-        for (name in query) {
-            apiServer += name + '=' + query[name] + '&';
-        }
-
-        return apiServer.replace(/&$/gi, '');
+    	return gConfig.url.host + ':' + gConfig.url.port + '/' + path;
     },
 
     simpleGet: function (path, params, callback) {
@@ -69,7 +56,7 @@ module.exports = {
 		}
 
 		$$.ajax({
-			url: self.getRequestURL(path) + '?' + $$.param(params),
+			url: self.getRequestURL(path) + ($$.param(params) ? '?' + $$.param(params) : ''),
 			method: 'POST',
 			data: data,
 			success: function (data) {
