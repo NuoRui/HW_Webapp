@@ -13,6 +13,7 @@ module.exports = {
 		});
 	},
 
+    getIndents: function (callback, sessionId) {
         xhr.simpleGet('list/indent', {
             sessionId: sessionId
         }, function (res) {
