@@ -1,6 +1,7 @@
 require('./setting.less');
 
 var appFunc = require('../utils/appFunc'),
+    storageService = require('../services/storageService'),
     template = require('./setting.tpl.html');
 
 var settingView = {
@@ -24,9 +25,10 @@ var settingView = {
         hiApp.hideIndicator();
     },
     logOut: function () {
-        hiApp.confirm(i18n.setting.confirm_logout, function () {
-            //mainView.router.loadPage('page/login.html');
-            //hiApp.showTab('#ourView');
+        hiApp.confirm('你确定要退出登录吗？', function () {
+            storageService.delUser();
+            settingF7View.router.loadPage('../page/login.html');
+            appFunc.hideToolbar();
         });
     },
     bindEvents: function () {

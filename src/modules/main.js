@@ -2,42 +2,43 @@ require('../style/less/app.less');
 
 var appFunc = require('./utils/appFunc'),
     appService = require('./services/appService'),
+    authService = require('./services/authService'),
     router = require('./router'),
     index = require('./app/app');
 
 var app = {
-    initialize: function () {
+    initialize: function() {
         this.bindEvents();
     },
-    bindEvents: function () {
+    bindEvents: function() {
         if (appFunc.isPhonegap()) {
             document.addEventListener('deviceready', this.onDeviceReady, false);
         } else {
             window.onload = this.onDeviceReady();
         }
     },
-    onDeviceReady: function () {
+    onDeviceReady: function() {
         app.receivedEvent('deviceready');
     },
-    receivedEvent: function (event) {
+    receivedEvent: function(event) {
         switch (event) {
             case 'deviceready':
                 app.initMainView();
                 break;
         }
     },
-    initMainView: function () {
+    initMainView: function() {
         var lang = appService.getLocal();
 
         switch (lang) {
             case 'en-us':
-                require(['./lang/en-us'], function (lang) {
+                require(['./lang/en-us'], function(lang) {
                     window.i18n = lang;
                     app.initFramework7();
                 });
                 break;
             case 'zh-cn':
-                require(['./lang/zh-cn'], function (lang) {
+                require(['./lang/zh-cn'], function(lang) {
                     window.i18n = lang;
                     app.initFramework7();
                 });
@@ -45,10 +46,10 @@ var app = {
         }
 
     },
-    initFramework7: function () {
+    initFramework7: function() {
 
         //Register custom Template7 helpers
-        Template7.registerHelper('t', function (options) {
+        Template7.registerHelper('t', function(options) {
             var key = options.hash.i18n || '';
             var keys = key.split('.');
 
@@ -65,13 +66,13 @@ var app = {
         });
 
         window.$$ = Dom7;
-        window.hiApp = new Framework7({
+        window.hiApp = window.nrApp = new Framework7({
             pushState: false,
             popupCloseByOutside: false,
             animateNavBackIcon: true,
-            modalTitle: i18n.global.modal_title,
-            modalButtonOk: i18n.global.modal_button_ok,
-            modalButtonCancel: i18n.global.cancel,
+            modalTitle: '系统消息',
+            modalButtonOk: '确定',
+            modalButtonCancel: '取消',
             template7Pages: true,
             template7Data: {
                 'page:item': {
@@ -101,21 +102,25 @@ var app = {
             }
         });
 
-        window.homeF7View = hiApp.addView('#homeView', {
+        window.homeF7View = nrApp.addView('#homeView', {
             dynamicNavbar: true
         });
 
-        hiApp.addView('#contactView', {
+        nrApp.addView('#contactView', {
             dynamicNavbar: true
         });
 
-        hiApp.addView('#settingView', {
+        window.settingF7View = nrApp.addView('#settingView', {
             dynamicNavbar: true
         });
 
         // init app
         router.init();
         index.init();
+
+        // 判断是否登录
+        authService.authentication();
+
     }
 };
 
