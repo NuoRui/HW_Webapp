@@ -1,17 +1,17 @@
 var xhr = require('../utils/xhr');
 
 module.exports = {
-    getAnswers: function(callback) {
+    getAnswers: function (callback) {
         xhr.simpleCall({
             func: 'answers'
         }, function (res) {
             callback(res.data);
         });
     },
-    getMessages: function(callback){
+    getMessages: function (callback) {
         xhr.simpleCall({
-            func:'message'
-        },function(res) {
+            func: 'message'
+        }, function (res) {
             callback(res.data);
         });
     }

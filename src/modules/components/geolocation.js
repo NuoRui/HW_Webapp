@@ -2,7 +2,7 @@ var GlobalLat = null,
     GlobalLong = null;
 
 var geolocation = {
-    initGeo: function(){
+    initGeo: function () {
         $$('#geoInfo').removeClass('show').hide();
 
         $$('#geoInfo .location>i').removeClass('ios7-location-outline').addClass('preloader');
@@ -12,29 +12,28 @@ var geolocation = {
         GlobalLong = null;
     },
 
-    catchGeoInfo: function(){
+    catchGeoInfo: function () {
         $$('#geoInfo').addClass('show').show();
-        if (navigator.geolocation){
-            navigator.geolocation.getCurrentPosition(geolocation.showPosition,geolocation.showGeoError);
-        }else{
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(geolocation.showPosition, geolocation.showGeoError);
+        } else {
             $$('#geoInfo .location').html(i18n.geo.position_unavailable);
         }
     },
 
-    showPosition: function(position){
+    showPosition: function (position) {
         var lat = position.coords.latitude;
         var long = position.coords.longitude;
 
         $$('#geoInfo .location>i').removeClass('preloader').addClass('ios7-location-outline');
-        $$('#geoInfo .location>span').html(( Math.round(lat * 10000)/10000) + '/' + ( Math.round(long * 10000)/10000) );
+        $$('#geoInfo .location>span').html((Math.round(lat * 10000) / 10000) + '/' + (Math.round(long * 10000) / 10000));
 
         GlobalLat = lat;
         GlobalLong = long;
     },
 
-    showGeoError: function(error){
-        switch(error.code)
-        {
+    showGeoError: function (error) {
+        switch (error.code) {
             case error.PERMISSION_DENIED:
                 $$('#geoInfo .location').html(i18n.geo.permission_denied);
                 break;
@@ -50,15 +49,15 @@ var geolocation = {
         }
     },
 
-    getGeo: function(){
+    getGeo: function () {
         return {
-            lat:GlobalLat,
-            long:GlobalLong
+            lat: GlobalLat,
+            long: GlobalLong
         };
     },
 
-    cleanGeo: function(){
-        hiApp.confirm(i18n.geo.confirm_clean_geo,geolocation.initGeo);
+    cleanGeo: function () {
+        hiApp.confirm(i18n.geo.confirm_clean_geo, geolocation.initGeo);
     }
 };
 

@@ -10,19 +10,19 @@ var conversationStarted = false,
     messageLayout;
 
 module.exports = {
-    init: function(query){
+    init: function (query) {
         var that = this;
 
         appFunc.hideToolbar();
 
-        service.getAnswers(function(a){
+        service.getAnswers(function (a) {
             answers = a;
 
             var bindings = [{
                 element: '.ks-messages-form',
                 event: 'submit',
                 handler: that.submitMessage
-            },{
+            }, {
                 element: '.ks-send-message',
                 event: 'click',
                 handler: that.triggerSubmit
@@ -38,15 +38,15 @@ module.exports = {
 
             // Init Messages
             messageLayout = hiApp.messages('#contactView .messages', {
-                autoLayout:true
+                autoLayout: true
             });
         });
     },
-    renderMessages: function(message){
+    renderMessages: function (message) {
         hiApp.showIndicator();
 
-        service.getMessages(function(m){
-            setTimeout(function(){
+        service.getMessages(function (m) {
+            setTimeout(function () {
                 var renderData = {
                     message: m
                 };
@@ -55,10 +55,10 @@ module.exports = {
 
                 hiApp.hideIndicator();
 
-            },600);
+            }, 600);
         });
     },
-    submitMessage: function(e){
+    submitMessage: function (e) {
 
         e.preventDefault();
         var input = $$(this).find('.ks-messages-input');
@@ -86,7 +86,7 @@ module.exports = {
             });
         }, 1000);
     },
-    triggerSubmit: function(){
+    triggerSubmit: function () {
         $$('.ks-messages-form').trigger('submit');
     }
 };

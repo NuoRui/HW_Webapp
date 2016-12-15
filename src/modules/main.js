@@ -6,38 +6,38 @@ var appFunc = require('./utils/appFunc'),
     index = require('./app/app');
 
 var app = {
-    initialize: function() {
+    initialize: function () {
         this.bindEvents();
     },
-    bindEvents: function() {
-        if(appFunc.isPhonegap()) {
+    bindEvents: function () {
+        if (appFunc.isPhonegap()) {
             document.addEventListener('deviceready', this.onDeviceReady, false);
-        }else{
+        } else {
             window.onload = this.onDeviceReady();
         }
     },
-    onDeviceReady: function() {
+    onDeviceReady: function () {
         app.receivedEvent('deviceready');
     },
-    receivedEvent: function(event) {
+    receivedEvent: function (event) {
         switch (event) {
             case 'deviceready':
                 app.initMainView();
                 break;
         }
     },
-    initMainView:function(){
+    initMainView: function () {
         var lang = appService.getLocal();
 
-        switch (lang){
+        switch (lang) {
             case 'en-us':
-                require(['./lang/en-us'], function(lang){
+                require(['./lang/en-us'], function (lang) {
                     window.i18n = lang;
                     app.initFramework7();
                 });
                 break;
             case 'zh-cn':
-                require(['./lang/zh-cn'], function(lang){
+                require(['./lang/zh-cn'], function (lang) {
                     window.i18n = lang;
                     app.initFramework7();
                 });
@@ -45,18 +45,16 @@ var app = {
         }
 
     },
-    initFramework7: function(){
+    initFramework7: function () {
 
         //Register custom Template7 helpers
-        Template7.registerHelper('t', function (options){
+        Template7.registerHelper('t', function (options) {
             var key = options.hash.i18n || '';
             var keys = key.split('.');
 
             var value;
-            for (var idx = 0, size = keys.length; idx < size; idx++)
-            {
-                if (value != null)
-                {
+            for (var idx = 0, size = keys.length; idx < size; idx++) {
+                if (value != null) {
                     value = value[keys[idx]];
                 } else {
                     value = i18n[keys[idx]];
@@ -69,7 +67,7 @@ var app = {
         window.$$ = Dom7;
         window.hiApp = new Framework7({
             pushState: false,
-            popupCloseByOutside:false,
+            popupCloseByOutside: false,
             animateNavBackIcon: true,
             modalTitle: i18n.global.modal_title,
             modalButtonOk: i18n.global.modal_button_ok,

@@ -1,7 +1,7 @@
 var ft;
 
 var fileTransfer = {
-    startUpload: function(fileUrl){
+    startUpload: function (fileUrl) {
 
         var uploadServer = 'http://up.qiniu.com/';
 
@@ -23,7 +23,7 @@ var fileTransfer = {
         options.mimeType = 'image/jpeg';
         options.params = {};
         ft = new FileTransfer();
-        ft.upload(fileUrl, encodeURI(uploadServer), fileTransfer.uploadSuccess , fileTransfer.uploadFail , options);
+        ft.upload(fileUrl, encodeURI(uploadServer), fileTransfer.uploadSuccess, fileTransfer.uploadFail, options);
 
         ft.onprogress = fileTransfer.onprogress;
     },
@@ -43,7 +43,7 @@ var fileTransfer = {
 
         /* global FileTransferError */
         var errText;
-        switch (error.code){
+        switch (error.code) {
             case FileTransferError.FILE_NOT_FOUND_ERR:
                 errText = i18n.camera.file_not_found_err;
                 break;
@@ -64,15 +64,15 @@ var fileTransfer = {
         hiApp.alert(errText);
     },
 
-    onprogress: function(progressEvent){
+    onprogress: function (progressEvent) {
         if (progressEvent.lengthComputable) {
             var percent = Math.round((progressEvent.loaded / progressEvent.total) * 100);
             $$('#progress').parents('.modal-inner').find('.modal-title .percent').html(percent + '%');
-            $$('#progress').find('.progress-bar').css('width',percent + '%');
+            $$('#progress').find('.progress-bar').css('width', percent + '%');
         }
     },
 
-    abortUpload: function(){
+    abortUpload: function () {
         ft.abort();
     }
 };

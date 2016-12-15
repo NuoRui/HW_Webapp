@@ -5,18 +5,18 @@ var appFunc = require('../utils/appFunc'),
     template = require('./contacts.tpl.html');
 
 var contacts = {
-    init: function(){
+    init: function () {
         contacts.bindEvents();
     },
-    loadContacts: function(){
-        if(contacts.beforeLoadContacts()) {
-            hiApp.searchbar('#contactView .searchbar',{
+    loadContacts: function () {
+        if (contacts.beforeLoadContacts()) {
+            hiApp.searchbar('#contactView .searchbar', {
                 searchList: '.contacts-list',
                 searchIn: '.item-title'
             });
 
-            service.loadContacts(function(c){
-                setTimeout(function(){
+            service.loadContacts(function (c) {
+                setTimeout(function () {
                     var renderData = {
                         contacts: c
                     };
@@ -25,19 +25,19 @@ var contacts = {
 
                     hiApp.hideIndicator();
 
-                },500);
+                }, 500);
             });
         }
     },
-    beforeLoadContacts: function(){
-        if($$('#contactView .contacts-list .list-group .contact-item').length > 0) {
+    beforeLoadContacts: function () {
+        if ($$('#contactView .contacts-list .list-group .contact-item').length > 0) {
             return false;
-        }else {
+        } else {
             hiApp.showIndicator();
             return true;
         }
     },
-    bindEvents: function(){
+    bindEvents: function () {
         var bindings = [{
             element: '#contactView',
             event: 'show',

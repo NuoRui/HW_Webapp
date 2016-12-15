@@ -3,8 +3,8 @@ var appFunc = require('./appFunc'),
 
 module.exports = {
 
-    search: function(code, array){
-        for (var i=0;i< array.length; i++){
+    search: function (code, array) {
+        for (var i = 0; i < array.length; i++) {
             if (array[i].code === code) {
                 return array[i];
             }
@@ -12,7 +12,7 @@ module.exports = {
         return false;
     },
 
-    getRequestURL: function(options){
+    getRequestURL: function (options) {
         //var host = apiServerHost || window.location.host;
         //var port = options.port || window.location.port;
         var query = options.query || {};
@@ -29,7 +29,7 @@ module.exports = {
         return apiServer.replace(/&$/gi, '');
     },
 
-    simpleCall: function(options,callback){
+    simpleCall: function (options, callback) {
         var that = this;
 
         options = options || {};
@@ -39,12 +39,12 @@ module.exports = {
         options.method = options.method || 'GET';
         //options.method = options.method || 'POST';
 
-        if(appFunc.isPhonegap()){
+        if (appFunc.isPhonegap()) {
             //Check network connection
             var network = networkStatus.checkConnection();
-            if(network === 'NoNetwork'){
+            if (network === 'NoNetwork') {
 
-                hiApp.alert(i18n.error.no_network,function(){
+                hiApp.alert(i18n.error.no_network, function () {
                     hiApp.hideIndicator();
                     hiApp.hidePreloader();
                 });
@@ -54,27 +54,27 @@ module.exports = {
         }
 
         $$.ajax({
-            url: that.getRequestURL(options) ,
+            url: that.getRequestURL(options),
             method: options.method,
             data: options.data,
-            success:function(data){
+            success: function (data) {
                 data = data ? JSON.parse(data) : '';
 
                 var codes = [
-                    {code:10000, message:'Your session is invalid, please login again',path:'/'},
-                    {code:10001, message:'Unknown error,please login again',path:'tpl/login.html'},
-                    {code:20001, message:'User name or password does not match',path:'/'}
+                    { code: 10000, message: 'Your session is invalid, please login again', path: '/' },
+                    { code: 10001, message: 'Unknown error,please login again', path: 'tpl/login.html' },
+                    { code: 20001, message: 'User name or password does not match', path: '/' }
                 ];
 
-                var codeLevel = that.search(data.err_code,codes);
+                var codeLevel = that.search(data.err_code, codes);
 
-                if(!codeLevel){
+                if (!codeLevel) {
 
-                    (typeof(callback) === 'function') ? callback(data) : '';
+                    (typeof (callback) === 'function') ? callback(data) : '';
 
-                }else{
+                } else {
 
-                    hiApp.alert(codeLevel.message,function(){
+                    hiApp.alert(codeLevel.message, function () {
                         hiApp.hideIndicator();
                         hiApp.hidePreloader();
                     });
