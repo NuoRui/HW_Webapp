@@ -15,7 +15,7 @@ if (mode === 'production') {
 
 module.exports = {
     entry: {
-        app: './src/modules/main.js'
+        app: './src/index.js'
     },
     output: {
         path: './www',

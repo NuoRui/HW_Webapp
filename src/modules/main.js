@@ -1,9 +1,9 @@
 require('../style/less/app.less');
 
-var appFunc = require('./utils/appFunc'),
-    appService = require('./services/appService'),
-    router = require('./router'),
-    index = require('./app/app');
+var appFunc = require('./utils/appFunc');
+var appService = require('./services/appService');
+var router = require('./router');
+var index = require('./app/app');
 
 var app = {
     initialize: function () {
@@ -43,7 +43,6 @@ var app = {
                 });
                 break;
         }
-
     },
     initFramework7: function () {
 
