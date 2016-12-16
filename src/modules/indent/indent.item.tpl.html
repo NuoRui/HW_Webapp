@@ -1,0 +1,19 @@
+{{#each indents}}
+<div data-id="{{id}}" class="card indent-item">
+	<div class="card-header">
+		<div class="indent-item-id">{{id}}</div>
+		<div class="indent-item-name">{{name}}</div>
+	</div>
+	<div class="card-content">
+		<div class="card-content-inner">
+			<p>{{../finalText}}</p>
+		</div>
+	</div>
+	<div class="card-footer"><a href="#" class="link">zz</a><a href="#" class="link">bb</a><a href="#" class="link">cc</a></div>
+</div>
+{{else}}
+<div class="none-comment">
+    <i class="icon ios7-chatboxes-outline"></i>
+    <p>暂时还没有订单</p>
+</div>
+{{/each}}

@@ -30,11 +30,11 @@ module.exports = {
     },
 
     hideToolbar: function () {
-        hiApp.hideToolbar('.toolbar');
+        nrApp.hideToolbar('.toolbar');
     },
 
     showToolbar: function () {
-        hiApp.showToolbar('.toolbar');
+		nrApp.showToolbar('.toolbar');
     },
 
     timeFormat: function (ms) {
