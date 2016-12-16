@@ -11,5 +11,15 @@ module.exports = {
 				callback(res);
 			}
 		});
-	}
+	},
+
+    getIndents: function (callback, sessionId) {
+        xhr.simpleGet('list/indent', {
+            sessionId: sessionId
+        }, function (res) {
+            if (callback && typeof(callback) == 'function') {
+                callback(res);
+            }
+        });
+    }
 };
