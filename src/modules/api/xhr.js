@@ -20,7 +20,7 @@ module.exports = {
     },
 
     getRequestURL: function (path) {
-    	return gConfig.url.host + ':' + gConfig.url.port + '/' + path;
+    	return gConfig.url + '/' + path;
     },
 
     simpleGet: function (path, params, callback) {
@@ -34,7 +34,9 @@ module.exports = {
             url: self.getRequestURL(path),
             method: 'GET',
             data: params,
+            dataType: 'json',
             success: function (data) {
+            	data = data ? JSON.parse(data) : '';
 				if (callback && typeof(callback) == 'function') {
 					callback(data);
 				}
@@ -60,6 +62,7 @@ module.exports = {
 			method: 'POST',
 			data: data,
 			success: function (data) {
+				data = data ? JSON.parse(data) : '';
 				if (callback && typeof(callback) == 'function') {
 					callback(data);
 				}

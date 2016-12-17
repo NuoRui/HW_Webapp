@@ -1,26 +1,26 @@
 module.exports = {
 
-    isPhonegap: function () {
-        return (typeof (cordova) !== 'undefined' || typeof (phonegap) !== 'undefined');
+    isPhonegap: function() {
+        return (typeof(cordova) !== 'undefined' || typeof(phonegap) !== 'undefined');
     },
 
-    renderTpl: function (markup, renderData) {
+    renderTpl: function(markup, renderData) {
         var compiledTemplate = Template7.compile(markup);
         return compiledTemplate(renderData);
     },
 
-    isEmail: function (str) {
+    isEmail: function(str) {
         var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
         return reg.test(str);
     },
 
-    getPageNameInUrl: function (url) {
+    getPageNameInUrl: function(url) {
         url = url || '';
         var arr = url.split('.');
         return arr[0];
     },
 
-    isEmpty: function (obj) {
+    isEmpty: function(obj) {
         for (var prop in obj) {
             if (obj.hasOwnProperty(prop))
                 return false;
@@ -29,15 +29,19 @@ module.exports = {
         return true;
     },
 
-    hideToolbar: function () {
-        hiApp.hideToolbar('.toolbar');
+    hideToolbar: function() {
+        nrApp.hideToolbar('.toolbar');
     },
 
-    showToolbar: function () {
-        hiApp.showToolbar('.toolbar');
+    showToolbar: function() {
+        nrApp.showToolbar('.toolbar');
     },
 
-    timeFormat: function (ms) {
+    getCurrentView: function() {
+        return nrApp.getCurrentView();
+    },
+
+    timeFormat: function(ms) {
 
         ms = ms * 1000;
 
@@ -70,34 +74,32 @@ module.exports = {
         }
     },
 
-    getCharLength: function (str) {
+    getCharLength: function(str) {
         var iLength = 0;
         for (var i = 0; i < str.length; i++) {
             if (str.charCodeAt(i) > 255) {
                 iLength += 2;
-            }
-            else {
+            } else {
                 iLength += 1;
             }
         }
         return iLength;
     },
 
-    matchUrl: function (string) {
+    matchUrl: function(string) {
         var reg = /((http|ftp|https):\/\/)?[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&;:\/~\+#]*[\w\-\@?^=%&;\/~\+#])?/g;
 
-        string = string.replace(reg, function (a) {
+        string = string.replace(reg, function(a) {
             if (a.indexOf('http') !== -1 || a.indexOf('ftp') !== -1) {
                 return '<a href=\"#\" onclick=\"event.stopPropagation();window.open(\'' + a + '\',\'_blank\')\">' + a + '</a>';
-            }
-            else {
+            } else {
                 return '<a href=\"#\" onclick=\"event.stopPropagation();window.open(\'http://' + a + '\',\'_blank\')\">' + a + '</a>';
             }
         });
         return string;
     },
 
-    bindEvents: function (bindings) {
+    bindEvents: function(bindings) {
         for (var i in bindings) {
             if (bindings[i].selector) {
                 $$(bindings[i].element)

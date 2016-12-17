@@ -2,6 +2,7 @@ require('./setting.less');
 
 var appFunc = require('../utils/appFunc'),
     storageService = require('../services/storageService'),
+    authService = require('../services/authService'),
     template = require('./setting.tpl.html');
 
 var settingView = {
@@ -13,10 +14,12 @@ var settingView = {
 
         hiApp.showIndicator();
 
+        var user = storageService.getUser();
+
         var renderData = {
-            avatarUrl: 'http://lorempixel.com/68/68/people/7/',
-            nickName: 'HiApp',
-            points: '100'
+            username: user.username,
+            employeeName: user.employee_name,
+            avatarUrl: 'http://news.mydrivers.com/Img/20110518/04481549.png',
         };
 
         var output = appFunc.renderTpl(template, renderData);
@@ -26,9 +29,7 @@ var settingView = {
     },
     logOut: function () {
         hiApp.confirm('你确定要退出登录吗？', function () {
-            storageService.delUser();
-            settingF7View.router.loadPage('../page/login.html');
-            appFunc.hideToolbar();
+            authService.signOut()
         });
     },
     bindEvents: function () {

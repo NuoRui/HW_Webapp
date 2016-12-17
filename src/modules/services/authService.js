@@ -2,14 +2,13 @@ var appFunc = require('../utils/appFunc'),
     storageService = require('./storageService');
 
 function redirect() {
-    homeF7View.router.loadPage('page/login.html');
-    appFunc.hideToolbar();
+    // var currentView = appFunc.getCurrentView();
+    appFunc.getCurrentView().router.loadPage('page/login.html');
 }
 
 var authService = {
     authentication: function() {
         var user = storageService.getUser();
-
         if (appFunc.isEmpty(user)) {
             redirect();
         }
@@ -18,7 +17,11 @@ var authService = {
         storageService.delUser();
         redirect();
     },
-
-}
+    signIn: function(user) {
+        storageService.setUser(user);
+        appFunc.getCurrentView().router.back();
+        // homeF7View.router.loadPage('index.html');
+    }
+};
 
 module.exports = authService;
