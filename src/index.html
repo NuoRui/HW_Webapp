@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="libs/framework7/dist/css/framework7.ios.colors.css">
     <script type="text/javascript" src="libs/framework7/dist/js/framework7.js"></script>
 </head>
+
 <body>
 <div class="statusbar-overlay"></div>
 <div class="panel-overlay"></div>
@@ -17,6 +18,7 @@
     <div id="homeView" class="view view-main tab active">
         <div class="navbar">
             <div class="navbar-inner">
+<<<<<<< HEAD
 
                 <div class="left">
                     <a href="#"  class="refresh-click link">
@@ -57,31 +59,16 @@
         <div class="navbar">
             <div class="navbar-inner">
                 <div class="center sliding i18n" data-i18n="app.name"></div>
+=======
+                <div class="center sliding">恒武</div>
+>>>>>>> zhuzheng
             </div>
         </div>
-
         <div class="pages navbar-through">
-            <div data-page="contactView" class="page contact-page">
-                <!-- Search bar -->
-                <form class="searchbar">
-                    <div class="searchbar-input">
-                        <input type="search" class="i18n" data-i18n="[placeholder]global.search">
-                        <a href="#" class="searchbar-clear"></a>
-                    </div>
-                    <a href="#" class="searchbar-cancel i18n" data-i18n="global.cancel"></a>
-                </form>
-
-                <!-- Search bar overlay-->
-                <div class="searchbar-overlay"></div>
-
+            <div data-page="homeView" class="page">
                 <div class="page-content">
-                    <div class="list-block contacts-list searchbar-found">
-                        <div class="list-group">
-                            <ul></ul>
-                        </div>
-                    </div>
-                    <div class="content-block searchbar-not-found i18n" data-i18n="index.nothing_found" >
-                    </div>
+                    <p><a href="page/indent.html" class="button">订单管理</a></p>
+                    <p><a href="#" class="button">报价单</a></p>
                 </div>
             </div>
         </div>
@@ -90,7 +77,11 @@
     <div id="settingView" class="view tab">
         <div class="navbar">
             <div class="navbar-inner">
+<<<<<<< HEAD
                 <div class="center sliding">设置</div>
+=======
+                <div class="center sliding">恒武</div>
+>>>>>>> zhuzheng
             </div>
         </div>
         <div class="pages navbar-through">
@@ -102,8 +93,10 @@
     <!-- toolbar start -->
     <div class="toolbar tabbar tabbar-labels">
         <div class="toolbar-inner">
+
             <a href="#homeView" class="tab-link active">
                 <i class="icon ios7-home-outline"></i>
+<<<<<<< HEAD
                 <span class="tabbar-label">主页</span>
             </a>
 
@@ -116,15 +109,23 @@
                 <i class="icon ios7-gear-outline">
                     <!-- <span class="badge badge-red">4</span> -->
                 </i>
+=======
+                <span class="tabbar-label">横舞</span>
+            </a>
+
+            <a href="#settingView" class="tab-link">
+                <i class="icon ios7-gear-outline"></i>
+>>>>>>> zhuzheng
                 <span class="tabbar-label">设置</span>
             </a>
+
         </div>
     </div>
     <!-- toolbar end -->
 </div>
 
-<!-- Please ignore the 404 error when you are not running under PhoneGap environment or delete it. 
-<script type="text/javascript" src="cordova.js"></script>-->
+<!-- Please ignore the 404 error when you are not running under PhoneGap environment or delete it. -->
+<!--<script type="text/javascript" src="cordova.js"></script>-->
 
 </body>
 

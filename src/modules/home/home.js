@@ -16,7 +16,7 @@ var home = {
         service.getTimeline(function (tl) {
             that.renderTimeline(tl);
 
-            hiApp.hideIndicator();
+            nrApp.hideIndicator();
 
             //Unlock scroll loading status
             var ptrContent = $$('#homeView').find('.pull-to-refresh-content');
@@ -38,7 +38,7 @@ var home = {
 
                 if (parseInt(newestId) === 48) {
                     home.showLoadResult(i18n.index.nothing_loaded);
-                    hiApp.pullToRefreshDone();
+                    nrApp.pullToRefreshDone();
                     return false;
                 }
 
@@ -52,7 +52,7 @@ var home = {
                     home.showLoadResult(i18n.index.nothing_loaded);
                 }
 
-                hiApp.pullToRefreshDone();
+                nrApp.pullToRefreshDone();
 
             }, 1500);
 
@@ -61,7 +61,7 @@ var home = {
     infiniteTimeline: function () {
         var $this = $$(this);
 
-        hiApp.showIndicator();
+        nrApp.showIndicator();
         service.infiniteTimeline(function (tl) {
             var status = $this.data('scrollLoading');
             if (status === 'loading') return;
@@ -72,15 +72,15 @@ var home = {
             var length = items.length;
             var lastId = items.eq(length - 1).data('id');
             if (parseInt(lastId) === 24) {
-                hiApp.detachInfiniteScroll($this);
-                hiApp.hideIndicator();
+                nrApp.detachInfiniteScroll($this);
+                nrApp.hideIndicator();
             } else {
 
                 setTimeout(function () {
                     $this.data('scrollLoading', 'unloading');
                     home.renderTimeline(tl, 'append');
 
-                    hiApp.hideIndicator();
+                    nrApp.hideIndicator();
                 }, 1500);
             }
         });
@@ -92,7 +92,7 @@ var home = {
 
         $$('#homeView .pull-to-refresh-content').scrollTop(0, 300);
 
-        hiApp.pullToRefreshTrigger('#homeView .pull-to-refresh-content');
+        nrApp.pullToRefreshTrigger('#homeView .pull-to-refresh-content');
     },
     showLoadResult: function (text) {
         setTimeout(function () {
@@ -113,7 +113,7 @@ var home = {
 
         var url = $$(this).attr('src');
 
-        var myPhotoBrowser = hiApp.photoBrowser({
+        var myPhotoBrowser = nrApp.photoBrowser({
             photos: [url],
             toolbar: false,
             backLinkText: i18n.global.close

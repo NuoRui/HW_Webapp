@@ -1,5 +1,5 @@
-var appFunc = require('../utils/appFunc'),
-    storageService = require('./storageService');
+var appFunc = require('../utils/appFunc');
+var storageService = require('./storageService');
 
 function redirect() {
     // var currentView = appFunc.getCurrentView();
