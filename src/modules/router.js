@@ -1,5 +1,6 @@
 var index = require('./app/app'),
     appFunc = require('./utils/appFunc'),
+    loginModule = require('./auth/login'),
     tweetModule = require('./tweet/tweet'),
     feedbackModule = require('./feedback/feedback'),
     aboutModule = require('./about/about'),
@@ -36,6 +37,8 @@ module.exports = {
         switch (name) {
             case 'about':
                 aboutModule.init();
+            case 'login':
+                loginModule.init();
                 break;
             case 'feedback':
                 feedbackModule.init();

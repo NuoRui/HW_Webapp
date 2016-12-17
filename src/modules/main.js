@@ -4,6 +4,7 @@ var appFunc = require('./utils/appFunc');
 var appService = require('./services/appService');
 var router = require('./router');
 var index = require('./app/app');
+var config = require('./config');
 
 
 var app = {
@@ -105,18 +106,27 @@ var app = {
             dynamicNavbar: true
         });
 
-        nrApp.addView('#contactView', {
+        window.contactF7View = nrApp.addView('#contactView', {
             dynamicNavbar: true
         });
 
         window.settingF7View = nrApp.addView('#settingView', {
             dynamicNavbar: true
         });
+        
+        window.gConfig = config;
+
+        window.log = function () {
+            if (!gConfig.debug)
+                return;
+            if (console)
+                console.log.apply(console, arguments);
+        };
 
         // init app
         router.init();
         index.init();
-
+        
         // 判断是否登录
         authService.authentication();
 

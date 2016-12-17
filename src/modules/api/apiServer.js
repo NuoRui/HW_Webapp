@@ -2,21 +2,26 @@ var xhr = require('./xhr');
 
 module.exports = {
 
-	login: function (callback, account, password) {
-		xhr.simpleGet('login', {
-			account: account,
-			password: password
-		}, function (res) {
-			if (callback && typeof(callback) == 'function') {
-				callback(res);
-			}
-		});
-	},
+    login: function(callback, username, password) {
+        xhr.simplePost('auth/login', null, {
+            username: username,
+            password: password
+        }, function(res) {
 
-    getIndents: function (callback, sessionId) {
+            if (res.status) {
+                if (callback && typeof(callback) == 'function') {
+                    callback(res.result);
+                }
+            }else{
+            	nrApp.alert(res.result);
+            }
+        });
+    },
+
+    getIndents: function(callback, sessionId) {
         xhr.simpleGet('list/indent', {
             sessionId: sessionId
-        }, function (res) {
+        }, function(res) {
             if (callback && typeof(callback) == 'function') {
                 callback(res);
             }
