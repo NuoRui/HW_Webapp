@@ -1,27 +1,49 @@
 require('./indent.less');
 
-var appFunc   = require('../utils/appFunc');
-var apiServer = require('../api/apiServer');
-var template = require('./indent.item.tpl.html');
-
+var appFunc      = require('../utils/appFunc');
+var apiServer    = require('../api/apiServer');
+var templateItem = require('./indent.item.tpl.html');
 
 var indentModule = {
     init: function () {
 		appFunc.hideToolbar();
 
-		this.refreshIndents();
+		this.bindEvents();
     },
 
-	refreshIndents: function() {
-    	var self = this;
+	pageAfterAnimation: function () {
+		this.refreshIndents();
+	},
 
+	bindEvents: function() {
+		// var bindings = [{
+		// 	element: '#loginButton',
+		// 	selector: '.login-page',
+		// 	event: 'click',
+		// 	handler: loginModule.loginAction
+		// }];
+		//
+		// appFunc.bindEvents(bindings);
+	},
+
+	refreshIndents: function() {
+		apiServer.getIndents(function (data) {
+			var renderData = {
+				indents: data
+			};
+			var output = appFunc.renderTpl(templateItem, renderData);
+			$$('#indent-list').html(output);
+		}, gUser.employee_id);
+	},
+
+	removeIndent: function() {
 		apiServer.getIndents(function (data) {
 			var renderData = {
 				indents: data.result
 			};
-			var output = appFunc.renderTpl(template, renderData);
+			var output = appFunc.renderTpl(templateItem, renderData);
 			$$('#indent-list').html(output);
-		}, 1);
+		}, gUser.employee_id);
 	}
 };
 

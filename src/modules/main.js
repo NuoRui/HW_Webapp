@@ -2,9 +2,7 @@ var appFunc = require('./utils/appFunc');
 var authService = require('./services/authService');
 var config = require('./config');
 var router = require('./router');
-var index = require('./app/app');
-var homeView = require('./home/home');
-var settingView = require('./setting/setting');
+var setting = require('./setting/setting');
 
 
 var app = {
@@ -48,12 +46,10 @@ var app = {
             dynamicNavbar: true
         });
 
-
-
         window.gSettingView = nrApp.addView('#settingView', {
             dynamicNavbar: true
         });
-        
+
         window.gConfig = config;
 
         window.log = function () {
@@ -63,14 +59,8 @@ var app = {
                 console.log.apply(console, arguments);
         };
 
-
         router.init();
-
-        index.init();
-        
-        // 判断是否登录
-        homeView.init();
-        settingView.init();
+		setting.init();
 
         authService.authentication();
     }
