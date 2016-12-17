@@ -3,6 +3,7 @@ var index = require('./app/app');
 var indentModule = require('./indent/indent');
 var indentNewModule = require('./indent/new/indent.new');
 var indentEditModule = require('./indent/edit/indent.edit');
+var loginModule = require('./auth/login');
 var appFunc = require('./utils/appFunc'),
     tweetModule = require('./tweet/tweet'),
     feedbackModule = require('./feedback/feedback'),

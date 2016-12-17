@@ -1,5 +1,3 @@
-require('../style/less/app.less');
-
 var appFunc = require('./utils/appFunc');
 var authService = require('./services/authService');
 var config = require('./config');
@@ -52,7 +50,7 @@ var app = {
 
 
 
-        window.settingF7View = nrApp.addView('#settingView', {
+        window.gSettingView = nrApp.addView('#settingView', {
             dynamicNavbar: true
         });
         

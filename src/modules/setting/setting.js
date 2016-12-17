@@ -12,7 +12,7 @@ var settingView = {
     renderSetting: function () {
         if ($$('#settingView .page-content')[0]) return;
 
-        hiApp.showIndicator();
+		nrApp.showIndicator();
 
         var user = storageService.getUser();
 
@@ -25,10 +25,10 @@ var settingView = {
         var output = appFunc.renderTpl(template, renderData);
         $$('#settingView .page[data-page="setting"]').html(output);
 
-        hiApp.hideIndicator();
+        nrApp.hideIndicator();
     },
     logOut: function () {
-        hiApp.confirm('你确定要退出登录吗？', function () {
+		nrApp.confirm('你确定要退出登录吗？', function () {
             authService.signOut()
         });
     },
