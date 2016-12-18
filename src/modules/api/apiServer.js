@@ -12,8 +12,36 @@ module.exports = {
                 if (callback && typeof(callback) == 'function') {
                     callback(res.result);
                 }
-            }else{
-            	nrApp.alert(res.result);
+            } else {
+                nrApp.alert(res.result);
+            }
+        });
+    },
+
+    getSuppliers: function(callback) {
+        xhr.simpleGet('supplier/list', null, function(res) {
+
+            if (res.status) {
+                if (callback && typeof(callback) == 'function') {
+                    callback(res.result);
+                }
+            } else {
+                nrApp.alert(res.result);
+            }
+        });
+    },
+
+    getQuotation: function(callback, supplier_id) {
+        xhr.simpleGet('supplier/listdata', {
+            supplier_id:supplier_id
+        }, function(res) {
+
+            if (res.status) {
+                if (callback && typeof(callback) == 'function') {
+                    callback(res.result);
+                }
+            } else {
+                nrApp.alert(res.result);
             }
         });
     },
@@ -27,20 +55,20 @@ module.exports = {
     //         }
     //     });
 
-    getIndents: function (callback, employeeId) {
-		callback({
-			result: [
-				{id:1,name:'zhuzheng'},
-				{id:2,name:'zhuzheng2'},
-				{id:3,name:'zhuzheng3'},
-				{id:4,name:'zhuzheng4'},
-				{id:5,name:'zhuzheng5'},
-				{id:6,name:'zhuzheng6'},
-			]
-		});
+    getIndents: function(callback, employeeId) {
+        callback({
+            result: [
+                { id: 1, name: 'zhuzheng' },
+                { id: 2, name: 'zhuzheng2' },
+                { id: 3, name: 'zhuzheng3' },
+                { id: 4, name: 'zhuzheng4' },
+                { id: 5, name: 'zhuzheng5' },
+                { id: 6, name: 'zhuzheng6' },
+            ]
+        });
 
         // xhr.simpleGet('list/indent', {
-			// employee_id: employeeId
+        // employee_id: employeeId
         // }, function (res) {
         //     if (callback && typeof(callback) == 'function') {
         //         callback(res);

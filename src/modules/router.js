@@ -4,6 +4,8 @@ var indentModule = require('./indent/indent');
 var indentNewModule = require('./indent/new/indent.new');
 var indentEditModule = require('./indent/edit/indent.edit');
 var loginModule = require('./auth/login');
+var quotationModule = require('./quotation/quotation');
+var quotationDetailModule = require('./quotation/detail/quotation.detail');
 var appFunc = require('./utils/appFunc'),
     tweetModule = require('./tweet/tweet'),
     feedbackModule = require('./feedback/feedback'),
@@ -37,12 +39,20 @@ module.exports = {
     pageBeforeInit: function (page) {
         var name = page.name;
         var query = page.query;
-
+        log(page.fromPage)
         switch (name) {
             case 'about':
                 aboutModule.init();
+                break;
+            case 'quotation':
+                quotationModule.init(); 
+                break; 
+            case 'quotation.detail':
+                quotationDetailModule.init(query); 
+                break;
             case 'login':
                 loginModule.init();
+                break;
             case 'indent':
                 indentModule.init();
                 break;

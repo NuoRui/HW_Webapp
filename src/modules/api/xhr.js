@@ -34,7 +34,6 @@ module.exports = {
             url: self.getRequestURL(path),
             method: 'GET',
             data: params,
-            dataType: 'json',
             success: function (data) {
             	data = data ? JSON.parse(data) : '';
 				if (callback && typeof(callback) == 'function') {
