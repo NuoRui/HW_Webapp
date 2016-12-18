@@ -1,19 +1,21 @@
+<ul>
 {{#each indents}}
-<div data-id="{{id}}" class="card indent-item">
-	<div class="card-header">
-		<div class="indent-item-id">{{id}}</div>
-		<div class="indent-item-name">{{name}}</div>
+<li data-id="{{id}}" class="swipeout indent-item">
+	<div class="swipeout-content item-content">
+		<a href="#" class="item-link item-content">
+			<div class="item-inner">
+				<div class="item-title">{{customcode}}</div>
+
+				<div class="item-title-row">
+					<div class="item-subtitle">{{supplier_name}}</div>
+					<div class="item-after">{{total_amount}}</div>
+				</div>
+			</div>
+		</a>
 	</div>
-	<div class="card-content">
-		<div class="card-content-inner">
-			<p>{{../finalText}}</p>
-		</div>
+	<div class="swipeout-actions-right">
+		<a href="#" class="action1">删除</a>
 	</div>
-	<div class="card-footer"><a href="#" class="link">zz</a><a href="#" class="link">bb</a><a href="#" class="link">cc</a></div>
-</div>
-{{else}}
-<div class="none-comment">
-    <i class="icon ios7-chatboxes-outline"></i>
-    <p>暂时还没有订单</p>
-</div>
+</li>
 {{/each}}
+</ul>

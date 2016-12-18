@@ -8,8 +8,8 @@ function redirect() {
 
 var authService = {
     authentication: function() {
-        var user = storageService.getUser();
-        if (appFunc.isEmpty(user)) {
+		window.gUser = storageService.getUser();
+        if (appFunc.isEmpty(window.gUser)) {
             redirect();
         }
     },

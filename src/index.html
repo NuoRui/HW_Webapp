@@ -1,10 +1,10 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <title>HiApp</title>
+    <title>恒舞纺织</title>
     <link rel="stylesheet" href="libs/framework7/dist/css/framework7.ios.css">
     <link rel="stylesheet" href="libs/framework7/dist/css/framework7.ios.colors.css">
     <script type="text/javascript" src="libs/framework7/dist/js/framework7.js"></script>
@@ -18,14 +18,14 @@
     <div id="homeView" class="view view-main tab active">
         <div class="navbar">
             <div class="navbar-inner">
-                <div class="center sliding">恒舞</div>
+                <div class="center sliding">恒舞纺织</div>
             </div>
         </div>
         <div class="pages navbar-through">
-            <div data-page="homeView" class="page">
+            <div id="homePage" data-page="home.page" class="page">
                 <div class="page-content">
-                    <p><a href="page/indent.html" class="button">订单管理</a></p>
-                    <p><a href="#" class="button">报价单</a></p>
+                    <p><a href="#" class="indent-selector button">订单管理</a></p>
+                    <p><a href="#" class="quotation-selector button">报价单</a></p>
                 </div>
             </div>
         </div>
@@ -34,31 +34,67 @@
     <div id="settingView" class="view tab">
         <div class="navbar">
             <div class="navbar-inner">
-                <div class="center sliding">恒舞</div>
+                <div class="center sliding">恒舞纺织</div>
             </div>
         </div>
         <div class="pages navbar-through">
-            <div data-page="setting" class="page">
+            <div data-page="setting.page" class="page">
             </div>
         </div>
     </div>
 
+	<!--<div id="loginView" class="view">-->
+		<!--<div class="page">-->
+			<!--&lt;!&ndash; page-content has additional login-screen content &ndash;&gt;-->
+			<!--<div class="page-content login-screen-content">-->
+				<!--<div class="login-screen-title">My App</div>-->
+				<!--&lt;!&ndash; Login form &ndash;&gt;-->
+				<!--<form>-->
+					<!--<div class="list-block">-->
+						<!--<ul>-->
+							<!--<li class="item-content">-->
+								<!--<div class="item-inner">-->
+									<!--<div class="item-title label">Username</div>-->
+									<!--<div class="item-input">-->
+										<!--<input type="text" name="username" placeholder="Username">-->
+									<!--</div>-->
+								<!--</div>-->
+							<!--</li>-->
+							<!--<li class="item-content">-->
+								<!--<div class="item-inner">-->
+									<!--<div class="item-title label">Password</div>-->
+									<!--<div class="item-input">-->
+										<!--<input type="password" name="password" placeholder="Password">-->
+									<!--</div>-->
+								<!--</div>-->
+							<!--</li>-->
+						<!--</ul>-->
+					<!--</div>-->
+					<!--<div class="list-block">-->
+						<!--<ul>-->
+							<!--<li>-->
+								<!--<a href="#" class="item-link list-button">Sign In</a>-->
+							<!--</li>-->
+						<!--</ul>-->
+						<!--<div class="list-block-labe">Some text with login information.</div>-->
+					<!--</div>-->
+				<!--</form>-->
+			<!--</div>-->
+		<!--</div>-->
+	<!--</div>-->
+
     <!-- toolbar start -->
     <div class="toolbar tabbar tabbar-labels">
         <div class="toolbar-inner">
-
             <a href="#homeView" class="tab-link active">
                 <i class="icon ios7-home-outline"></i>
-
                 <span class="tabbar-label">恒舞</span>
             </a>
 
             <a href="#settingView" class="tab-link">
                 <i class="icon ios7-gear-outline"></i>
-
                 <span class="tabbar-label">设置</span>
             </a>
-
         </div>
     </div>
     <!-- toolbar end -->

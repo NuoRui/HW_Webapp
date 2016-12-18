@@ -1,35 +1,28 @@
-require('./indent.new.less');
+var appFunc   = require('../../../utils/appFunc');
+var apiServer = require('../../../api/apiServer');
+var detailItemContent = require('../../detailItem/indent.detailItem.html');
 
-var appFunc   = require('../../utils/appFunc');
-var apiServer = require('../../api/apiServer');
 
-
-var indentNewModule = {
+var indentNewDetailModule = {
     init: function () {
-        this.getIndents();
+		this.bindEvents();
     },
 
-    getIndents: function () {
-        apiServer.getIndents(function (data) {
-            var code = data.err_code;
-            if (code === undefined || code === null || isNaN(code)) {
-                alert('code is null');
-                return;
-            } else if (code > 0) {
-                alert('code is error');
-                return;
-            }
+	bindEvents: function () {
+		var bindings = [{
+			element: '#tabDetail',
+			selector: '#detail-item-add',
+			event: 'click',
+			handler: indentNewDetailModule.addItem
+		}];
+		appFunc.bindEvents(bindings);
 
-            var renderData = {
-                indents: data.data,
-                rtime: function () {
-                    return appFunc.timeFormat(this.time);
-                }
-            };
-            var output = appFunc.renderTpl(template, renderData);
-            $$('#commentContent').html(output);
-        }, 1);
-    }
+
+	},
+
+	addItem: function() {
+    	nrApp.getCurrentView().router.loadContent(detailItemContent);
+	}
 };
 
-module.exports = indentNewModule;
+module.exports = indentNewDetailModule;

@@ -1,11 +1,10 @@
-var appFunc = require('./utils/appFunc');
-var authService = require('./services/authService');
 var config = require('./config');
 var router = require('./router');
-var index = require('./app/app');
-var homeView = require('./home/home');
-var settingView = require('./setting/setting');
-
+var appFunc = require('./utils/appFunc');
+var authService = require('./services/authService');
+var setting = require('./setting/setting');
+var home = require('./home/home');
+var login = require('./login/login');
 
 var app = {
     initialize: function() {
@@ -44,35 +43,31 @@ var app = {
             template7Pages: true
         });
 
-        window.gHomeView = nrApp.addView('#homeView', {
+		window.gConfig = config;
+		window.gUser = {};
+
+		window.log = function () {
+			if (!config.debug) {
+				return;
+			}
+			console.log(arguments);
+		};
+
+        nrApp.addView('#homeView', {
             dynamicNavbar: true
         });
 
-
-
-        window.gSettingView = nrApp.addView('#settingView', {
+        nrApp.addView('#settingView', {
             dynamicNavbar: true
         });
-        
-        window.gConfig = config;
-
-        window.log = function () {
-            if (!gConfig.debug)
-                return;
-            if (console)
-                console.log.apply(console, arguments);
-        };
-
 
         router.init();
+		setting.pageInit();
+		home.pageInit();
 
-        index.init();
-        
-        // 判断是否登录
-        homeView.init();
-        settingView.init();
+		login.init();
 
-        authService.authentication();
+        // authService.authentication();
     }
 };
 

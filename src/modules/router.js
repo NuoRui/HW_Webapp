@@ -1,29 +1,86 @@
-
-var index = require('./app/app');
+var appFunc = require('./utils/appFunc');
+var homeModule = require('./home/home');
+var loginModule = require('./auth/login');
+var aboutModule = require('./about/about');
 var indentModule = require('./indent/indent');
 var indentNewModule = require('./indent/new/indent.new');
 var indentEditModule = require('./indent/edit/indent.edit');
-var loginModule = require('./auth/login');
-var appFunc = require('./utils/appFunc'),
-    tweetModule = require('./tweet/tweet'),
-    feedbackModule = require('./feedback/feedback'),
-    aboutModule = require('./about/about'),
-    languageModule = require('./language/language'),
-    messageModule = require('./message/message');
+var indentDetailItemModule = require('./indent/detailItem/indent.detailItem');
+
 
 module.exports = {
     init: function () {
-        var that = this;
-        $$(document).on('pageBeforeInit', function (e) {
-            var page = e.detail.page;
-            that.pageBeforeInit(page);
-        });
+        var self = this;
+
+		$$(document).on('pageInit', function (e) {
+			var page = e.detail.page;
+			self.pageInit(page);
+		});
+
+		$$(document).on('pageBeforeAnimation', function (e) {
+			var page = e.detail.page;
+			self.pageBeforeAnimation(page);
+		});
 
         $$(document).on('pageAfterAnimation', function (e) {
             var page = e.detail.page;
-            that.pageAfterAnimation(page);
+			self.pageAfterAnimation(page);
         });
+
+		$$(document).on('pageBack', function (e) {
+			var page = e.detail.page;
+			self.pageBack(page);
+		});
     },
+
+	pageInit: function (page) {
+		var name = page.name;
+log(name)
+		switch (name) {
+			case 'home.page':
+				homeModule.pageInit && homeModule.pageInit(page);
+				break;
+
+			case 'login':
+				loginModule.init && loginModule.init(page);
+				break;
+			case 'indent':
+				indentModule.init && indentModule.init(page);
+				break;
+			case 'indent.new':
+				indentNewModule.init && indentNewModule.init(page);
+				break;
+			case 'indent.edit':
+				indentEditModule.init && indentEditModule.init(page);
+				break;
+			case 'indent.detailItem':
+				indentDetailItemModule.init && indentDetailItemModule.init(page);
+				break;
+			case 'about':
+				aboutModule.init && aboutModule.init(page);
+				break;
+		}
+	},
+
+	pageBeforeAnimation: function (page) {
+		var name = page.name;
+
+		switch (name) {
+			case 'login':
+				loginModule.pageBeforeAnimation && loginModule.pageBeforeAnimation(page);
+				break;
+			case 'indent':
+				indentModule.pageBeforeAnimation && indentModule.pageBeforeAnimation(page);
+				break;
+			case 'indent.new':
+				indentNewModule.pageBeforeAnimation && indentNewModule.pageBeforeAnimation(page);
+				break;
+			case 'indent.edit':
+				indentEditModule.pageBeforeAnimation && indentEditModule.pageBeforeAnimation(page);
+				break;
+		}
+	},
+
     pageAfterAnimation: function (page) {
         var name = page.name;
         var from = page.from;
@@ -33,40 +90,20 @@ module.exports = {
                 appFunc.showToolbar();
             }
         }
-    },
-    pageBeforeInit: function (page) {
-        var name = page.name;
-        var query = page.query;
 
-        switch (name) {
-            case 'about':
-                aboutModule.init();
-            case 'login':
-                loginModule.init();
-            case 'indent':
-                indentModule.init();
-                break;
+		switch (name) {
+			case 'login':
+				loginModule.pageAfterAnimation && loginModule.pageAfterAnimation();
+				break;
+			case 'indent':
+				indentModule.pageAfterAnimation && indentModule.pageAfterAnimation();
+				break;
 			case 'indent.new':
-				indentNewModule.init();
+				indentNewModule.pageAfterAnimation && indentNewModule.pageAfterAnimation(page);
 				break;
 			case 'indent.edit':
-				indentEditModule.init();
+				indentEditModule.pageAfterAnimation && indentEditModule.pageAfterAnimation();
 				break;
-			case 'about':
-				aboutModule.init();
-				break;
-            case 'feedback':
-                feedbackModule.init();
-                break;
-            case 'item':
-                tweetModule.init(query);
-                break;
-            case 'message':
-                messageModule.init(query);
-                break;
-            case 'language':
-                languageModule.init();
-                break;
-        }
+		}
     }
 };
