@@ -12,6 +12,11 @@ var indentModule = {
     },
 
 	pageAfterAnimation: function () {
+
+
+		$$('#indentPage .pull-to-refresh-content').scrollTop(0,300);
+
+		nrApp.pullToRefreshTrigger('#indentPage .pull-to-refresh-content');
 		this.refreshIndents();
 	},
 
@@ -33,6 +38,7 @@ var indentModule = {
 			};
 			var output = appFunc.renderTpl(templateItem, renderData);
 			$$('#indent-list').html(output);
+			nrApp.pullToRefreshDone();
 		}, gUser.employee_id);
 	},
 
