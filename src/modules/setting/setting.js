@@ -6,7 +6,7 @@ var appFunc = require('../utils/appFunc'),
     template = require('./setting.tpl.html');
 
 var settingView = {
-    init: function () {
+    pageInit: function () {
         settingView.bindEvents();
     },
     renderSetting: function () {
