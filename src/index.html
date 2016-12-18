@@ -34,57 +34,46 @@
     <div id="settingView" class="view tab">
         <div class="navbar">
             <div class="navbar-inner">
-                <div class="center sliding">恒舞纺织</div>
+                <div class="center sliding">设置</div>
             </div>
         </div>
         <div class="pages navbar-through">
-            <div data-page="setting.page" class="page">
+            <div id="settingPage" data-page="setting.page" class="page">
+	            <div class="page-content">
+		            <div class="list-block">
+			            <ul>
+				            <li>
+					            <div class="item-content">
+						            <div class="item-inner user-info">
+							            <div class="avatar">
+								            <img src="./style/img/hiapp_logo@2x.png" alt="">
+							            </div>
+							            <div class="user-detail">
+								            <div class="account">登录名:<span class="val"></span></div>
+								            <div class="name">姓名:<span class="val"></span></div>
+							            </div>
+						            </div>
+					            </div>
+				            </li>
+				            <li>
+					            <a href="page/about.html" class="item-link">
+						            <div class="item-content">
+							            <div class="item-media about spring"></div>
+							            <div class="item-inner">
+								            <div class="item-title">关于我们</div>
+							            </div>
+						            </div>
+					            </a>
+				            </li>
+			            </ul>
+			            <a href="#" class="button button-big logout-button button-fill color-red">退出登录</a>
+		            </div>
+	            </div>
             </div>
         </div>
     </div>
 
-	<!--<div id="loginView" class="view">-->
-		<!--<div class="page">-->
-			<!--&lt;!&ndash; page-content has additional login-screen content &ndash;&gt;-->
-			<!--<div class="page-content login-screen-content">-->
-				<!--<div class="login-screen-title">My App</div>-->
-				<!--&lt;!&ndash; Login form &ndash;&gt;-->
-				<!--<form>-->
-					<!--<div class="list-block">-->
-						<!--<ul>-->
-							<!--<li class="item-content">-->
-								<!--<div class="item-inner">-->
-									<!--<div class="item-title label">Username</div>-->
-									<!--<div class="item-input">-->
-										<!--<input type="text" name="username" placeholder="Username">-->
-									<!--</div>-->
-								<!--</div>-->
-							<!--</li>-->
-							<!--<li class="item-content">-->
-								<!--<div class="item-inner">-->
-									<!--<div class="item-title label">Password</div>-->
-									<!--<div class="item-input">-->
-										<!--<input type="password" name="password" placeholder="Password">-->
-									<!--</div>-->
-								<!--</div>-->
-							<!--</li>-->
-						<!--</ul>-->
-					<!--</div>-->
-					<!--<div class="list-block">-->
-						<!--<ul>-->
-							<!--<li>-->
-								<!--<a href="#" class="item-link list-button">Sign In</a>-->
-							<!--</li>-->
-						<!--</ul>-->
-						<!--<div class="list-block-labe">Some text with login information.</div>-->
-					<!--</div>-->
-				<!--</form>-->
-			<!--</div>-->
-		<!--</div>-->
-	<!--</div>-->
-
-    <!-- toolbar start -->
-    <div class="toolbar tabbar tabbar-labels">
+    <div class="toolbar tabbar">
         <div class="toolbar-inner">
             <a href="#homeView" class="tab-link active">
                 <i class="icon ios7-home-outline"></i>
@@ -97,7 +86,6 @@
             </a>
         </div>
     </div>
-    <!-- toolbar end -->
 </div>
 
 <!-- Please ignore the 404 error when you are not running under PhoneGap environment or delete it. -->

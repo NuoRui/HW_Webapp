@@ -1,7 +1,7 @@
 var config = require('./config');
 var router = require('./router');
 var appFunc = require('./utils/appFunc');
-var authService = require('./services/authService');
+var storage = require('./utils/storage');
 var setting = require('./setting/setting');
 var home = require('./home/home');
 var login = require('./login/login');
@@ -44,7 +44,7 @@ var app = {
         });
 
 		window.gConfig = config;
-		window.gUser = {};
+		window.gUser = storage.getUser();
 
 		window.log = function () {
 			if (!config.debug) {
@@ -62,12 +62,13 @@ var app = {
         });
 
         router.init();
-		setting.pageInit();
-		home.pageInit();
 
-		login.init();
+		home.init();
+		setting.init();
 
-        // authService.authentication();
+        if (appFunc.isEmpty(gUser)) {
+			login.show();
+		}
     }
 };
 

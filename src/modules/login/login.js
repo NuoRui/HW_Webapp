@@ -1,23 +1,22 @@
 require('./login.less');
 
 var appFunc = require('../utils/appFunc');
-var apiServer = require('../api/apiServer');
+var api = require('../api/api');
+var storage = require('../utils/storage');
 var authService = require('../services/authService');
 var loginPopupHtml = require('./login.html');
 
 var loginModule = {
-    init: function() {
-
-		var a = nrApp.popup(loginPopupHtml);
-		log(a)
+    show: function() {
+		nrApp.popup(loginPopupHtml);
 
 		this.bindEvents();
     },
 
     bindEvents: function() {
         var bindings = [{
-            element: '#loginButton',
-            selector: '.login-page',
+            element: '#loginPopup',
+            selector: '.login-button',
             event: 'click',
             handler: loginModule.loginAction
         }];
@@ -25,25 +24,24 @@ var loginModule = {
         appFunc.bindEvents(bindings);
     },
 
-    loginAction: function(e) {
-		nrApp.closeModal('.login-popup');
-        // var usernameValue = $$(this).find('.username').val(),
-        //     passwordValue = $$(this).find('.password').val();
-		//
-        // if (usernameValue == '') {
-        //     nrApp.alert('用户名不能为空');
-        //     return false;
-        // }
-		//
-        // if (passwordValue == '') {
-        //     nrApp.alert('密码不能为空');
-        //     return false;
-        // }
-		//
-        // apiServer.login(function(user) {
-        //     authService.signIn(user);
-		//
-        // }, usernameValue, passwordValue);
+    loginAction: function() {
+        var usernameValue = $$('#loginPopup').find('.username').val();
+        var passwordValue = $$('#loginPopup').find('.password').val();
+
+        if (usernameValue == '') {
+            nrApp.alert('用户名不能为空');
+            return false;
+        }
+
+        if (passwordValue == '') {
+            nrApp.alert('密码不能为空');
+            return false;
+        }
+
+        api.login(function(user) {
+			gUser = storage.setUser(user);
+			nrApp.closeModal('#loginPopup');
+        }, usernameValue, passwordValue);
     }
 }
 

@@ -1,7 +1,7 @@
 require('./indent.edit.less');
 
 var appFunc   = require('../../utils/appFunc');
-var apiServer = require('../../api/apiServer');
+var api = require('../../api/api');
 
 
 var indentEditModule = {
@@ -10,7 +10,7 @@ var indentEditModule = {
     },
 
     getIndents: function () {
-        apiServer.getIndents(function (data) {
+        api.getIndents(function (data) {
             var code = data.err_code;
             if (code === undefined || code === null || isNaN(code)) {
                 alert('code is null');

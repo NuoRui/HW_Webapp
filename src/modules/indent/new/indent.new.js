@@ -1,7 +1,7 @@
 require('./indent.new.less');
 
 var appFunc   = require('../../utils/appFunc');
-var apiServer = require('../../api/apiServer');
+var api = require('../../api/api');
 var indentNewDetailModule = require('./detail/indent.new.detail.js');
 var templateNewBase = require('./base/indent.new.base.tpl.html');
 var templateNewDetail = require('./detail/indent.new.detail.tpl.html');
@@ -13,10 +13,6 @@ var indentNewModule = {
 		this.renderNewBase();
     },
 
-	pageAfterAnimation: function (page) {
-    	log('------')
-    	log(page)
-	},
 
 	bindEvents: function(){
 		var bindings = [{

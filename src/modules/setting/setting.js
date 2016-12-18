@@ -1,55 +1,55 @@
 require('./setting.less');
 
-var appFunc = require('../utils/appFunc'),
-    storageService = require('../services/storageService'),
-    authService = require('../services/authService'),
-    template = require('./setting.tpl.html');
+var appFunc = require('../utils/appFunc');
+var storage = require('../utils/storage');
 
-var settingView = {
+var settingModule = {
+	init: function () {
+		this.bindEvents();
+	},
+
     pageInit: function () {
-        settingView.bindEvents();
+		this.bindEvents();
     },
+
+	bindEvents: function () {
+		var self = this;
+
+		var bindings = [{
+			element: '#settingView',
+			event: 'show',
+			handler: self.renderSetting
+		}, {
+			element: '#settingView',
+			selector: '.logout-button',
+			event: 'click',
+			handler: self.logOut
+		}, {
+			element: '#settingView',
+			selector: '.update-button',
+			event: 'click',
+			//handler: settingView.checkVersion
+		}];
+		appFunc.bindEvents(bindings);
+	},
+
     renderSetting: function () {
-        if ($$('#settingView .page-content')[0]) return;
+		if (appFunc.isEmpty(gUser)) {
+			window.location.href = '/';
+			return;
+		}
 
-		nrApp.showIndicator();
-
-        var user = storageService.getUser();
-
-        var renderData = {
-            username: user.username,
-            employeeName: user.employee_name,
-            avatarUrl: 'http://news.mydrivers.com/Img/20110518/04481549.png',
-        };
-
-        var output = appFunc.renderTpl(template, renderData);
-        $$('#settingView .page[data-page="setting"]').html(output);
-
-        nrApp.hideIndicator();
+		$$('.account span.val').html(gUser.id);
+		$$('.name span.val').html(gUser.name);
     },
+
     logOut: function () {
 		nrApp.confirm('你确定要退出登录吗？', function () {
-            authService.signOut()
+			storage.delUser();
+			window.location.href = '/';
         });
-    },
-    bindEvents: function () {
-        var bindings = [{
-            element: '#settingView',
-            event: 'show',
-            handler: settingView.renderSetting
-        }, {
-            element: '#settingView',
-            selector: '.logout-button',
-            event: 'click',
-            handler: settingView.logOut
-        }, {
-            element: '#settingView',
-            selector: '.update-button',
-            event: 'click',
-            //handler: settingView.checkVersion
-        }];
-        appFunc.bindEvents(bindings);
     }
+
 };
 
-module.exports = settingView;
+module.exports = settingModule;

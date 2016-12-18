@@ -1,6 +1,5 @@
 var appFunc = require('./utils/appFunc');
 var homeModule = require('./home/home');
-var loginModule = require('./auth/login');
 var aboutModule = require('./about/about');
 var indentModule = require('./indent/indent');
 var indentNewModule = require('./indent/new/indent.new');
@@ -36,13 +35,10 @@ module.exports = {
 
 	pageInit: function (page) {
 		var name = page.name;
-log(name)
+
 		switch (name) {
 			case 'home.page':
 				homeModule.pageInit && homeModule.pageInit(page);
-				break;
-			case 'login':
-				loginModule.init && loginModule.init(page);
 				break;
 			case 'quotation':
 				quotationModule.init();
@@ -72,9 +68,6 @@ log(name)
 		var name = page.name;
 
 		switch (name) {
-			case 'login':
-				loginModule.pageBeforeAnimation && loginModule.pageBeforeAnimation(page);
-				break;
 			case 'indent':
 				indentModule.pageBeforeAnimation && indentModule.pageBeforeAnimation(page);
 				break;
@@ -99,9 +92,6 @@ log(name)
 
 
 		switch (name) {
-			case 'login':
-				loginModule.pageAfterAnimation && loginModule.pageAfterAnimation();
-				break;
 			case 'indent':
 				indentModule.pageAfterAnimation && indentModule.pageAfterAnimation();
 				break;

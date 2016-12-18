@@ -1,7 +1,7 @@
 require('./indent.less');
 
 var appFunc      = require('../utils/appFunc');
-var apiServer    = require('../api/apiServer');
+var api    = require('../api/api');
 var templateItem = require('./indent.item.tpl.html');
 
 var indentModule = {

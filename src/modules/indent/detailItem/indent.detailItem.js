@@ -1,5 +1,5 @@
 var appFunc      = require('../../utils/appFunc');
-var apiServer    = require('../../api/apiServer');
+var api    = require('../../api/api');
 
 var detailItemModule = {
     init: function () {
