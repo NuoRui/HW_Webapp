@@ -8,6 +8,7 @@ var indentEditModule = require('./indent/edit/indent.edit');
 var indentDetailItemModule = require('./indent/detailItem/indent.detailItem');
 
 
+
 module.exports = {
     init: function () {
         var self = this;
@@ -40,9 +41,14 @@ log(name)
 			case 'home.page':
 				homeModule.pageInit && homeModule.pageInit(page);
 				break;
-
 			case 'login':
 				loginModule.init && loginModule.init(page);
+				break;
+			case 'quotation':
+				quotationModule.init();
+				break;
+			case 'quotation.detail':
+				quotationDetailModule.init(query);
 				break;
 			case 'indent':
 				indentModule.init && indentModule.init(page);
@@ -91,6 +97,7 @@ log(name)
             }
         }
 
+
 		switch (name) {
 			case 'login':
 				loginModule.pageAfterAnimation && loginModule.pageAfterAnimation();
@@ -98,6 +105,7 @@ log(name)
 			case 'indent':
 				indentModule.pageAfterAnimation && indentModule.pageAfterAnimation();
 				break;
+
 			case 'indent.new':
 				indentNewModule.pageAfterAnimation && indentNewModule.pageAfterAnimation(page);
 				break;
