@@ -30,16 +30,17 @@ var loginModule = {
 
         if (usernameValue == '') {
             nrApp.alert('用户名不能为空');
-            return false;
+            return;
         }
 
         if (passwordValue == '') {
             nrApp.alert('密码不能为空');
-            return false;
+            return;
         }
 
         api.login(function(user) {
-			gUser = storage.setUser(user);
+			storage.setUser(user);
+			gUser = user;
 			nrApp.closeModal('#loginPopup');
         }, usernameValue, passwordValue);
     }

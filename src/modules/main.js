@@ -44,13 +44,14 @@ var app = {
         });
 
 		window.gConfig = config;
+
 		window.gUser = storage.getUser();
 
 		window.log = function () {
 			if (!config.debug) {
 				return;
 			}
-			console.log(arguments);
+			console.log.apply(console, arguments);
 		};
 
         nrApp.addView('#homeView', {

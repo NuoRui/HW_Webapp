@@ -3,7 +3,7 @@ require('./about.less');
 var appFunc = require('../utils/appFunc');
 
 module.exports = {
-    init: function () {
-        appFunc.hideToolbar();
+    pageInit: function (page) {
+		nrApp.hideToolbar('.toolbar');
     }
 };

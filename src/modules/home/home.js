@@ -1,6 +1,7 @@
 require('./home.less');
 
 var appFunc = require('../utils/appFunc');
+var indentPageHtml = require('../indent/indent.html');
 
 
 var homeModule = {
@@ -11,6 +12,10 @@ var homeModule = {
     pageInit: function (page) {
         this.bindEvent();
     },
+
+	pageAfterAnimation: function (page) {
+		nrApp.showToolbar('.toolbar');
+	},
 
 	bindEvent: function () {
 		var bindings = [{
@@ -29,9 +34,7 @@ var homeModule = {
 	},
 
 	indentSelector: function () {
-		var self = this;
-
-		nrApp.getCurrentView().router.loadPage('page/indent.html')
+		nrApp.getCurrentView().router.loadContent(indentPageHtml);
 	},
 
 	quotationSelector: function () {

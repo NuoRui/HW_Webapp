@@ -2,15 +2,20 @@ require('./setting.less');
 
 var appFunc = require('../utils/appFunc');
 var storage = require('../utils/storage');
+var aboutPageHtml = require('../about/about.html');
 
 var settingModule = {
 	init: function () {
 		this.bindEvents();
 	},
 
-    pageInit: function () {
+    pageInit: function (page) {
 		this.bindEvents();
     },
+
+	pageAfterAnimation: function (page) {
+		nrApp.showToolbar('.toolbar');
+	},
 
 	bindEvents: function () {
 		var self = this;
@@ -20,15 +25,15 @@ var settingModule = {
 			event: 'show',
 			handler: self.renderSetting
 		}, {
-			element: '#settingView',
+			element: '#settingPage',
 			selector: '.logout-button',
 			event: 'click',
-			handler: self.logOut
+			handler: self.logoutAction
 		}, {
-			element: '#settingView',
-			selector: '.update-button',
+			element: '#settingPage',
+			selector: '.about-button',
 			event: 'click',
-			//handler: settingView.checkVersion
+			handler: self.aboutAction
 		}];
 		appFunc.bindEvents(bindings);
 	},
@@ -39,11 +44,15 @@ var settingModule = {
 			return;
 		}
 
-		$$('.account span.val').html(gUser.id);
-		$$('.name span.val').html(gUser.name);
+		$$('.account span.val').html(gUser.username);
+		$$('.name span.val').html(gUser.employee_name);
     },
 
-    logOut: function () {
+	aboutAction: function () {
+		nrApp.getCurrentView().router.loadContent(aboutPageHtml);
+	},
+
+    logoutAction: function () {
 		nrApp.confirm('你确定要退出登录吗？', function () {
 			storage.delUser();
 			window.location.href = '/';

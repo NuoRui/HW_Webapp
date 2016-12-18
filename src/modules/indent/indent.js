@@ -5,8 +5,8 @@ var api    = require('../api/api');
 var templateItem = require('./indent.item.tpl.html');
 
 var indentModule = {
-    init: function () {
-		appFunc.hideToolbar();
+    pageInit: function () {
+		nrApp.hideToolbar('.toolbar');
 
 		this.bindEvents();
     },
@@ -27,7 +27,7 @@ var indentModule = {
 	},
 
 	refreshIndents: function() {
-		apiServer.getIndents(function (data) {
+		api.getIndents(function (data) {
 			var renderData = {
 				indents: data
 			};
