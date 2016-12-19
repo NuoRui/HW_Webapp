@@ -9,6 +9,8 @@ var indentModule = {
 		nrApp.hideToolbar('.toolbar');
 
 		this.bindEvents();
+
+
     },
 
 	pageAfterAnimation: function () {
@@ -16,20 +18,24 @@ var indentModule = {
 
 		nrApp.pullToRefreshTrigger('#indentPage .pull-to-refresh-content');
 		this.refreshIndents();
+
 	},
 
 	bindEvents: function() {
-		// var bindings = [{
-		// 	element: '#loginButton',
-		// 	selector: '.login-page',
-		// 	event: 'click',
-		// 	handler: loginModule.loginAction
-		// }];
-		//
-		// utils.bindEvents(bindings);
+    	var self = this;
+
+		var bindings = [{
+			element: '#homeView',
+			selector: '.indent-new-button',
+			event: 'click',
+			handler: self.indentNewAction
+		}];
+
+		utils.bindOnceEvents(bindings);
 	},
 
 	refreshIndents: function() {
+    	var self = this;
 		api.getIndents(function (data) {
 			if (data.length > 0) {
 				var output = utils.renderTpl(templateItem, {indents:data});
@@ -37,17 +43,25 @@ var indentModule = {
 			}
 
 			nrApp.pullToRefreshDone();
+
+
+			var bindings = [{
+				element: '.swipeout',
+				event: 'deleted',
+				handler: self.removeIndent
+			}];
+
+			utils.bindOnceEvents(bindings);
 		}, gUser.employee_id);
 	},
 
 	removeIndent: function() {
-		api.getIndents(function (data) {
-			var renderData = {
-				indents: data.result
-			};
-			var output = utils.renderTpl(templateItem, renderData);
-			$$('#indent-list').html(output);
-		}, gUser.employee_id);
+
+    	log(111)
+	},
+
+	indentNewAction: function(e) {
+		log(e)
 	}
 };
 

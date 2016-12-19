@@ -109,5 +109,17 @@ module.exports = {
                     .on(bindings[i].event, bindings[i].handler);
             }
         }
-    }
+    },
+
+	bindOnceEvents: function(bindings) {
+		for (var i in bindings) {
+			if (bindings[i].selector) {
+				$$(bindings[i].element)
+					.once(bindings[i].event, bindings[i].selector, bindings[i].handler);
+			} else {
+				$$(bindings[i].element)
+					.once(bindings[i].event, bindings[i].handler);
+			}
+		}
+	}
 };
