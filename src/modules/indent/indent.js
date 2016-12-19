@@ -1,7 +1,7 @@
 require('./indent.less');
 
-var appFunc      = require('../utils/appFunc');
-var api    = require('../api/api');
+var utils = require('../core/utils');
+var api = require('../core/api');
 var templateItem = require('./indent.item.tpl.html');
 
 var indentModule = {
@@ -12,8 +12,6 @@ var indentModule = {
     },
 
 	pageAfterAnimation: function () {
-
-
 		$$('#indentPage .pull-to-refresh-content').scrollTop(0,300);
 
 		nrApp.pullToRefreshTrigger('#indentPage .pull-to-refresh-content');
@@ -28,26 +26,26 @@ var indentModule = {
 		// 	handler: loginModule.loginAction
 		// }];
 		//
-		// appFunc.bindEvents(bindings);
+		// utils.bindEvents(bindings);
 	},
 
 	refreshIndents: function() {
 		api.getIndents(function (data) {
-			var renderData = {
-				indents: data
-			};
-			var output = appFunc.renderTpl(templateItem, renderData);
-			$$('#indent-list').html(output);
+			if (data.length > 0) {
+				var output = utils.renderTpl(templateItem, {indents:data});
+				$$('#indent-list').html(output);
+			}
+
 			nrApp.pullToRefreshDone();
 		}, gUser.employee_id);
 	},
 
 	removeIndent: function() {
-		apiServer.getIndents(function (data) {
+		api.getIndents(function (data) {
 			var renderData = {
 				indents: data.result
 			};
-			var output = appFunc.renderTpl(templateItem, renderData);
+			var output = utils.renderTpl(templateItem, renderData);
 			$$('#indent-list').html(output);
 		}, gUser.employee_id);
 	}

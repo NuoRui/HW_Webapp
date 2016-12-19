@@ -1,9 +1,8 @@
 require('./login.less');
 
-var appFunc = require('../utils/appFunc');
-var api = require('../api/api');
-var storage = require('../utils/storage');
-var authService = require('../services/authService');
+var utils = require('../core/utils');
+var api = require('../core/api');
+var storage = require('../core/storage');
 var loginPopupHtml = require('./login.html');
 
 var loginModule = {
@@ -21,7 +20,7 @@ var loginModule = {
             handler: loginModule.loginAction
         }];
 
-        appFunc.bindEvents(bindings);
+		utils.bindEvents(bindings);
     },
 
     loginAction: function() {

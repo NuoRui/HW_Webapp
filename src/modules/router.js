@@ -1,4 +1,3 @@
-var appFunc = require('./utils/appFunc');
 var homeModule = require('./home/home');
 var settingModule = require('./setting/setting');
 var aboutModule = require('./about/about');

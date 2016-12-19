@@ -1,6 +1,6 @@
 require('./home.less');
 
-var appFunc = require('../utils/appFunc');
+var utils = require('../core/utils');
 var indentPageHtml = require('../indent/indent.html');
 
 
@@ -30,7 +30,7 @@ var homeModule = {
 			handler: this.quotationSelector
 		}];
 
-		appFunc.bindEvents(bindings);
+		utils.bindEvents(bindings);
 	},
 
 	indentSelector: function () {

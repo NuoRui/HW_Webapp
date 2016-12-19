@@ -1,7 +1,7 @@
 var config = require('./config');
 var router = require('./router');
-var appFunc = require('./utils/appFunc');
-var storage = require('./utils/storage');
+var utils = require('./core/utils');
+var storage = require('./core/storage');
 var setting = require('./setting/setting');
 var home = require('./home/home');
 var login = require('./login/login');
@@ -12,7 +12,7 @@ var app = {
     },
 
     bindEvents: function() {
-        if (appFunc.isPhonegap()) {
+        if (utils.isPhonegap()) {
             document.addEventListener('deviceready', this.onDeviceReady, false);
         } else {
             window.onload = this.onDeviceReady();
@@ -67,7 +67,7 @@ var app = {
 		home.init();
 		setting.init();
 
-        if (appFunc.isEmpty(gUser)) {
+        if (utils.isEmpty(gUser)) {
 			login.show();
 		}
     }

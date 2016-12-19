@@ -1,7 +1,7 @@
 require('./setting.less');
 
-var appFunc = require('../utils/appFunc');
-var storage = require('../utils/storage');
+var utils = require('../core/utils');
+var storage = require('../core/storage');
 var aboutPageHtml = require('../about/about.html');
 
 var settingModule = {
@@ -35,11 +35,12 @@ var settingModule = {
 			event: 'click',
 			handler: self.aboutAction
 		}];
-		appFunc.bindEvents(bindings);
+
+		utils.bindEvents(bindings);
 	},
 
     renderSetting: function () {
-		if (appFunc.isEmpty(gUser)) {
+		if (utils.isEmpty(gUser)) {
 			window.location.href = '/';
 			return;
 		}
