@@ -1,10 +1,10 @@
-var appFunc = require('../utils/appFunc');
+var utils = require('./utils');
 var networkStatus = require('../components/networkStatus');
 
 module.exports = {
 
     checkConnection: function () {
-		if (appFunc.isPhonegap()) {
+		if (utils.isPhonegap()) {
 			var network = networkStatus.checkConnection();
 			if (network === 'NoNetwork') {
 				nrApp.alert('无网络连接', function () {
@@ -85,7 +85,7 @@ module.exports = {
 		options.method = options.method || 'GET';
 		//options.method = options.method || 'POST';
 
-		if (appFunc.isPhonegap()) {
+		if (utils.isPhonegap()) {
 			//Check network connection
 			var network = networkStatus.checkConnection();
 			if (network === 'NoNetwork') {

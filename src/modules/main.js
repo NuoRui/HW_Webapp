@@ -2,6 +2,7 @@ var config = require('./config');
 var router = require('./router');
 var utils = require('./core/utils');
 var storage = require('./core/storage');
+var repository = require('./core/repository');
 var setting = require('./setting/setting');
 var home = require('./home/home');
 var login = require('./login/login');
@@ -47,7 +48,7 @@ var app = {
 		window.gConfig = config;
 
 		window.gUser = storage.getUser();
-		window.gRepository = storage.getRepository();
+		window.gRepository = repository.getRepository();
 
 		window.log = function () {
 			if (!config.debug) {

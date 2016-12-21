@@ -2,16 +2,20 @@ require('./indent.new.less');
 
 var utils = require('../../core/utils');
 var api = require('../../core/api');
-var indentNewDetailModule = require('./detail/indent.new.detail.js');
-var indentNewBaseTemplate = require('./base/indent.new.base.tpl.html');
-var indentNewDetailTemplate = require('./detail/indent.new.detail.tpl.html');
+var indentNewBaseModule = require('./indent.new.detail.js');
+var indentNewDetailModule = require('./indent.new.detail.js');
+var indentNewBaseTemplate = require('./indent.new.base.tpl.html');
+var indentNewDetailTemplate = require('./indent.new.detail.tpl.html');
 
 var indentNewModule = {
-    pageInit: function () {
+    pageBeforeInit: function () {
 		this.bindEvents();
 
+		indentNewBaseModule.init();
+		indentNewDetailModule.init();
 
 		this.renderNewBaseItemAction();
+		this.renderNewDetailItemAction();
     },
 
 	bindEvents: function() {
@@ -22,7 +26,7 @@ var indentNewModule = {
 			selector: '#tabBase',
 			event: 'show',
 			handler: self.renderNewBaseItemAction
-		},{
+		}, {
 			element: '#indentNewPage',
 			selector: '#tabDetail',
 			event: 'show',
@@ -33,6 +37,7 @@ var indentNewModule = {
 	},
 
 	renderNewBaseItemAction: function() {
+    	log(gRepository)
 		var output = utils.renderTpl(indentNewBaseTemplate, {repository: gRepository});
 		$$('#tabBase').html(output);
 	},
@@ -42,9 +47,6 @@ var indentNewModule = {
 		$$('#tabDetail').html(output);
 
 
-		indentNewDetailModule.init();
-
-		log($$('select[name="archer"]'))
 	}
 };
 

@@ -3,6 +3,7 @@ require('./login.less');
 var utils = require('../core/utils');
 var api = require('../core/api');
 var storage = require('../core/storage');
+var repository = require('../core/repository');
 var loginPopupHtml = require('./login.html');
 
 var loginModule = {
@@ -44,21 +45,14 @@ var loginModule = {
 			gUser = user;
 
 			nrApp.showIndicator();
-			loginModule.loadData();
+			repository.loadData();
 			setTimeout(function () {
 				nrApp.closeModal('#loginPopup');
 				nrApp.hideIndicator();
 			}, 1000);
 
         }, usernameValue, passwordValue);
-    },
-
-	loadData: function () {
-    	api.getSuppliers(function (data) {
-			gRepository.suppliers = data;
-			storage.setRepository(gRepository);
-		}, gUser.employee_id);
-	}
+    }
 };
 
 module.exports = loginModule;

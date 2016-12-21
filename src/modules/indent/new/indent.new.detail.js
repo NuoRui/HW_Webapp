@@ -1,6 +1,6 @@
-var utils   = require('../../../core/utils');
-var api = require('../../../core/api');
-var detailItemContent = require('../../detailItem/indent.detailItem.html');
+var utils   = require('../../core/utils');
+var api = require('../../core/api');
+var detailItemContent = require('../detailItem/indent.detailItem.html');
 
 
 var indentNewDetailModule = {

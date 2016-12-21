@@ -14,6 +14,11 @@ module.exports = {
     init: function () {
         var self = this;
 
+		$$(document).on('pageBeforeInit', function (e) {
+			var page = e.detail.page;
+			self.pageBeforeInit(page);
+		});
+
 		$$(document).on('pageInit', function (e) {
 			var page = e.detail.page;
 			self.pageInit(page);
@@ -39,6 +44,40 @@ module.exports = {
 			self.pageBeforeRemove(page);
 		});
     },
+
+	pageBeforeInit: function (page) {
+		var name = page.name;
+
+		switch (name) {
+			case 'home.page':
+				homeModule.pageBeforeInit && homeModule.pageBeforeInit(page);
+				break;
+
+			case 'setting.page':
+				settingModule.pageBeforeInit && settingModule.pageBeforeInit(page);
+				break;
+
+			case 'about.page':
+				aboutModule.pageBeforeInit && aboutModule.pageBeforeInit(page);
+				break;
+
+			case 'quotation.page':
+				quotationModule.pageBeforeInit && quotationModule.pageBeforeInit(page);
+				break;
+
+			case 'quotation.detail.page':
+				quotationDetailModule.pageBeforeInit && quotationDetailModule.pageBeforeInit(page);
+				break;
+
+			case 'indent.page':
+				indentModule.pageBeforeInit && indentModule.pageBeforeInit(page);
+				break;
+
+			case 'indent.new.page':
+				indentNewModule.pageBeforeInit && indentNewModule.pageBeforeInit(page);
+				break;
+		}
+	},
 
 	pageInit: function (page) {
 		var name = page.name;
