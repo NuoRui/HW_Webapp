@@ -13,11 +13,13 @@ var loginModule = {
     },
 
     bindEvents: function() {
+    	var self = this;
+
         var bindings = [{
             element: '#loginPopup',
             selector: '.login-button',
             event: 'click',
-            handler: loginModule.loginAction
+            handler: self.loginAction
         }];
 
 		utils.bindEvents(bindings);
@@ -40,9 +42,23 @@ var loginModule = {
         api.login(function(user) {
 			storage.setUser(user);
 			gUser = user;
-			nrApp.closeModal('#loginPopup');
+
+			nrApp.showIndicator();
+			loginModule.loadData();
+			setTimeout(function () {
+				nrApp.closeModal('#loginPopup');
+				nrApp.hideIndicator();
+			}, 1000);
+
         }, usernameValue, passwordValue);
-    }
-}
+    },
+
+	loadData: function () {
+    	api.getSuppliers(function (data) {
+			gRepository.suppliers = data;
+			storage.setRepository(gRepository);
+		}, gUser.employee_id);
+	}
+};
 
 module.exports = loginModule;

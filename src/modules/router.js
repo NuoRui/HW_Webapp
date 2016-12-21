@@ -1,6 +1,8 @@
 var homeModule = require('./home/home');
 var settingModule = require('./setting/setting');
 var aboutModule = require('./about/about');
+var quotationModule = require('./quotation/quotation');
+var quotationDetailModule = require('./quotation/detail/quotation.detail');
 var indentModule = require('./indent/indent');
 var indentNewModule = require('./indent/new/indent.new');
 var indentEditModule = require('./indent/edit/indent.edit');
@@ -31,6 +33,11 @@ module.exports = {
 			var page = e.detail.page;
 			self.pageBack(page);
 		});
+
+		$$(document).on('pageBeforeRemove', function (e) {
+			var page = e.detail.page;
+			self.pageBeforeRemove(page);
+		});
     },
 
 	pageInit: function (page) {
@@ -49,28 +56,21 @@ module.exports = {
 				aboutModule.pageInit && aboutModule.pageInit(page);
 				break;
 
+			case 'quotation.page':
+				quotationModule.pageInit && quotationModule.pageInit(page);
+				break;
+
+			case 'quotation.detail.page':
+				quotationDetailModule.pageInit && quotationDetailModule.pageInit(page);
+				break;
+
 			case 'indent.page':
 				indentModule.pageInit && indentModule.pageInit(page);
 				break;
 
-
-			case 'quotation':
-				quotationModule.init();
+			case 'indent.new.page':
+				indentNewModule.pageInit && indentNewModule.pageInit(page);
 				break;
-			case 'quotation.detail':
-				quotationDetailModule.init(query);
-				break;
-
-			case 'indent.new':
-				indentNewModule.init && indentNewModule.init(page);
-				break;
-			case 'indent.edit':
-				indentEditModule.init && indentEditModule.init(page);
-				break;
-			case 'indent.detailItem':
-				indentDetailItemModule.init && indentDetailItemModule.init(page);
-				break;
-
 		}
 	},
 
@@ -90,17 +90,20 @@ module.exports = {
 				aboutModule.pageBeforeAnimation && aboutModule.pageBeforeAnimation(page);
 				break;
 
+			case 'quotation.page':
+				quotationModule.pageBeforeAnimation && quotationModule.pageBeforeAnimation(page);
+				break;
+
+			case 'quotation.detail.page':
+				quotationDetailModule.pageBeforeAnimation && quotationDetailModule.pageBeforeAnimation(page);
+				break;
+
 			case 'indent.page':
 				indentModule.pageBeforeAnimation && indentModule.pageBeforeAnimation(page);
 				break;
 
-
-
-			case 'indent.new':
+			case 'indent.new.page':
 				indentNewModule.pageBeforeAnimation && indentNewModule.pageBeforeAnimation(page);
-				break;
-			case 'indent.edit':
-				indentEditModule.pageBeforeAnimation && indentEditModule.pageBeforeAnimation(page);
 				break;
 		}
 	},
@@ -121,17 +124,20 @@ module.exports = {
 				aboutModule.pageAfterAnimation && aboutModule.pageAfterAnimation(page);
 				break;
 
+			case 'quotation.page':
+				quotationModule.pageAfterAnimation && quotationModule.pageAfterAnimation(page);
+				break;
+
+			case 'quotation.detail.page':
+				quotationDetailModule.pageAfterAnimation && quotationDetailModule.pageAfterAnimation(page);
+				break;
+
 			case 'indent.page':
 				indentModule.pageAfterAnimation && indentModule.pageAfterAnimation(page);
 				break;
 
-
-
-			case 'indent.new':
+			case 'indent.new.page':
 				indentNewModule.pageAfterAnimation && indentNewModule.pageAfterAnimation(page);
-				break;
-			case 'indent.edit':
-				indentEditModule.pageAfterAnimation && indentEditModule.pageAfterAnimation();
 				break;
 		}
     },
@@ -152,20 +158,54 @@ module.exports = {
 				aboutModule.pageBack && aboutModule.pageBack(page);
 				break;
 
+			case 'quotation.page':
+				quotationModule.pageBack && quotationModule.pageBack(page);
+				break;
+
+			case 'quotation.detail.page':
+				quotationDetailModule.pageBack && quotationDetailModule.pageBack(page);
+				break;
+
 			case 'indent.page':
 				indentModule.pageBack && indentModule.pageBack(page);
 				break;
 
-
-
-
-
-			case 'indent.new':
+			case 'indent.new.page':
 				indentNewModule.pageBack && indentNewModule.pageBack(page);
 				break;
+		}
+	},
 
-			case 'indent.edit':
-				indentEditModule.pageBack && indentEditModule.pageBack();
+	pageBeforeRemove: function (page) {
+		var name = page.name;
+
+		switch (name) {
+			case 'home.page':
+				homeModule.pageBeforeRemove && homeModule.pageBeforeRemove(page);
+				break;
+
+			case 'setting.page':
+				settingModule.pageBeforeRemove && settingModule.pageBeforeRemove(page);
+				break;
+
+			case 'about.page':
+				aboutModule.pageBeforeRemove && aboutModule.pageBeforeRemove(page);
+				break;
+
+			case 'quotation.page':
+				quotationModule.pageBeforeRemove && quotationModule.pageBeforeRemove(page);
+				break;
+
+			case 'quotation.detail.page':
+				quotationDetailModule.pageBeforeRemove && quotationDetailModule.pageBeforeRemove(page);
+				break;
+
+			case 'indent.page':
+				indentModule.pageBeforeRemove && indentModule.pageBeforeRemove(page);
+				break;
+
+			case 'indent.new.page':
+				indentNewModule.pageBeforeRemove && indentNewModule.pageBeforeRemove(page);
 				break;
 		}
 	}

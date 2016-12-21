@@ -1,58 +1,50 @@
 require('./indent.new.less');
 
-var appFunc   = require('../../utils/appFunc');
-var api = require('../../api/api');
+var utils = require('../../core/utils');
+var api = require('../../core/api');
 var indentNewDetailModule = require('./detail/indent.new.detail.js');
-var templateNewBase = require('./base/indent.new.base.tpl.html');
-var templateNewDetail = require('./detail/indent.new.detail.tpl.html');
+var indentNewBaseTemplate = require('./base/indent.new.base.tpl.html');
+var indentNewDetailTemplate = require('./detail/indent.new.detail.tpl.html');
 
 var indentNewModule = {
-    init: function () {
+    pageInit: function () {
 		this.bindEvents();
 
-		this.renderNewBase();
+
+		this.renderNewBaseItemAction();
     },
 
+	bindEvents: function() {
+    	var self = this;
 
-	bindEvents: function(){
 		var bindings = [{
-			element: '#tabBase',
+			element: '#indentNewPage',
+			selector: '#tabBase',
 			event: 'show',
-			handler: indentNewModule.renderNewBase
+			handler: self.renderNewBaseItemAction
 		},{
-			element: '#tabDetail',
+			element: '#indentNewPage',
+			selector: '#tabDetail',
 			event: 'show',
-			handler: indentNewModule.renderNewDetail
+			handler: self.renderNewDetailItemAction
 		}];
-		appFunc.bindEvents(bindings);
+
+		utils.bindEvents(bindings);
 	},
 
-	renderNewBase: function(){
-		nrApp.showIndicator();
-
-		var renderData = {
-		};
-
-		var output = appFunc.renderTpl(templateNewBase, renderData);
+	renderNewBaseItemAction: function() {
+		var output = utils.renderTpl(indentNewBaseTemplate, {repository: gRepository});
 		$$('#tabBase').html(output);
-
-		nrApp.hideIndicator();
-
-
 	},
 
-	renderNewDetail: function(){
-		nrApp.showIndicator();
-
-		var renderData = {
-		};
-
-		var output = appFunc.renderTpl(templateNewDetail, renderData);
+	renderNewDetailItemAction: function(){
+		var output = utils.renderTpl(indentNewDetailTemplate, {});
 		$$('#tabDetail').html(output);
 
-		nrApp.hideIndicator();
 
 		indentNewDetailModule.init();
+
+		log($$('select[name="archer"]'))
 	}
 };
 

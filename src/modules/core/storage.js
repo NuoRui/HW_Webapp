@@ -7,5 +7,14 @@ module.exports = {
     },
     delUser: function() {
         localStorage.removeItem('user');
-    }
+    },
+	getRepository: function() {
+		return JSON.parse(localStorage.getItem('repository') || '{}');
+	},
+	setRepository: function(repository) {
+		localStorage.setItem('repository', JSON.stringify(repository));
+	},
+	delRepository: function() {
+		localStorage.removeItem('repository');
+	}
 };

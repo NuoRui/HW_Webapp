@@ -2,6 +2,7 @@ require('./home.less');
 
 var utils = require('../core/utils');
 var indentPageHtml = require('../indent/indent.html');
+var quotationPageHtml = require('../quotation/quotation.html');
 
 
 var homeModule = {
@@ -38,9 +39,7 @@ var homeModule = {
 	},
 
 	quotationSelector: function () {
-		var self = this;
-
-		nrApp.getCurrentView().router.loadPage('page/indent.html')
+		nrApp.getCurrentView().router.loadContent(quotationPageHtml)
 	}
 };
 

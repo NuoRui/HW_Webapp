@@ -102,14 +102,22 @@ module.exports = {
     bindEvents: function(bindings) {
         for (var i in bindings) {
             if (bindings[i].selector) {
-                $$(bindings[i].element)
-                    .on(bindings[i].event, bindings[i].selector, bindings[i].handler);
+                $$(bindings[i].element).on(bindings[i].event, bindings[i].selector, bindings[i].handler);
             } else {
-                $$(bindings[i].element)
-                    .on(bindings[i].event, bindings[i].handler);
+                $$(bindings[i].element).on(bindings[i].event, bindings[i].handler);
             }
         }
     },
+
+	unbindEvents: function(bindings) {
+		for (var i in bindings) {
+			if (bindings[i].selector) {
+				$$(bindings[i].element).off(bindings[i].event, bindings[i].selector, bindings[i].handler);
+			} else {
+				$$(bindings[i].element).off(bindings[i].event, bindings[i].handler);
+			}
+		}
+	},
 
 	bindOnceEvents: function(bindings) {
 		for (var i in bindings) {

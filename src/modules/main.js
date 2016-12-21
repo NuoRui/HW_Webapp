@@ -8,7 +8,8 @@ var login = require('./login/login');
 
 var app = {
     initialize: function() {
-        this.bindEvents();
+		document.ontouchmove = function(e){ e.preventDefault(); };
+		this.bindEvents();
     },
 
     bindEvents: function() {
@@ -46,6 +47,7 @@ var app = {
 		window.gConfig = config;
 
 		window.gUser = storage.getUser();
+		window.gRepository = storage.getRepository();
 
 		window.log = function () {
 			if (!config.debug) {

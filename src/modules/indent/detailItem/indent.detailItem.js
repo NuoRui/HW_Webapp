@@ -1,5 +1,5 @@
-var appFunc      = require('../../utils/appFunc');
-var api    = require('../../api/api');
+var utils = require('../../core/utils');
+var api = require('../../core/api');
 
 var detailItemModule = {
     init: function () {
@@ -18,7 +18,7 @@ var detailItemModule = {
 			handler: detailItemModule.saveItem
 		}];
 
-		appFunc.bindEvents(bindings);
+		utils.bindEvents(bindings);
 	},
 
 	saveItem: function() {

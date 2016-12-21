@@ -1,53 +1,40 @@
 require('./quotation.less');
 
-var appFunc = require('../utils/appFunc'),
-    apiServer = require('../api/apiServer'),
-    template = require('./quotation.tpl.html');
+var utils = require('../core/utils');
+var api = require('../core/api');
+var quotationSupplyTemplate = require('./quotation.supply.tpl.html');
+var quotationDetailPageHtml = require('./detail/quotation.detail.html');
 
 var quotationModule = {
-    init: function() {
-        appFunc.hideToolbar();
+    pageInit: function() {
+		nrApp.hideToolbar('.toolbar');
 
-        this.bindEvents();
-
-        quotationModule.getSuppliers();
+		this.renderSuppliers();
     },
 
-    getSuppliers: function() {
-        apiServer.getSuppliers(function(data) {
-            var renderData = {
-                suppliers: data,
-            };
-            var output = appFunc.renderTpl(template, renderData);
+	renderSuppliers: function() {
+        api.getSuppliers(function(data) {
+            var output = utils.renderTpl(quotationSupplyTemplate, {suppliers: data});
             $$('#quotation-list').html(output);
+
+			utils.bindEvents([{
+				element: '#quotation-list',
+				selector: '.supply-button',
+				event: 'click',
+				handler: quotationModule.quotationDetailAction
+			}]);
         });
     },
 
-    bindEvents: function() {
-        var bindings = [{
-            element: '#quotation-page',
-            event: 'show',
-            handler: quotationModule.getSuppliers
-        }];
-
-        appFunc.bindEvents(bindings);
-    },
-
-    quotationAction: function() {
-        var usernameValue = $$(this).find('.username').val(),
-            passwordValue = $$(this).find('.password').val();
-
-        if (usernameValue == '') {
-            nrApp.alert('用户名不能为空');
-            return false;
-        }
-
-        if (passwordValue == '') {
-            nrApp.alert('密码不能为空');
-            return false;
-        }
-
-    }
-}
+	quotationDetailAction: function (e) {
+		nrApp.getCurrentView().router.load({
+			content: quotationDetailPageHtml,
+			context: {
+				name: $$(e.target).data('name'),
+				id: $$(e.target).data('id')
+			}
+		});
+	}
+};
 
 module.exports = quotationModule;

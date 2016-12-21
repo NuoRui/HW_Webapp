@@ -1,42 +1,31 @@
 require('./quotation.detail.less');
 
-var appFunc = require('../../utils/appFunc'),
-    apiServer = require('../../api/apiServer'),
-    template = require('./quotation.detail.tpl.html');
+var utils = require('../../core/utils');
+var api = require('../../core/api');
+var quotationDetailItemTemplate = require('./quotation.detail.item.tpl.html');
 
 var quotationDetailModule = {
-    init: function(query) {
-        appFunc.hideToolbar();
-
-        this.getQuotation(query);
-
-        //this.bindEvents();
+    pageInit: function(page) {
     },
 
-    getQuotation: function(query) {
-        apiServer.getQuotation(function(data) {
-            var renderData = {
-                suppliers: data,
-            };
-            var output = appFunc.renderTpl(template, renderData);
-            $$('#quotation-list').html(output);
-        }, query.id);
-    },
+	pageAfterAnimation: function (page) {
+		$$('#quotationDetailPage .pull-to-refresh-content').scrollTop(0, 300);
 
-    bindEvents: function() {
-        var bindings = [{
-            element: '#quotationButton',
-            selector: '.quotation-page',
-            event: 'click',
-            handler: quotationDetailModule.quotationAction
-        }];
+		nrApp.pullToRefreshTrigger('#quotationDetailPage .pull-to-refresh-content');
+		this.refreshQuotationDetail(page);
+	},
 
-        appFunc.bindEvents(bindings);
-    },
+	refreshQuotationDetail: function(page) {
+		api.getQuotationDetail(function (data) {
+			log(data)
+			if (data.length > 0) {
+				var output = utils.renderTpl(quotationDetailItemTemplate, {items: data});
+				$$('#quotation-detail-list').html(output);
+			}
 
-    quotationAction: function() {
-
-    }
-}
+			nrApp.pullToRefreshDone();
+		}, page.context.id);
+	}
+};
 
 module.exports = quotationDetailModule;

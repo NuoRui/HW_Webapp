@@ -1,7 +1,7 @@
 require('./indent.edit.less');
 
-var appFunc   = require('../../utils/appFunc');
-var api = require('../../api/api');
+var utils   = require('../../core/utils');
+var api = require('../../core/api');
 
 
 var indentEditModule = {

@@ -1,9 +1,6 @@
 <div class="content-block">
-	<div class="content-block-title">订单信息</div>
 	<div class="list-block">
 		<ul>
-			<!--input-->
-			<!--date-->
 			<li>
 				<div class="item-content">
 					<div class="item-inner">
@@ -17,8 +14,9 @@
 			<li>
 				<a href="#" class="item-link smart-select" data-searchbar="true" data-searchbar-placeholder="搜索" data-searchbar-cancel="取消">
 					<select name="master">
-						<option value="陆建华" selected>陆建华</option>
-						<option value="陆英华">陆英华</option>
+						{{#each repository.suppliers}}
+						<option value="{{name}}">{{name}}</option>
+						{{/each}}
 					</select>
 					<div class="item-content">
 						<div class="item-inner">
@@ -28,17 +26,16 @@
 				</a>
 			</li>
 			<li>
-				<a href="#" class="item-link smart-select" data-searchbar="true" data-searchbar-placeholder="搜索" data-searchbar-cancel="取消">
+				<a href="#" class="item-link smart-select" data-searchbar="true" data-searchbar-placeholder="搜索" data-searchbar-cancel="取消" data-back-on-select="true">
 					<select name="archer">
-						<option value="恒邦" selected>恒邦</option>
-						<option value="恒瑞">恒瑞</option>
-						<option value="恒民">恒民</option>
-						<option value="恒腾">恒腾</option>
-						<option value="新民">新民</option>
+						{{#each repository.suppliers}}
+						<option value="{{id}}">{{name}}</option>
+						{{/each}}
 					</select>
 					<div class="item-content">
 						<div class="item-inner">
 							<div class="item-title">供应商</div>
+							<div class="item-after">{{repository.suppliers[0].name}}</div>
 						</div>
 					</div>
 				</a>
