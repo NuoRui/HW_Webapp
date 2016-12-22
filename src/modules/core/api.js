@@ -17,19 +17,6 @@ module.exports = {
         });
     },
 
-    getSuppliers: function(callback) {
-        xhr.simpleGet('supplier/list', null, function(res) {
-
-            if (res.status) {
-                if (callback && typeof(callback) == 'function') {
-                    callback(res.result);
-                }
-            } else {
-                nrApp.alert(res.result);
-            }
-        });
-    },
-
     getQuotationDetail: function(callback, supplier_id) {
         xhr.simpleGet('supplier/listdata', {
             supplier_id:supplier_id
@@ -105,11 +92,11 @@ module.exports = {
 	},
 
 	// 开票抬头
-	getBillCompanies: function (callback, employeeId) {
+	getBillCompanies: function (callback, companyId, employeeId) {
 		xhr.simpleGet('company/billist', {
+			company_id: companyId,
 			employee_id: employeeId
 		}, function (res) {
-			log(res)
 			if (res.status) {
 				if (callback && typeof(callback) == 'function') {
 					callback(res.result);
@@ -138,6 +125,21 @@ module.exports = {
 	// 付款方式
 	getPayments: function (callback, employeeId) {
 		xhr.simpleGet('pay/list', {
+			employee_id: employeeId
+		}, function (res) {
+			if (res.status) {
+				if (callback && typeof(callback) == 'function') {
+					callback(res.result);
+				}
+			} else {
+				nrApp.alert(res.result);
+			}
+		});
+	},
+
+	// 材料产品
+	getMaterials: function (callback, employeeId) {
+		xhr.simpleGet('material/list', {
 			employee_id: employeeId
 		}, function (res) {
 			if (res.status) {

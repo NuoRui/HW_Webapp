@@ -1,6 +1,6 @@
 var utils   = require('../../core/utils');
 var api = require('../../core/api');
-var detailItemContent = require('../detailItem/indent.detailItem.html');
+var indentNewDetailItemPopup = require('./indent.new.detail.Item.popup.html');
 
 
 var indentNewDetailModule = {
@@ -13,15 +13,15 @@ var indentNewDetailModule = {
 			element: '#tabDetail',
 			selector: '#detail-item-add',
 			event: 'click',
-			handler: indentNewDetailModule.addItem
+			handler: indentNewDetailModule.addDetailItem
 		}];
+
 		utils.bindEvents(bindings);
-
-
 	},
 
-	addItem: function() {
-    	nrApp.getCurrentView().router.loadContent(detailItemContent);
+	addDetailItem: function() {
+		var popup = utils.renderTpl(indentNewDetailItemPopup, {repository: gRepository});
+		nrApp.popup(popup);
 	}
 };
 

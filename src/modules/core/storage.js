@@ -12,7 +12,7 @@ module.exports = {
     },
 
 	getTradeCompanies: function () {
-		return JSON.parse(localStorage.getItem('tradeCompanies') || '{}');
+		return JSON.parse(localStorage.getItem('tradeCompanies') || '[]');
 	},
 	setTradeCompanies: function (tradeCompanies) {
 		localStorage.setItem('tradeCompanies', JSON.stringify(tradeCompanies));
@@ -22,7 +22,7 @@ module.exports = {
 	},
 
 	getCompanies: function () {
-		return JSON.parse(localStorage.getItem('companies') || '{}');
+		return JSON.parse(localStorage.getItem('companies') || '[]');
 	},
 	setCompanies: function (companies) {
 		localStorage.setItem('companies', JSON.stringify(companies));
@@ -32,17 +32,23 @@ module.exports = {
 	},
 
 	getBillCompanies: function () {
-		return JSON.parse(localStorage.getItem('billCompanies') || '{}');
+		return JSON.parse(localStorage.getItem('billCompanies') || '[]');
 	},
-	setBillCompanies: function (companies) {
-		localStorage.setItem('billCompanies', JSON.stringify(billCompanies));
+	setBillCompanies: function (companyId, billCompanies) {
+		var data = this.getBillCompanies();
+    	data.push({
+    		'id': companyId,
+			'billCompanies': billCompanies
+		});
+
+		localStorage.setItem('billCompanies', JSON.stringify(data));
 	},
 	delBillCompanies: function () {
 		localStorage.removeItem('billCompanies');
 	},
 
 	getSuppliers: function () {
-		return JSON.parse(localStorage.getItem('suppliers') || '{}');
+		return JSON.parse(localStorage.getItem('suppliers') || '[]');
 	},
 	setSuppliers: function (suppliers) {
 		localStorage.setItem('suppliers', JSON.stringify(suppliers));
@@ -52,13 +58,23 @@ module.exports = {
 	},
 
 	getPayments: function () {
-		return JSON.parse(localStorage.getItem('payments') || '{}');
+		return JSON.parse(localStorage.getItem('payments') || '[]');
 	},
 	setPayments: function (payments) {
 		localStorage.setItem('payments', JSON.stringify(payments));
 	},
 	delPayments: function () {
 		localStorage.removeItem('payments');
+	},
+
+	getMaterials: function () {
+		return JSON.parse(localStorage.getItem('materials') || '[]');
+	},
+	setMaterials: function (materials) {
+		localStorage.setItem('materials', JSON.stringify(materials));
+	},
+	delMaterials: function () {
+		localStorage.removeItem('materials');
 	}
 
 

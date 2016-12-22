@@ -37,7 +37,11 @@ var app = {
         window.$$ = Dom7;
         window.nrApp = new Framework7({
             pushState: false,
-            popupCloseByOutside: false,
+			smartSelectInPopup: true,
+			smartSelectBackText: '',
+			smartSelectPopupCloseText: '',
+			smartSelectPopupCloseTemplate: '<div class="left"></div>',
+            popupCloseByOutside: true,
             animateNavBackIcon: true,
             modalTitle: '系统消息',
             modalButtonOk: '确定',
@@ -56,7 +60,7 @@ var app = {
 			}
 			console.log.apply(console, arguments);
 		};
-
+		log(gRepository)
         nrApp.addView('#homeView', {
             dynamicNavbar: true
         });

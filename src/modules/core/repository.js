@@ -11,10 +11,12 @@ module.exports = {
 
 		api.getCompanies(function (data) {
 			storage.setCompanies(data);
-		}, gUser.employee_id);
 
-		api.getBillCompanies(function (data) {
-			storage.setBillCompanies(data);
+			data.forEach(function(company) {
+				api.getBillCompanies(function (data) {
+					storage.setBillCompanies(company.id, data);
+				}, company.id, gUser.employee_id);
+			});
 		}, gUser.employee_id);
 
 		api.getSuppliers(function (data) {
@@ -23,6 +25,10 @@ module.exports = {
 
 		api.getPayments(function (data) {
 			storage.setPayments(data);
+		}, gUser.employee_id);
+
+		api.getMaterials(function (data) {
+			storage.setMaterials(data);
 		}, gUser.employee_id);
 	},
 
@@ -54,11 +60,21 @@ module.exports = {
 			repository['payments'] = payments;
 		}
 
+		var materials = storage.getMaterials();
+		if (!utils.isEmpty(materials)) {
+			repository['materials'] = materials;
+		}
+
 		return repository;
 	},
 
 	delRepository: function() {
-		// localStorage.removeItem('repository');
+		storage.delTradeCompanies();
+		storage.delCompanies();
+		storage.delBillCompanies();
+		storage.delSuppliers();
+		storage.delPayments();
+		storage.delMaterials();
 	}
 
 };
