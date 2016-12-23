@@ -46,6 +46,18 @@ module.exports = {
 		});
 	},
 
+	saveIndent: function (callback, employeeId, data) {
+		xhr.simplePost('indent/addlist', {employee_id: employeeId}, data, function (res) {
+			if (res.status) {
+				if (callback && typeof(callback) == 'function') {
+					callback(res.result);
+				}
+			} else {
+				nrApp.alert(res.result);
+			}
+		});
+	},
+
 	removeIndent: function(callback, employeeId, indentId) {
 		xhr.simpleGet('indent/del', {
 			employee_id: employeeId,
@@ -151,6 +163,9 @@ module.exports = {
 			}
 		});
 	},
+
+
+
 
 	getUnits: function (callback, employeeId) {
 		xhr.simpleGet('material/unitlist', {

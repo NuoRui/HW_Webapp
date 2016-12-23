@@ -18,6 +18,10 @@ var indentNewModule = {
 		indentNewDetailModule.init();
     },
 
+	pageBack: function () {
+		indentNewDetailModule.clearDetailItems();
+	},
+
 	bindEvents: function() {
     	var self = this;
 
@@ -31,6 +35,11 @@ var indentNewModule = {
 			selector: '#tabDetail',
 			event: 'show',
 			handler: self.renderNewDetailItemAction
+		}, {
+			element: '#indentNewPage',
+			selector: '.indent-save-button',
+			event: 'click',
+			handler: self.indentSaveAction
 		}];
 
 		utils.bindEvents(bindings);
@@ -41,9 +50,23 @@ var indentNewModule = {
 		$$('#tabBase').html(output);
 	},
 
-	renderNewDetailItemAction: function(){
-		var output = utils.renderTpl(indentNewDetailTemplate, {});
+	renderNewDetailItemAction: function() {
+		var detailItems = indentNewDetailModule.getDetailItems();
+		var output = utils.renderTpl(indentNewDetailTemplate, {detailItems: detailItems});
 		$$('#tabDetail').html(output);
+	},
+
+	indentSaveAction: function () {
+		// var data = {};
+		//
+		// data[company_] = dataBase.company;
+		// data[supplier_] = dataBase.supplier;
+		// data[employee_] = employeeId;
+		// data[trade_] = dataBase.trade;
+		// data[billtrade_] = dataBase.billtrade;
+		// data[payingway_] = dataBase.payingway;
+		// data[remark] = dataBase.remark;
+		// data[billdate] = Date.now();
 	}
 };
 
