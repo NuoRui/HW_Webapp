@@ -31,6 +31,7 @@ module.exports = {
             inject: 'body'
         }),
         new CopyWebpackPlugin([
+			{ from: './src/favicon.ico', to: 'favicon.ico' },
             { from: './src/api', to: 'api' },
             { from: './src/page', to: 'page' },
             { from: './src/res', to: 'res' },

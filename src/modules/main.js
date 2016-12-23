@@ -28,31 +28,28 @@ var app = {
     receivedEvent: function(event) {
         switch (event) {
             case 'deviceready':
-                app.initFramework7();
+                app.initApp();
                 break;
         }
     },
 
-    initFramework7: function() {
-        window.$$ = Dom7;
+	initApp: function() {
+		window.$$ = Dom7;
+		window.gConfig = config;
+		window.gUser = storage.getUser();
+		window.gRepository = repository.getRepository();
+
         window.nrApp = new Framework7({
             pushState: false,
 			smartSelectInPopup: true,
-			smartSelectBackText: '',
 			smartSelectPopupCloseText: '',
 			smartSelectPopupCloseTemplate: '<div class="left"></div>',
-            popupCloseByOutside: true,
             animateNavBackIcon: true,
-            modalTitle: '系统消息',
-            modalButtonOk: '确定',
-            modalButtonCancel: '取消',
+            modalTitle: config.modalTitle,
+            modalButtonOk: config.modalButtonOk,
+            modalButtonCancel: config.modalButtonCancel,
             template7Pages: true
         });
-
-		window.gConfig = config;
-
-		window.gUser = storage.getUser();
-		window.gRepository = repository.getRepository();
 
 		window.log = function () {
 			if (!config.debug) {
@@ -60,7 +57,7 @@ var app = {
 			}
 			console.log.apply(console, arguments);
 		};
-		log(gRepository)
+
         nrApp.addView('#homeView', {
             dynamicNavbar: true
         });

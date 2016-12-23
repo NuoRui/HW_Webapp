@@ -7,14 +7,14 @@ var indentNewPageHtml = require('./new/indent.new.html');
 
 var indentModule = {
     pageInit: function () {
-		nrApp.hideToolbar('.toolbar');
+		nrApp.hideToolbar('.main-toolbar');
     },
 
 	pageAfterAnimation: function () {
 		this.unbindEvents();
 		this.bindEvents();
 
-		$$('#indentPage .pull-to-refresh-content').scrollTop(0,300);
+		$$('#indentPage .pull-to-refresh-content').scrollTop(0, 300);
 
 		nrApp.pullToRefreshTrigger('#indentPage .pull-to-refresh-content');
 		this.refreshIndents();
@@ -27,7 +27,12 @@ var indentModule = {
 			element: '#homeView',
 			selector: '.indent-new-button',
 			event: 'click',
-			handler: self.indentNewAction
+			handler: self.newIndentAction
+		}, {
+			element: '#indentPage',
+			selector: '.pull-to-refresh-content',
+			event: 'refresh',
+			handler: self.refreshIndents
 		}]);
 	},
 
@@ -38,37 +43,45 @@ var indentModule = {
 			element: '#homeView',
 			selector: '.indent-new-button',
 			event: 'click',
-			handler: self.indentNewAction
+			handler: self.newIndentAction
 		}]);
 	},
 
 	refreshIndents: function() {
-    	var self = this;
 		api.getIndents(function (data) {
 			if (data.length > 0) {
 				var output = utils.renderTpl(indentItemTemplate, {indents: data});
 				$$('#indent-list').html(output);
 
 				var bindings = [{
-					element: '.swipeout',
+					element: '#indentPage',
+					selector: '#indent-list .indent-item',
+					event: 'click',
+					handler: indentModule.editIndentAction
+				}, {
+					element: '#indentPage',
+					selector: '#indent-list .swipeout',
 					event: 'delete',
-					handler: self.removeIndent
+					handler: indentModule.removeIndentAction
 				}];
 
-				utils.bindOnceEvents(bindings);
+				utils.bindEvents(bindings);
 			}
 
 			nrApp.pullToRefreshDone();
 		}, gUser.employee_id);
 	},
 
-	removeIndent: function() {
-		api.removeIndent(function (data) {
+	editIndentAction: function () {
 
+	},
+
+	removeIndentAction: function() {
+		api.removeIndent(function (data) {
 		}, gUser.employee_id, $$(this).data('id'));
 	},
 
-	indentNewAction: function() {
+	newIndentAction: function() {
 		nrApp.getCurrentView().router.loadContent(indentNewPageHtml);
 	}
 };

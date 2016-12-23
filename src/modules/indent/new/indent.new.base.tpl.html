@@ -70,7 +70,7 @@
 					<div class="item-inner">
 						<div class="item-title label">付款方式</div>
 						<div class="input">
-							<select>
+							<select name="payment">
 								{{#each repository.payments}}
 								<option value="{{id}}">{{name}}</option>
 								{{/each}}
@@ -85,7 +85,7 @@
 					<div class="item-inner">
 						<div class="item-title label">备注</div>
 						<div class="item-input">
-							<textarea></textarea>
+							<textarea name="desc"></textarea>
 						</div>
 					</div>
 				</div>

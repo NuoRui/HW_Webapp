@@ -11,11 +11,18 @@ var indentNewDetailModule = {
     },
 
 	bindEvents: function () {
+    	var self = this;
+
 		var bindings = [{
 			element: '#tabDetail',
 			selector: '#detail-item-add',
 			event: 'click',
-			handler: indentNewDetailModule.popupIndentDetailItem
+			handler: self.popupIndentDetailItem
+		}, {
+			element: '#tabDetail',
+			selector: '#indentDetailItems .swipeout',
+			event: 'deleted',
+			handler: self.removeDetailItemAction
 		}];
 
 		utils.bindEvents(bindings);
@@ -33,19 +40,41 @@ var indentNewDetailModule = {
 	},
 
 	addIndentDetailItem: function() {
-    	detailItems.push({
-			customcode: '111',
-			supplier_name: 'zzzz',
-			total_amount: 1234
-		});
+		var data = {
+			material_: $$('#indentNewDetailItemPopup select[name="detailMaterial"]')[0].value,
+			grade: $$('#indentNewDetailItemPopup select[name="detailGrade"]')[0].value,
+			quantity: $$('#indentNewDetailItemPopup input[name="detailQuantity"]')[0].value,
+			unit_: $$('#indentNewDetailItemPopup select[name="detailUnit"]')[0].value,
+			convert: $$('#indentNewDetailItemPopup input[name="detailConvert"]')[0].value,
+			kilo: $$('#indentNewDetailItemPopup input[name="detailKilo"]')[0].value,
+			price: $$('#indentNewDetailItemPopup input[name="detailPrice"]')[0].value,
+			fare_price: $$('#indentNewDetailItemPopup input[name="detailFarePrice"]')[0].value,
+			remark: $$('#indentNewDetailItemPopup textarea[name="detailRemark"]')[0].value
+		};
+
+    	detailItems.push(data);
 
 		nrApp.closeModal('#indentNewDetailItemPopup');
 
-		$$('#tabDetail').trigger('show');
+		$$('#tabDetail').trigger('refresh');
 	},
+
+
 
 	getDetailItems: function () {
 		return detailItems;
+	},
+
+	removeDetailItemAction: function (e) {
+		detailItems.splice($$(e.target).data('id'), 1);
+
+		var items = $$('#indentDetailItems .swipeout');
+		var counter = 0;
+		items.each(function (idx, item) {
+			if (!$$(item).hasClass('deleting')) {
+				$$(item).attr('data-id', counter++);
+			}
+		})
 	},
 
 	clearDetailItems: function () {

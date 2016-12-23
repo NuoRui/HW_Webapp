@@ -11,8 +11,8 @@ var indentNewModule = {
     pageBeforeInit: function () {
 		this.bindEvents();
 
-		this.renderNewBaseItemAction();
-		this.renderNewDetailItemAction();
+		this.initRenderNewBaseItem();
+		this.initRenderNewDetailItem();
 
 		indentNewBaseModule.init();
 		indentNewDetailModule.init();
@@ -27,14 +27,9 @@ var indentNewModule = {
 
 		var bindings = [{
 			element: '#indentNewPage',
-			selector: '#tabBase',
-			event: 'show',
-			handler: self.renderNewBaseItemAction
-		}, {
-			element: '#indentNewPage',
 			selector: '#tabDetail',
-			event: 'show',
-			handler: self.renderNewDetailItemAction
+			event: 'refresh',
+			handler: self.refreshNewDetailItemAction
 		}, {
 			element: '#indentNewPage',
 			selector: '.indent-save-button',
@@ -45,28 +40,33 @@ var indentNewModule = {
 		utils.bindEvents(bindings);
 	},
 
-	renderNewBaseItemAction: function() {
+	initRenderNewBaseItem: function() {
 		var output = utils.renderTpl(indentNewBaseTemplate, {repository: gRepository});
 		$$('#tabBase').html(output);
 	},
 
-	renderNewDetailItemAction: function() {
-		var detailItems = indentNewDetailModule.getDetailItems();
-		var output = utils.renderTpl(indentNewDetailTemplate, {detailItems: detailItems});
+	initRenderNewDetailItem: function() {
+		var output = utils.renderTpl(indentNewDetailTemplate, {});
 		$$('#tabDetail').html(output);
 	},
 
+	refreshNewDetailItemAction: function() {
+		var output = utils.renderTpl(indentNewDetailTemplate, {detailItems: indentNewDetailModule.getDetailItems()});
+		$$('#tabDetail').html(output);
+
+
+	},
+
 	indentSaveAction: function () {
-		// var data = {};
-		//
-		// data[company_] = dataBase.company;
-		// data[supplier_] = dataBase.supplier;
-		// data[employee_] = employeeId;
-		// data[trade_] = dataBase.trade;
-		// data[billtrade_] = dataBase.billtrade;
-		// data[payingway_] = dataBase.payingway;
-		// data[remark] = dataBase.remark;
-		// data[billdate] = Date.now();
+		var baseData = indentNewBaseModule.getBaseData();
+		var detailItemsData = indentNewDetailModule.getDetailItems();
+		log(baseData)
+		log(detailItemsData)
+
+		api.saveIndent(function (data) {
+			log(data)
+
+		}, gUser.employee_id, {data: baseData, items: detailItemsData});
 	}
 };
 

@@ -59,8 +59,9 @@ module.exports = {
 	},
 
 	removeIndent: function(callback, employeeId, indentId) {
-		xhr.simpleGet('indent/del', {
-			employee_id: employeeId,
+		xhr.simplePost('indent/deletelist', {
+			employee_id: employeeId
+		}, {
 			id: indentId
 		}, function (res) {
 			if (res.status) {

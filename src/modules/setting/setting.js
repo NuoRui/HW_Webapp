@@ -15,7 +15,7 @@ var settingModule = {
     },
 
 	pageAfterAnimation: function (page) {
-		nrApp.showToolbar('.toolbar');
+		nrApp.showToolbar('.main-toolbar');
 	},
 
 	bindEvents: function () {

@@ -7,7 +7,7 @@ var quotationDetailPageHtml = require('./detail/quotation.detail.html');
 
 var quotationModule = {
     pageInit: function() {
-		nrApp.hideToolbar('.toolbar');
+		nrApp.hideToolbar('.main-toolbar');
 
 		this.renderSuppliers();
     },
