@@ -4,10 +4,30 @@ var utils = require('../core/utils');
 var api = require('../core/api');
 var indentItemTemplate = require('./indent.item.tpl.html');
 var indentNewPageHtml = require('./new/indent.new.html');
+var indentEditPageHtml = require('./edit/indent.edit.html');
 
 var indentModule = {
     pageInit: function () {
+    	var self = this;
+
 		nrApp.hideToolbar('.main-toolbar');
+
+		utils.bindEvents([{
+			element: '#indentPage',
+			selector: '#indent-list li.indent-item',
+			event: 'click',
+			handler: self.editIndentAction
+		}, {
+			element: '#indentPage',
+			selector: '#indent-list .swipeout',
+			event: 'delete',
+			handler: self.removeIndentAction
+		}, {
+			element: '#indentPage',
+			selector: '.pull-to-refresh-content',
+			event: 'refresh',
+			handler: self.refreshIndents
+		}]);
     },
 
 	pageAfterAnimation: function () {
@@ -28,11 +48,6 @@ var indentModule = {
 			selector: '.indent-new-button',
 			event: 'click',
 			handler: self.newIndentAction
-		}, {
-			element: '#indentPage',
-			selector: '.pull-to-refresh-content',
-			event: 'refresh',
-			handler: self.refreshIndents
 		}]);
 	},
 
@@ -52,28 +67,20 @@ var indentModule = {
 			if (data.length > 0) {
 				var output = utils.renderTpl(indentItemTemplate, {indents: data});
 				$$('#indent-list').html(output);
-
-				var bindings = [{
-					element: '#indentPage',
-					selector: '#indent-list .indent-item',
-					event: 'click',
-					handler: indentModule.editIndentAction
-				}, {
-					element: '#indentPage',
-					selector: '#indent-list .swipeout',
-					event: 'delete',
-					handler: indentModule.removeIndentAction
-				}];
-
-				utils.bindEvents(bindings);
 			}
 
 			nrApp.pullToRefreshDone();
 		}, gUser.employee_id);
 	},
 
-	editIndentAction: function () {
-
+	editIndentAction: function (e) {
+		nrApp.getCurrentView().router.load({
+			content: indentEditPageHtml,
+			context: {
+				id: $$(e.target).parents('li.indent-item').data('id'),
+				customcode: $$(e.target).parents('li.indent-item').data('customcode')
+			}
+		});
 	},
 
 	removeIndentAction: function() {

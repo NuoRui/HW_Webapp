@@ -1,0 +1,30 @@
+<div class="content-block">
+	<div class="content-block-title">
+		<p class="buttons-row">
+			<a id="detail-item-add" href="#" class="button color-blue">添加明细</a>
+		</p>
+	</div>
+	<div id="indentDetailItems" class="list-block">
+		<ul>
+			{{#each detailItems}}
+			<li data-id="{{@index}}" class="swipeout indent-item">
+				<div class="swipeout-content item-content">
+					<a href="#" class="item-link item-content">
+						<div class="item-inner">
+							<div class="item-title">{{material_}}</div>
+
+							<div class="item-title-row">
+								<div class="item-subtitle">{{grade}}</div>
+								<div class="item-after">{{quantity}}</div>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div class="swipeout-actions-right">
+					<a href="#" class="swipeout-delete" data-close-on-cancel="true" data-confirm="是否确定要删除?">删除</a>
+				</div>
+			</li>
+			{{/each}}
+		</ul>
+	</div>
+</div>

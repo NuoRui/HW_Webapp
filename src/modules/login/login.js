@@ -27,8 +27,8 @@ var loginModule = {
     },
 
     loginAction: function() {
-        var usernameValue = $$('#loginPopup').find('.username').val();
-        var passwordValue = $$('#loginPopup').find('.password').val();
+        var usernameValue = $$('#loginPopup').find('[name=username]').val();
+        var passwordValue = $$('#loginPopup').find('[name=password]').val();
 
         if (usernameValue == '') {
             nrApp.alert('用户名不能为空');
@@ -46,6 +46,7 @@ var loginModule = {
 
 			nrApp.showIndicator();
 			repository.loadData();
+			gRepository = repository.getRepository();
 			setTimeout(function () {
 				nrApp.closeModal('#loginPopup');
 				nrApp.hideIndicator();

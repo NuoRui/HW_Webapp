@@ -53,18 +53,16 @@ var indentNewModule = {
 	refreshNewDetailItemAction: function() {
 		var output = utils.renderTpl(indentNewDetailTemplate, {detailItems: indentNewDetailModule.getDetailItems()});
 		$$('#tabDetail').html(output);
-
-
 	},
 
 	indentSaveAction: function () {
 		var baseData = indentNewBaseModule.getBaseData();
 		var detailItemsData = indentNewDetailModule.getDetailItems();
 
-		log(detailItemsData)
-
 		api.saveIndent(function (data) {
-			log(data)
+			nrApp.alert('订单保存成功', '', function () {
+				nrApp.getCurrentView().router.back();
+			});
 
 		}, gUser.employee_id, {data: baseData, items: JSON.stringify(detailItemsData)});
 	}

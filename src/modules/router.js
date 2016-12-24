@@ -6,7 +6,6 @@ var quotationDetailModule = require('./quotation/detail/quotation.detail');
 var indentModule = require('./indent/indent');
 var indentNewModule = require('./indent/new/indent.new');
 var indentEditModule = require('./indent/edit/indent.edit');
-var indentDetailItemModule = require('./indent/detailItem/indent.detailItem');
 
 
 
@@ -76,6 +75,10 @@ module.exports = {
 			case 'indent.new.page':
 				indentNewModule.pageBeforeInit && indentNewModule.pageBeforeInit(page);
 				break;
+
+			case 'indent.edit.page':
+				indentEditModule.pageBeforeInit && indentEditModule.pageBeforeInit(page);
+				break;
 		}
 	},
 
@@ -109,6 +112,10 @@ module.exports = {
 
 			case 'indent.new.page':
 				indentNewModule.pageInit && indentNewModule.pageInit(page);
+				break;
+
+			case 'indent.edit.page':
+				indentEditModule.pageInit && indentEditModule.pageInit(page);
 				break;
 		}
 	},
@@ -144,6 +151,10 @@ module.exports = {
 			case 'indent.new.page':
 				indentNewModule.pageBeforeAnimation && indentNewModule.pageBeforeAnimation(page);
 				break;
+
+			case 'indent.edit.page':
+				indentEditModule.pageBeforeAnimation && indentEditModule.pageBeforeAnimation(page);
+				break;
 		}
 	},
 
@@ -177,6 +188,10 @@ module.exports = {
 
 			case 'indent.new.page':
 				indentNewModule.pageAfterAnimation && indentNewModule.pageAfterAnimation(page);
+				break;
+
+			case 'indent.edit.page':
+				indentEditModule.pageAfterAnimation && indentEditModule.pageAfterAnimation(page);
 				break;
 		}
     },
@@ -212,6 +227,10 @@ module.exports = {
 			case 'indent.new.page':
 				indentNewModule.pageBack && indentNewModule.pageBack(page);
 				break;
+
+			case 'indent.edit.page':
+				indentEditModule.pageBack && indentEditModule.pageBack(page);
+				break;
 		}
 	},
 
@@ -245,6 +264,10 @@ module.exports = {
 
 			case 'indent.new.page':
 				indentNewModule.pageBeforeRemove && indentNewModule.pageBeforeRemove(page);
+				break;
+
+			case 'indent.edit.page':
+				indentEditModule.pageBeforeRemove && indentEditModule.pageBeforeRemove(page);
 				break;
 		}
 	}

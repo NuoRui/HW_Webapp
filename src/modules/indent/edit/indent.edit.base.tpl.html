@@ -1,0 +1,95 @@
+<div class="content-block">
+	<div class="list-block">
+		<ul>
+			<li>
+				<a href="#" class="item-link smart-select" data-searchbar="true" data-searchbar-placeholder="搜索" data-searchbar-cancel="取消" data-back-on-select="true">
+					<select name="tradeCompany">
+						{{#each repository.tradeCompanies}}
+						<option value="{{id}}">{{name}}</option>
+						{{/each}}
+					</select>
+					<div class="item-content">
+						<div class="item-inner">
+							<div class="item-title">公司抬头</div>
+							<div class="item-after">{{repository.tradeCompanies[0].name}}</div>
+						</div>
+					</div>
+				</a>
+			</li>
+			<li>
+				<a href="#" class="item-link smart-select" data-searchbar="true" data-searchbar-placeholder="搜索" data-searchbar-cancel="取消" data-back-on-select="true">
+					<select name="company">
+						{{#each repository.companies}}
+						<option value="{{id}}">{{name}}</option>
+						{{/each}}
+					</select>
+					<div class="item-content">
+						<div class="item-inner">
+							<div class="item-title">客户</div>
+							<div class="item-after">{{repository.companies[0].name}}</div>
+						</div>
+					</div>
+				</a>
+			</li>
+
+			<li>
+				{{#each repository.billCompanies}}
+				<a id="billCompanies{{id}}" href="#" class="item-link smart-select bill-companies" data-searchbar="true" data-searchbar-placeholder="搜索" data-searchbar-cancel="取消" data-back-on-select="true">
+					<select name="billCompany">
+						{{#each billCompanies}}
+						<option value="{{id}}">{{name}}</option>
+						{{/each}}
+					</select>
+					<div class="item-content">
+						<div class="item-inner">
+							<div class="item-title">开票抬头</div>
+							<div class="item-after">{{billCompanies[0].name}}</div>
+						</div>
+					</div>
+				</a>
+				{{/each}}
+			</li>
+			<li>
+				<a href="#" class="item-link smart-select" data-searchbar="true" data-searchbar-placeholder="搜索" data-searchbar-cancel="取消" data-back-on-select="true">
+					<select name="supplier">
+						{{#each repository.suppliers}}
+						<option value="{{id}}">{{name}}</option>
+						{{/each}}
+					</select>
+					<div class="item-content">
+						<div class="item-inner">
+							<div class="item-title">供应商</div>
+							<div class="item-after">{{repository.suppliers[0].name}}</div>
+						</div>
+					</div>
+				</a>
+			</li>
+
+			<li>
+				<div class="item-content">
+					<div class="item-inner">
+						<div class="item-title label">付款方式</div>
+						<div class="input">
+							<select name="payment">
+								{{#each repository.payments}}
+								<option value="{{id}}">{{name}}</option>
+								{{/each}}
+							</select>
+						</div>
+					</div>
+				</div>
+			</li>
+
+			<li class="align-top">
+				<div class="item-content">
+					<div class="item-inner">
+						<div class="item-title label">备注</div>
+						<div class="item-input">
+							<textarea name="desc"></textarea>
+						</div>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>

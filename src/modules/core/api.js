@@ -46,6 +46,21 @@ module.exports = {
 		});
 	},
 
+	getIndent: function(callback, employeeId, indentId) {
+		xhr.simpleGet('indent/orderinfo', {
+			employee_id: employeeId,
+			id: indentId
+		}, function (res) {
+			if (res.status) {
+				if (callback && typeof(callback) == 'function') {
+					callback(res.result);
+				}
+			} else {
+				nrApp.alert(res.result);
+			}
+		});
+	},
+
 	saveIndent: function (callback, employeeId, data) {
 		xhr.simplePost('indent/addlist', {employee_id: employeeId}, data, function (res) {
 			if (res.status) {

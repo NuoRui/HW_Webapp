@@ -1,8 +1,7 @@
 <ul>
 {{#each indents}}
-<li data-id="{{id}}" class="swipeout indent-item">
+<li data-id="{{id}}" data-customcode="{{customcode}}" class="swipeout indent-item">
 	<div class="swipeout-content item-content">
-		<a href="#" class="item-link item-content">
 			<div class="item-inner">
 				<div class="item-title">{{customcode}}</div>
 
@@ -11,7 +10,7 @@
 					<div class="item-after">{{total_amount}}</div>
 				</div>
 			</div>
-		</a>
+
 	</div>
 	<div class="swipeout-actions-right">
 		<a href="#" class="swipeout-delete" data-close-on-cancel="true" data-confirm="是否确定要删除?">删除</a>
