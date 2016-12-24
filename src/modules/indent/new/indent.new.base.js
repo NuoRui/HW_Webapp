@@ -34,7 +34,7 @@ var indentNewBaseModule = {
 			employee_: gUser.employee_id,
 			trade_: $$('select[name="tradeCompany"]')[0].value,
 			billtrade_: $$('select[name="billCompany"]')[0].value,
-			billdate: Date.now(),
+			billdate: moment().format('YYYY-MM-DD'),
 			payingway_: $$('select[name="payment"]')[0].value,
 			remark: $$('textarea[name="desc"]')[0].value
 		};

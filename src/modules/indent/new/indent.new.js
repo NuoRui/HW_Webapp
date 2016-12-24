@@ -60,13 +60,13 @@ var indentNewModule = {
 	indentSaveAction: function () {
 		var baseData = indentNewBaseModule.getBaseData();
 		var detailItemsData = indentNewDetailModule.getDetailItems();
-		log(baseData)
+
 		log(detailItemsData)
 
 		api.saveIndent(function (data) {
 			log(data)
 
-		}, gUser.employee_id, {data: baseData, items: detailItemsData});
+		}, gUser.employee_id, {data: baseData, items: JSON.stringify(detailItemsData)});
 	}
 };
 
