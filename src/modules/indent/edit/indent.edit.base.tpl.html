@@ -5,13 +5,17 @@
 				<a href="#" class="item-link smart-select" data-searchbar="true" data-searchbar-placeholder="搜索" data-searchbar-cancel="取消" data-back-on-select="true">
 					<select name="tradeCompany">
 						{{#each repository.tradeCompanies}}
-						<option value="{{id}}">{{name}}</option>
+						<option value="{{id}}" {{#if_compare id "===" @root.source.tradeCompanyId}} selected {{/if_compare}}>{{name}}</option>
 						{{/each}}
 					</select>
 					<div class="item-content">
 						<div class="item-inner">
 							<div class="item-title">公司抬头</div>
-							<div class="item-after">{{repository.tradeCompanies[0].name}}</div>
+							<div class="item-after">
+								{{#each repository.tradeCompanies}}
+								{{#if_compare id "===" @root.source.tradeCompanyId}} {{name}} {{/if_compare}}
+								{{/each}}
+							</div>
 						</div>
 					</div>
 				</a>
@@ -53,13 +57,17 @@
 				<a href="#" class="item-link smart-select" data-searchbar="true" data-searchbar-placeholder="搜索" data-searchbar-cancel="取消" data-back-on-select="true">
 					<select name="supplier">
 						{{#each repository.suppliers}}
-						<option value="{{id}}">{{name}}</option>
+						<option value="{{id}}" {{#if_compare id "===" @root.source.supplierId}} selected {{/if_compare}}>{{name}}</option>
 						{{/each}}
 					</select>
 					<div class="item-content">
 						<div class="item-inner">
 							<div class="item-title">供应商</div>
-							<div class="item-after">{{repository.suppliers[0].name}}</div>
+							<div class="item-after">
+								{{#each repository.suppliers}}
+								{{#if_compare id "===" @root.source.supplierId}} {{name}} {{/if_compare}}
+								{{/each}}
+							</div>
 						</div>
 					</div>
 				</a>
