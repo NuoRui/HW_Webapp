@@ -35,26 +35,26 @@ var indentEditDetailModule = {
 		utils.bindEvents([{
 			element: '.indent-detail-submit-button',
 			event: 'click',
-			handler: indentNewDetailModule.addIndentDetailItem
+			handler: indentEditDetailModule.addIndentDetailItem
 		}]);
 	},
 
 	addIndentDetailItem: function() {
 		var data = {
-			material_: $$('#indentNewDetailItemPopup select[name="detailMaterial"]')[0].value,
-			grade: $$('#indentNewDetailItemPopup select[name="detailGrade"]')[0].value,
-			quantity: $$('#indentNewDetailItemPopup input[name="detailQuantity"]')[0].value,
-			unit_: $$('#indentNewDetailItemPopup select[name="detailUnit"]')[0].value,
-			convert: $$('#indentNewDetailItemPopup input[name="detailConvert"]')[0].value,
-			kilo: $$('#indentNewDetailItemPopup input[name="detailKilo"]')[0].value,
-			price: $$('#indentNewDetailItemPopup input[name="detailPrice"]')[0].value,
-			fare_price: $$('#indentNewDetailItemPopup input[name="detailFarePrice"]')[0].value,
-			remark: $$('#indentNewDetailItemPopup textarea[name="detailRemark"]')[0].value
+			material_: $$('#indentEditDetailItemPopup select[name="detailMaterial"]')[0].value,
+			grade: $$('#indentEditDetailItemPopup select[name="detailGrade"]')[0].value,
+			quantity: $$('#indentEditDetailItemPopup input[name="detailQuantity"]')[0].value,
+			unit_: $$('#indentEditDetailItemPopup select[name="detailUnit"]')[0].value,
+			convert: $$('#indentEditDetailItemPopup input[name="detailConvert"]')[0].value,
+			kilo: $$('#indentEditDetailItemPopup input[name="detailKilo"]')[0].value,
+			price: $$('#indentEditDetailItemPopup input[name="detailPrice"]')[0].value,
+			fare_price: $$('#indentEditDetailItemPopup input[name="detailFarePrice"]')[0].value,
+			remark: $$('#indentEditDetailItemPopup textarea[name="detailRemark"]')[0].value
 		};
 
     	detailItems.push(data);
 
-		nrApp.closeModal('#indentNewDetailItemPopup');
+		nrApp.closeModal('#indentEditDetailItemPopup');
 
 		$$('#tabDetail').trigger('refresh');
 	},
@@ -62,6 +62,7 @@ var indentEditDetailModule = {
 
 
 	getDetailItems: function () {
+    	log(detailItems)
 		return detailItems;
 	},
 
