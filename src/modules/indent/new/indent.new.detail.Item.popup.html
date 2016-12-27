@@ -18,6 +18,7 @@
 					<li>
 						<a href="#" class="item-link smart-select" data-open-in="popup" data-back-template="" data-searchbar="true" data-searchbar-placeholder="搜索" data-searchbar-cancel="取消" data-back-on-select="true">
 							<select name="detailMaterial">
+								<option value="" selected disabled></option>
 								{{#each repository.materials}}
 								<option value="{{id}}">{{spec}}</option>
 								{{/each}}
@@ -25,7 +26,7 @@
 							<div class="item-content">
 								<div class="item-inner">
 									<div class="item-title">产品</div>
-									<div class="item-after">{{repository.materials[0].spec}}</div>
+									<div class="item-after"></div>
 								</div>
 							</div>
 						</a>
@@ -49,7 +50,7 @@
 							<div class="item-inner">
 								<div class="item-title label">数量</div>
 								<div class="item-input">
-									<input type="text" name="detailQuantity">
+									<input type="number" name="detailQuantity" placeholder="0" style="text-align: right">
 								</div>
 							</div>
 						</div>
@@ -60,9 +61,9 @@
 								<div class="item-title label">单位</div>
 								<div class="input">
 									<select name="detailUnit">
-										<option value="1" selected>公斤</option>
+										<option value="1">公斤</option>
 										<option value="2">科重</option>
-										<option value="3">包数</option>
+										<option value="3" selected>包数</option>
 									</select>
 								</div>
 							</div>
@@ -73,7 +74,7 @@
 							<div class="item-inner">
 								<div class="item-title label">系数</div>
 								<div class="item-input">
-									<input type="text" name="detailConvert">
+									<input type="number" name="detailConvert" placeholder="0" style="text-align: right">
 								</div>
 							</div>
 						</div>
@@ -83,7 +84,7 @@
 							<div class="item-inner">
 								<div class="item-title label">公斤</div>
 								<div class="item-input">
-									<input type="text" name="detailKilo">
+									<input type="text" name="detailKilo" placeholder="0" style="text-align: right">
 								</div>
 							</div>
 						</div>
@@ -93,7 +94,7 @@
 							<div class="item-inner">
 								<div class="item-title label">销价</div>
 								<div class="item-input">
-									<input type="text" name="detailPrice">
+									<input type="number" name="detailPrice" placeholder="0" style="text-align: right">
 								</div>
 							</div>
 						</div>
@@ -103,7 +104,7 @@
 							<div class="item-inner">
 								<div class="item-title label">运价</div>
 								<div class="item-input">
-									<input type="text" name="detailFarePrice">
+									<input type="number" name="detailFarePrice" placeholder="0" style="text-align: right">
 								</div>
 							</div>
 						</div>
@@ -114,6 +115,16 @@
 								<div class="item-title label">备注</div>
 								<div class="item-input">
 									<textarea name="detailRemark"></textarea>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="item-content">
+							<div class="item-inner">
+								<div class="item-title label">总价</div>
+								<div class="item-input">
+									<input placeholder="0" style="text-align: right" disabled>
 								</div>
 							</div>
 						</div>

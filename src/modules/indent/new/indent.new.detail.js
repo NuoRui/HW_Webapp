@@ -1,6 +1,6 @@
-var utils   = require('../../core/utils');
+var utils = require('../../core/utils');
 var api = require('../../core/api');
-var indentNewDetailItemPopup = require('./indent.new.detail.Item.popup.html');
+var indentNewDetailItemPopupModule = require('./indent.new.detail.Item.popup.js');
 
 
 var detailItems = [];
@@ -29,41 +29,16 @@ var indentNewDetailModule = {
 	},
 
 	popupIndentDetailItem: function() {
-		var popup = utils.renderTpl(indentNewDetailItemPopup, {repository: gRepository});
-		nrApp.popup(popup);
-
-		utils.bindEvents([{
-			element: '.indent-detail-submit-button',
-			event: 'click',
-			handler: indentNewDetailModule.addIndentDetailItem
-		}]);
+        indentNewDetailItemPopupModule.init(indentNewDetailModule);
 	},
-
-	addIndentDetailItem: function() {
-		var data = {
-			material_: $$('#indentNewDetailItemPopup select[name="detailMaterial"]')[0].value,
-			grade: $$('#indentNewDetailItemPopup select[name="detailGrade"]')[0].value,
-			quantity: $$('#indentNewDetailItemPopup input[name="detailQuantity"]')[0].value,
-			unit_: $$('#indentNewDetailItemPopup select[name="detailUnit"]')[0].value,
-			convert: $$('#indentNewDetailItemPopup input[name="detailConvert"]')[0].value,
-			kilo: $$('#indentNewDetailItemPopup input[name="detailKilo"]')[0].value,
-			price: $$('#indentNewDetailItemPopup input[name="detailPrice"]')[0].value,
-			fare_price: $$('#indentNewDetailItemPopup input[name="detailFarePrice"]')[0].value,
-			remark: $$('#indentNewDetailItemPopup textarea[name="detailRemark"]')[0].value
-		};
-
-    	detailItems.push(data);
-
-		nrApp.closeModal('#indentNewDetailItemPopup');
-
-		$$('#tabDetail').trigger('refresh');
-	},
-
-
 
 	getDetailItems: function () {
 		return detailItems;
 	},
+	
+	addDetailItem: function (data) {
+        detailItems.push(data);
+    },
 
 	removeDetailItemAction: function (e) {
 		detailItems.splice($$(e.target).data('id'), 1);
