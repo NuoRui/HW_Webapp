@@ -14,7 +14,7 @@ var indentModule = {
 
 		utils.bindEvents([{
 			element: '#indentPage',
-			selector: '#indent-list li.indent-item',
+			selector: '#indent-list div.item-content',
 			event: 'click',
 			handler: self.editIndentAction
 		}, {

@@ -4,31 +4,42 @@ var storage = require('./storage');
 
 module.exports = {
 
-	loadData: function () {
+	loadData: function (repository) {
 		api.getTradeCompanies(function (data) {
 			storage.setTradeCompanies(data);
+
+			repository['tradeCompanies'] = storage.getTradeCompanies();
 		}, gUser.employee_id);
 
 		api.getCompanies(function (data) {
 			storage.setCompanies(data);
+			repository['companies'] = storage.getCompanies();
 
 			data.forEach(function(company) {
 				api.getBillCompanies(function (data) {
 					storage.setBillCompanies(company.id, data);
+
+					repository['billCompanies'] = storage.getBillCompanies();
 				}, company.id, gUser.employee_id);
 			});
 		}, gUser.employee_id);
 
 		api.getSuppliers(function (data) {
 			storage.setSuppliers(data);
+
+			repository['suppliers'] = storage.getSuppliers();
 		}, gUser.employee_id);
 
 		api.getPayments(function (data) {
 			storage.setPayments(data);
+
+			repository['payments'] = storage.getPayments();
 		}, gUser.employee_id);
 
 		api.getMaterials(function (data) {
 			storage.setMaterials(data);
+
+			repository['materials'] = storage.getMaterials();
 		}, gUser.employee_id);
 	},
 

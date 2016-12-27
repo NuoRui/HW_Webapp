@@ -45,15 +45,23 @@ var loginModule = {
 			gUser = user;
 
 			nrApp.showIndicator();
-			repository.loadData();
-			gRepository = repository.getRepository();
+			repository.loadData(window.gRepository);
+
 			setTimeout(function () {
 				nrApp.closeModal('#loginPopup');
 				nrApp.hideIndicator();
 			}, 1000);
 
         }, usernameValue, passwordValue);
-    }
+    },
+
+	logout: function () {
+		nrApp.confirm('你确定要退出登录吗？', function () {
+			storage.delUser();
+			repository.delRepository();
+			window.location.href = gConfig.root;
+		});
+	}
 };
 
 module.exports = loginModule;

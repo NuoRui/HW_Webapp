@@ -1,6 +1,18 @@
 <div id="indentNewDetailItemPopup" class="popup">
 	<div class="view popup-view">
-		<div class="content-block">
+		<div class="navbar">
+			<div class="navbar-inner">
+				<div class="left">
+					<a href="#" class="close-popup link text-navbar">
+						<i class="icon icon-back"></i>
+					</a>
+				</div>
+				<div class="left">新增明细</div>
+			</div>
+		</div>
+
+
+		<div class="content-block" style="margin-top: 43px">
 			<div class="list-block">
 				<ul>
 					<li>
@@ -20,7 +32,7 @@
 					</li>
 					<li>
 						<div class="item-content">
-							<div class="item-inner">
+							<div class="item-inner" style="padding-top: 0; padding-bottom: 0;">
 								<div class="item-title label">等级</div>
 								<div class="input">
 									<select name="detailGrade">
@@ -37,8 +49,17 @@
 							<div class="item-inner">
 								<div class="item-title label">数量</div>
 								<div class="item-input">
-									<input type="text" name="detailQuantity" style="float:left; width: 70%;">
-									<select name="detailUnit" style="width: 30%;">
+									<input type="text" name="detailQuantity">
+								</div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="item-content">
+							<div class="item-inner" style="padding-top: 0; padding-bottom: 0;">
+								<div class="item-title label">单位</div>
+								<div class="input">
+									<select name="detailUnit">
 										<option value="1" selected>公斤</option>
 										<option value="2">科重</option>
 										<option value="3">包数</option>
@@ -70,7 +91,7 @@
 					<li>
 						<div class="item-content">
 							<div class="item-inner">
-								<div class="item-title label">单价</div>
+								<div class="item-title label">销价</div>
 								<div class="item-input">
 									<input type="text" name="detailPrice">
 								</div>
@@ -80,7 +101,7 @@
 					<li>
 						<div class="item-content">
 							<div class="item-inner">
-								<div class="item-title label">销价</div>
+								<div class="item-title label">运价</div>
 								<div class="item-input">
 									<input type="text" name="detailFarePrice">
 								</div>

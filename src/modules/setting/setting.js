@@ -3,6 +3,7 @@ require('./setting.less');
 var utils = require('../core/utils');
 var storage = require('../core/storage');
 var repository = require('../core/repository');
+var loginModule = require('../login/login');
 var aboutPageHtml = require('../about/about.html');
 
 var settingModule = {
@@ -55,11 +56,7 @@ var settingModule = {
 	},
 
     logoutAction: function () {
-		nrApp.confirm('你确定要退出登录吗？', function () {
-			storage.delUser();
-			repository.delRepository();
-			window.location.href = '/';
-        });
+		loginModule.logout();
     }
 
 };

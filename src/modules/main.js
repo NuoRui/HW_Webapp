@@ -9,9 +9,9 @@ var login = require('./login/login');
 
 var app = {
 	initialize: function () {
-		document.ontouchmove = function (e) {
-			e.preventDefault();
-		};
+		// document.ontouchmove = function (e) {
+		// 	e.preventDefault();
+		// };
 		this.bindEvents();
 	},
 
@@ -55,6 +55,7 @@ var app = {
 		window.gConfig = config;
 		window.gUser = storage.getUser();
 		window.gRepository = repository.getRepository();
+
 
 		window.nrApp = new Framework7({
 			pushState: false,
