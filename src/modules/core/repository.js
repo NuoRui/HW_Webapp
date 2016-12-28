@@ -38,8 +38,17 @@ module.exports = {
 
 		api.getMaterials(function (data) {
 			storage.setMaterials(data);
-
 			repository['materials'] = storage.getMaterials();
+log(data)
+            data.forEach(function(material) {
+            	log(material)
+                api.getMaterialLots(function (data) {
+                	console.log(data)
+                    storage.setMaterialLots(material.id, data);
+
+                    repository['materialLots'] = storage.getMaterialLots();
+                }, material.id, gUser.employee_id);
+            });
 		}, gUser.employee_id);
 	},
 
@@ -76,6 +85,11 @@ module.exports = {
 			repository['materials'] = materials;
 		}
 
+        var materialLots = storage.getMaterialLots();
+        if (!utils.isEmpty(materialLots)) {
+            repository['materialLots'] = materialLots;
+        }
+
 		return repository;
 	},
 
@@ -86,6 +100,7 @@ module.exports = {
 		storage.delSuppliers();
 		storage.delPayments();
 		storage.delMaterials();
+        storage.delMaterialLots();
 	}
 
 };

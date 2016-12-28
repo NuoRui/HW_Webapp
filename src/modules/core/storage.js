@@ -75,8 +75,22 @@ module.exports = {
 	},
 	delMaterials: function () {
 		localStorage.removeItem('materials');
-	}
+	},
 
+    getMaterialLots: function () {
+        return JSON.parse(localStorage.getItem('materialLots') || '[]');
+    },
+    setMaterialLots: function (materialId, materialLots) {
+        var data = this.getMaterials();
+        data.push({
+            'id': materialId,
+            'materialLots': materialLots
+        });
 
+        localStorage.setItem('materialLots', JSON.stringify(data));
+    },
+    delMaterialLots: function () {
+        localStorage.removeItem('materialLots');
+    },
 
 };

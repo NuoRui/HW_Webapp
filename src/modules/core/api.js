@@ -180,8 +180,22 @@ module.exports = {
 		});
 	},
 
-
-
+    // 材料批号
+	getMaterialLots: function (callback, materialId, employeeId) {
+    	console.log(materialId)
+        xhr.simpleGet('material/lotlist', {
+            material_id: materialId,
+            employee_id: employeeId
+        }, function (res) {
+            if (res.status) {
+                if (callback && typeof(callback) == 'function') {
+                    callback(res.result);
+                }
+            } else {
+                nrApp.alert(res.result);
+            }
+        });
+	},
 
 	getUnits: function (callback, employeeId) {
 		xhr.simpleGet('material/unitlist', {

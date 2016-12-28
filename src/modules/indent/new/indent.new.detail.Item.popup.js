@@ -83,6 +83,10 @@ var indentNewDetailItemPopupModule = {
     },
 
     detailMaterialChangeAction: function (e) {
+        $$('.material-lot').hide();
+        var dom = '#materialLots' + gRepository.materialLots[$$('select[name="detailMaterial"]')[0].selectedIndex].id;
+        $$(dom).show();
+
         var materialObj = {};
         gRepository.materials.forEach(function (item, idx) {
             if (item.id == $$('#indentNewDetailItemPopup select[name="detailMaterial"]')[0].value) {

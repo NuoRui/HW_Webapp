@@ -31,6 +31,25 @@
 							</div>
 						</a>
 					</li>
+
+					<li>
+						{{#each repository.materialLots}}
+						<a id="materialLots{{id}}" href="#" class="item-link smart-select material-lot" data-open-in="popup" data-back-template="" data-searchbar="true" data-searchbar-placeholder="搜索" data-searchbar-cancel="取消" data-back-on-select="true">
+							<select name="detailMaterialLot">
+								<option value="" selected disabled></option>
+								{{#each materialLots}}
+								<option value="{{id}}">{{name}}</option>
+								{{/each}}
+							</select>
+							<div class="item-content">
+								<div class="item-inner">
+									<div class="item-title">批号</div>
+									<div class="item-after"></div>
+								</div>
+							</div>
+						</a>
+						{{/each}}
+					</li>
 					<li>
 						<div class="item-content">
 							<div class="item-inner" style="padding-top: 0; padding-bottom: 0;">
