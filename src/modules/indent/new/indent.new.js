@@ -41,7 +41,6 @@ var indentNewModule = {
 	},
 
 	initRenderNewBaseItem: function() {
-    	log(gRepository)
 		var output = utils.renderTpl(indentNewBaseTemplate, {repository: gRepository});
 		$$('#tabBase').html(output);
 	},

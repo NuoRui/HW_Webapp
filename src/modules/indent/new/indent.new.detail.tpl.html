@@ -7,18 +7,19 @@
 	<div id="indentDetailItems" class="list-block">
 		<ul>
 			{{#each detailItems}}
-			<li data-id="{{@index}}" class="swipeout indent-item">
+			<li data-id="{{index}}" class="swipeout indent-item">
 				<div class="swipeout-content item-content">
-					<a href="#" class="item-link item-content">
-						<div class="item-inner">
-							<div class="item-title">{{material_}}</div>
-
-							<div class="item-title-row">
-								<div class="item-subtitle">{{grade}}</div>
-								<div class="item-after">{{quantity}}</div>
-							</div>
+					<div class="item-inner">
+						<div class="item-title-row">
+							<div class="item-subtitle">{{material_}}</div>
+							<div class="item-after">{{grade}}</div>
 						</div>
-					</a>
+						<div class="item-title-row">
+							<div class="item-subtitle">{{quantity}}</div>
+							<div class="item-after">{{quantity}}</div>
+						</div>
+					</div>
+
 				</div>
 				<div class="swipeout-actions-right">
 					<a href="#" class="swipeout-delete" data-close-on-cancel="true" data-confirm="是否确定要删除?">删除</a>
@@ -28,3 +29,4 @@
 		</ul>
 	</div>
 </div>
+

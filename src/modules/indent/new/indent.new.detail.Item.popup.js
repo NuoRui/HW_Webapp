@@ -32,7 +32,32 @@ var indentNewDetailItemPopupModule = {
             selector: 'select[name="detailUnit"]',
             event: 'change',
             handler: self.detailUnitChangeAction
-        }];
+        }, {
+			element: '#indentNewDetailItemPopup',
+			selector: 'input[name="detailQuantity"]',
+			event: 'input propertychange',
+			handler: self.detailQuantityChangeAction
+		}, {
+			element: '#indentNewDetailItemPopup',
+			selector: 'input[name="detailConvert"]',
+			event: 'change',
+			handler: self.detailConvertChangeAction
+		}, {
+			element: '#indentNewDetailItemPopup',
+			selector: 'input[name="detailKilo"]',
+			event: 'change',
+			handler: self.detailKiloChangeAction
+		}, {
+			element: '#indentNewDetailItemPopup',
+			selector: 'input[name="detailPrice"]',
+			event: 'change',
+			handler: self.detailPriceChangeAction
+		}, {
+			element: '#indentNewDetailItemPopup',
+			selector: 'input[name="detailFarePrice"]',
+			event: 'change',
+			handler: self.detailFarePriceChangeAction
+		}];
 
         utils.bindEvents(bindings);
     },
@@ -95,7 +120,64 @@ var indentNewDetailItemPopupModule = {
         } else if (unit == 3) {
             $$('#indentNewDetailItemPopup input[name="detailConvert"]').val(materialObj.convert2);
         }
-    }
+    },
+
+	detailQuantityChangeAction: function (e) {
+    	log(111)
+    	var totalPriceDom = $$('#indentNewDetailItemPopup input[name="totalPrice"]');
+    	if (isNaN(e.target.valueAsNumber)) {
+    		nrApp.alert('数量需输入数字');
+			e.target.value = NaN;
+		}
+
+		var detailConvert = $$('#indentNewDetailItemPopup input[name="detailConvert"]')[0].valueAsNumber;
+
+		if (isNaN(detailConvert)) {
+			totalPriceDom.value = 0;
+			return;
+		}
+
+		$$('#indentNewDetailItemPopup input[name="detailKilo"]')[0].value = e.target.valueAsNumber * detailConvert;
+
+		var detailKilo = $$('#indentNewDetailItemPopup input[name="detailKilo"]')[0].valueAsNumber;
+		if (isNaN(detailKilo)) {
+			totalPriceDom.value = 0;
+			return;
+		}
+
+		var detailPrice = $$('#indentNewDetailItemPopup input[name="detailPrice"]')[0].valueAsNumber;
+		var detailFarePrice = $$('#indentNewDetailItemPopup input[name="detailFarePrice"]')[0].valueAsNumber;
+
+		if (isNaN(detailPrice)) {
+			if (isNaN(detailFarePrice)) {
+				totalPriceDom.value = 0;
+			} else {
+				totalPriceDom.value = detailFarePrice * detailKilo;
+			}
+		} else {
+			if (isNaN(detailFarePrice)) {
+				totalPriceDom.value = detailPrice * detailKilo;
+			} else {
+				totalPriceDom.value = detailPrice * detailKilo + detailFarePrice * detailKilo;
+			}
+		}
+	},
+
+	detailConvertChangeAction: function (e) {
+		
+	},
+
+	detailKiloChangeAction: function (e) {
+		
+	},
+
+	detailPriceChangeAction: function (e) {
+		
+	},
+
+	detailFarePriceChangeAction: function (e) {
+		
+	}
 };
 
 module.exports = indentNewDetailItemPopupModule;
