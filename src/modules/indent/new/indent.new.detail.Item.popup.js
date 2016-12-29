@@ -1,3 +1,5 @@
+require('./indent.new.detail.item.popup.less');
+
 var utils = require('../../core/utils');
 var api = require('../../core/api');
 var indentNewDetailItemPopup = require('./indent.new.detail.Item.popup.html');
@@ -11,6 +13,9 @@ var indentNewDetailItemPopupModule = {
         var popup = utils.renderTpl(indentNewDetailItemPopup, {repository: gRepository});
         nrApp.popup(popup);
 
+        $$('.material-lot').hide();
+        $$('#materialLotNull').show();
+
         this.bindEvents();
     },
 
@@ -21,12 +26,17 @@ var indentNewDetailItemPopupModule = {
             element: '#indentNewDetailItemPopup',
             selector: '.indent-detail-submit-button',
             event: 'click',
-            handler: self.addIndentDetailItem
+            handler: self.addIndentDetailItemAction
         }, {
             element: '#indentNewDetailItemPopup',
             selector: 'select[name="detailMaterial"]',
             event: 'change',
             handler: self.detailMaterialChangeAction
+        }, {
+            element: '#indentNewDetailItemPopup',
+            selector: 'select[name="detailGrade"]',
+            event: 'change',
+            handler: self.detailGradeChangeAction
         }, {
             element: '#indentNewDetailItemPopup',
             selector: 'select[name="detailUnit"]',
@@ -62,7 +72,7 @@ var indentNewDetailItemPopupModule = {
         utils.bindEvents(bindings);
     },
 
-    addIndentDetailItem: function () {
+    addIndentDetailItemAction: function () {
         var data = {
             material_: $$('#indentNewDetailItemPopup select[name="detailMaterial"]')[0].value,
             grade: $$('#indentNewDetailItemPopup select[name="detailGrade"]')[0].value,
@@ -84,87 +94,109 @@ var indentNewDetailItemPopupModule = {
 
     detailMaterialChangeAction: function (e) {
         $$('.material-lot').hide();
-        var dom = '#materialLots' + gRepository.materialLots[$$('select[name="detailMaterial"]')[0].selectedIndex].id;
-        $$(dom).show();
+        $$('#materialLot' + gRepository.materialLots[$$('select[name="detailMaterial"]')[0].selectedIndex - 1].id).show();
 
         var materialObj = {};
-        gRepository.materials.forEach(function (item, idx) {
+        $$.each(gRepository.materials, function (idx, item) {
             if (item.id == $$('#indentNewDetailItemPopup select[name="detailMaterial"]')[0].value) {
                 materialObj = item;
             }
         });
 
         var unit = $$('#indentNewDetailItemPopup select[name="detailUnit"]')[0].value;
+        var convert = 0;
+
         if (unit == 1) {
-            $$('#indentNewDetailItemPopup input[name="detailConvert"]').val(materialObj.convert);
+            $$('#indentNewDetailItemPopup input[name="detailConvert"]')[0].value = materialObj.convert;
+            convert = materialObj.convert;
         } else if (unit == 2) {
-            $$('#indentNewDetailItemPopup input[name="detailConvert"]').val(materialObj.convert1);
+            $$('#indentNewDetailItemPopup input[name="detailConvert"]')[0].value = materialObj.convert1;
+            convert = materialObj.convert1;
         } else if (unit == 3) {
-            $$('#indentNewDetailItemPopup input[name="detailConvert"]').val(materialObj.convert2);
+            $$('#indentNewDetailItemPopup input[name="detailConvert"]')[0].value = materialObj.convert2;
+            convert = materialObj.convert2;
+        }
+
+        var quantity = $$('#indentNewDetailItemPopup input[name="detailQuantity"]')[0].valueAsNumber;
+        if (isNaN(quantity)) {
+            $$('#indentNewDetailItemPopup input[name="detailKilo"]')[0].value = '';
+            return;
+        }
+
+        $$('#indentNewDetailItemPopup input[name="detailKilo"]')[0].value = quantity * convert;
+    },
+
+    detailGradeChangeAction: function (e) {
+        var grade = e.target.value;
+        if (grade == 'AA') {
+            $$('#indentNewDetailItemPopup input[name="detailConvert"]').attr('disabled', 'disabled');
+
+
+        } else {
+            $$('#indentNewDetailItemPopup input[name="detailConvert"]').removeAttr('disabled');
         }
     },
 
     detailUnitChangeAction: function (e) {
-        var materialObj = {};
-        gRepository.materials.forEach(function (item, idx) {
-            if (item.id == $$('#indentNewDetailItemPopup select[name="detailMaterial"]')[0].value) {
-                materialObj = item;
-            }
-        });
-
-        if (utils.isEmpty(materialObj)) {
-            return;
-        }
-
-        var unit = $$('#indentNewDetailItemPopup select[name="detailUnit"]')[0].value;
-        if (unit == 1) {
-            $$('#indentNewDetailItemPopup input[name="detailConvert"]').val(materialObj.convert);
-        } else if (unit == 2) {
-            $$('#indentNewDetailItemPopup input[name="detailConvert"]').val(materialObj.convert1);
-        } else if (unit == 3) {
-            $$('#indentNewDetailItemPopup input[name="detailConvert"]').val(materialObj.convert2);
-        }
+        // var materialObj = {};
+        // gRepository.materials.forEach(function (item, idx) {
+        //     if (item.id == $$('#indentNewDetailItemPopup select[name="detailMaterial"]')[0].value) {
+        //         materialObj = item;
+        //     }
+        // });
+        //
+        // if (utils.isEmpty(materialObj)) {
+        //     return;
+        // }
+        //
+        // var unit = $$('#indentNewDetailItemPopup select[name="detailUnit"]')[0].value;
+        // if (unit == 1) {
+        //     $$('#indentNewDetailItemPopup input[name="detailConvert"]').val(materialObj.convert);
+        // } else if (unit == 2) {
+        //     $$('#indentNewDetailItemPopup input[name="detailConvert"]').val(materialObj.convert1);
+        // } else if (unit == 3) {
+        //     $$('#indentNewDetailItemPopup input[name="detailConvert"]').val(materialObj.convert2);
+        // }
     },
 
 	detailQuantityChangeAction: function (e) {
-    	log(111)
-    	var totalPriceDom = $$('#indentNewDetailItemPopup input[name="totalPrice"]');
-    	if (isNaN(e.target.valueAsNumber)) {
-    		nrApp.alert('数量需输入数字');
-			e.target.value = NaN;
-		}
-
-		var detailConvert = $$('#indentNewDetailItemPopup input[name="detailConvert"]')[0].valueAsNumber;
-
-		if (isNaN(detailConvert)) {
-			totalPriceDom.value = 0;
-			return;
-		}
-
-		$$('#indentNewDetailItemPopup input[name="detailKilo"]')[0].value = e.target.valueAsNumber * detailConvert;
-
-		var detailKilo = $$('#indentNewDetailItemPopup input[name="detailKilo"]')[0].valueAsNumber;
-		if (isNaN(detailKilo)) {
-			totalPriceDom.value = 0;
-			return;
-		}
-
-		var detailPrice = $$('#indentNewDetailItemPopup input[name="detailPrice"]')[0].valueAsNumber;
-		var detailFarePrice = $$('#indentNewDetailItemPopup input[name="detailFarePrice"]')[0].valueAsNumber;
-
-		if (isNaN(detailPrice)) {
-			if (isNaN(detailFarePrice)) {
-				totalPriceDom.value = 0;
-			} else {
-				totalPriceDom.value = detailFarePrice * detailKilo;
-			}
-		} else {
-			if (isNaN(detailFarePrice)) {
-				totalPriceDom.value = detailPrice * detailKilo;
-			} else {
-				totalPriceDom.value = detailPrice * detailKilo + detailFarePrice * detailKilo;
-			}
-		}
+        // var totalPriceDom = $$('#indentNewDetailItemPopup input[name="totalPrice"]');
+        // if (isNaN(e.target.valueAsNumber)) {
+    		// nrApp.alert('数量需输入数字');
+		// 	e.target.value = NaN;
+		// }
+        //
+		// var detailConvert = $$('#indentNewDetailItemPopup input[name="detailConvert"]')[0].valueAsNumber;
+        //
+		// if (isNaN(detailConvert)) {
+		// 	totalPriceDom.value = 0;
+		// 	return;
+		// }
+        //
+		// $$('#indentNewDetailItemPopup input[name="detailKilo"]')[0].value = e.target.valueAsNumber * detailConvert;
+        //
+		// var detailKilo = $$('#indentNewDetailItemPopup input[name="detailKilo"]')[0].valueAsNumber;
+		// if (isNaN(detailKilo)) {
+		// 	totalPriceDom.value = 0;
+		// 	return;
+		// }
+        //
+		// var detailPrice = $$('#indentNewDetailItemPopup input[name="detailPrice"]')[0].valueAsNumber;
+		// var detailFarePrice = $$('#indentNewDetailItemPopup input[name="detailFarePrice"]')[0].valueAsNumber;
+        //
+		// if (isNaN(detailPrice)) {
+		// 	if (isNaN(detailFarePrice)) {
+		// 		totalPriceDom.value = 0;
+		// 	} else {
+		// 		totalPriceDom.value = detailFarePrice * detailKilo;
+		// 	}
+		// } else {
+		// 	if (isNaN(detailFarePrice)) {
+		// 		totalPriceDom.value = detailPrice * detailKilo;
+		// 	} else {
+		// 		totalPriceDom.value = detailPrice * detailKilo + detailFarePrice * detailKilo;
+		// 	}
+		// }
 	},
 
 	detailConvertChangeAction: function (e) {

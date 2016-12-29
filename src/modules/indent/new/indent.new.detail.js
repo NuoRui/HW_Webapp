@@ -1,5 +1,6 @@
 var utils = require('../../core/utils');
 var api = require('../../core/api');
+var indentNewDetailTemplate = require('./indent.new.detail.tpl.html');
 var indentNewDetailItemPopupModule = require('./indent.new.detail.Item.popup.js');
 
 
@@ -7,54 +8,62 @@ var detailItems = [];
 
 var indentNewDetailModule = {
     init: function () {
-		this.bindEvents();
+        var output = utils.renderTpl(indentNewDetailTemplate, {});
+        $$('#tabDetail').html(output);
+
+        this.bindEvents();
     },
 
-	bindEvents: function () {
-    	var self = this;
+    bindEvents: function () {
+        var self = this;
 
-		var bindings = [{
-			element: '#tabDetail',
-			selector: '#detail-item-add',
-			event: 'click',
-			handler: self.popupIndentDetailItem
-		}, {
-			element: '#tabDetail',
-			selector: '#indentDetailItems .swipeout',
-			event: 'deleted',
-			handler: self.removeDetailItemAction
-		}];
+        var bindings = [{
+            element: '#tabDetail',
+            selector: 'a.detail-item-add',
+            event: 'click',
+            handler: self.popupIndentDetailAction
+        }, {
+            element: '#tabDetail',
+            selector: '#indentDetailItems .swipeout',
+            event: 'deleted',
+            handler: self.removeIndentDetailAction
+        }];
 
-		utils.bindEvents(bindings);
-	},
+        utils.bindEvents(bindings);
+    },
 
-	popupIndentDetailItem: function() {
+    popupIndentDetailAction: function (e) {
         indentNewDetailItemPopupModule.init(indentNewDetailModule);
-	},
+    },
 
-	getDetailItems: function () {
-		return detailItems;
-	},
-	
-	addDetailItem: function (data) {
+    removeIndentDetailAction: function (e) {
+        detailItems.splice($$(e.target).data('idx'), 1);
+
+        var counter = 0;
+        var items = $$('#indentDetailItems .swipeout');
+        items.each(function (idx, item) {
+            if (!$$(item).hasClass('deleting')) {
+                $$(item).attr('data-idx', counter++);
+            }
+        });
+    },
+
+    getDetailItems: function () {
+        return detailItems;
+    },
+
+    addDetailItem: function (data) {
         detailItems.push(data);
     },
 
-	removeDetailItemAction: function (e) {
-		detailItems.splice($$(e.target).data('id'), 1);
+    clearDetailItems: function () {
+        detailItems = [];
+    },
 
-		var items = $$('#indentDetailItems .swipeout');
-		var counter = 0;
-		items.each(function (idx, item) {
-			if (!$$(item).hasClass('deleting')) {
-				$$(item).attr('data-id', counter++);
-			}
-		})
-	},
-
-	clearDetailItems: function () {
-		detailItems = [];
-	}
+    refreshDetailItems: function () {
+        var output = utils.renderTpl(indentNewDetailTemplate, {detailItems: detailItems});
+        $$('#tabDetail').html(output);
+    }
 };
 
 module.exports = indentNewDetailModule;

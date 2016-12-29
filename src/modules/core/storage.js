@@ -81,7 +81,7 @@ module.exports = {
         return JSON.parse(localStorage.getItem('materialLots') || '[]');
     },
     setMaterialLots: function (materialId, materialLots) {
-        var data = this.getMaterials();
+        var data = this.getMaterialLots();
         data.push({
             'id': materialId,
             'materialLots': materialLots
@@ -91,6 +91,6 @@ module.exports = {
     },
     delMaterialLots: function () {
         localStorage.removeItem('materialLots');
-    },
+    }
 
 };

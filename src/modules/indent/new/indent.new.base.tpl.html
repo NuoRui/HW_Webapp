@@ -1,8 +1,8 @@
 <div class="content-block">
 	<div class="list-block">
-		<ul>
+		<ul style="background-color: transparent;">
 			<li>
-				<a href="#" class="item-link smart-select" data-searchbar="true" data-searchbar-placeholder="搜索" data-searchbar-cancel="取消" data-back-on-select="true">
+				<a href="#" class="item-link smart-select" data-back-on-select="true">
 					<select name="tradeCompany">
 						{{#each repository.tradeCompanies}}
 						<option value="{{id}}">{{name}}</option>
@@ -17,8 +17,9 @@
 				</a>
 			</li>
 			<li>
-				<a href="#" class="item-link smart-select" data-searchbar="true" data-searchbar-placeholder="搜索" data-searchbar-cancel="取消" data-back-on-select="true">
+				<a href="#" class="item-link smart-select" data-back-on-select="true">
 					<select name="company">
+						<option value="" selected disabled></option>
 						{{#each repository.companies}}
 						<option value="{{id}}">{{name}}</option>
 						{{/each}}
@@ -26,32 +27,45 @@
 					<div class="item-content">
 						<div class="item-inner">
 							<div class="item-title">客户</div>
-							<div class="item-after">{{repository.companies[0].name}}</div>
+							<div class="item-after"></div>
 						</div>
 					</div>
 				</a>
 			</li>
 
 			<li>
+				<a disabled id="billCompanyNull" href="#" class="item-link smart-select bill-company" data-back-on-select="true">
+					<select name="billCompany">
+						<option value="" selected disabled></option>
+					</select>
+					<div class="item-content">
+						<div class="item-inner">
+							<div class="item-title">开票抬头</div>
+						</div>
+					</div>
+				</a>
 				{{#each repository.billCompanies}}
-				<a id="billCompanies{{id}}" href="#" class="item-link smart-select bill-companies" data-searchbar="true" data-searchbar-placeholder="搜索" data-searchbar-cancel="取消" data-back-on-select="true">
+				<a {{#unless billCompanies.length}} disabled {{/unless}} id="billCompany{{id}}" href="#" class="item-link smart-select bill-company" data-back-on-select="true">
 					<select name="billCompany">
 						{{#each billCompanies}}
 						<option value="{{id}}">{{name}}</option>
+						{{else}}
+						<option value=""></option>
 						{{/each}}
 					</select>
 					<div class="item-content">
 						<div class="item-inner">
 							<div class="item-title">开票抬头</div>
-							<div class="item-after">{{billCompanies[0].name}}</div>
+							<div class="item-after"></div>
 						</div>
 					</div>
 				</a>
 				{{/each}}
 			</li>
 			<li>
-				<a href="#" class="item-link smart-select" data-searchbar="true" data-searchbar-placeholder="搜索" data-searchbar-cancel="取消" data-back-on-select="true">
+				<a href="#" class="item-link smart-select" data-back-on-select="true">
 					<select name="supplier">
+						<option value="" selected disabled></option>
 						{{#each repository.suppliers}}
 						<option value="{{id}}">{{name}}</option>
 						{{/each}}
@@ -59,7 +73,7 @@
 					<div class="item-content">
 						<div class="item-inner">
 							<div class="item-title">供应商</div>
-							<div class="item-after">{{repository.suppliers[0].name}}</div>
+							<div class="item-after"></div>
 						</div>
 					</div>
 				</a>
@@ -85,7 +99,7 @@
 					<div class="item-inner">
 						<div class="item-title label">备注</div>
 						<div class="item-input">
-							<textarea name="desc"></textarea>
+							<textarea name="remark"></textarea>
 						</div>
 					</div>
 				</div>

@@ -182,7 +182,6 @@ module.exports = {
 
     // 材料批号
 	getMaterialLots: function (callback, materialId, employeeId) {
-    	console.log(materialId)
         xhr.simpleGet('material/lotlist', {
             material_id: materialId,
             employee_id: employeeId

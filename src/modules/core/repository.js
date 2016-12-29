@@ -39,11 +39,9 @@ module.exports = {
 		api.getMaterials(function (data) {
 			storage.setMaterials(data);
 			repository['materials'] = storage.getMaterials();
-log(data)
+
             data.forEach(function(material) {
-            	log(material)
                 api.getMaterialLots(function (data) {
-                	console.log(data)
                     storage.setMaterialLots(material.id, data);
 
                     repository['materialLots'] = storage.getMaterialLots();

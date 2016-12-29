@@ -11,12 +11,12 @@
 			</div>
 		</div>
 
-
-		<div class="content-block" style="margin-top: 43px">
+		<div class="page-content">
+		<div class="content-block" style="margin-top: 43px !important;">
 			<div class="list-block">
 				<ul>
 					<li>
-						<a href="#" class="item-link smart-select" data-open-in="popup" data-back-template="" data-searchbar="true" data-searchbar-placeholder="搜索" data-searchbar-cancel="取消" data-back-on-select="true">
+						<a href="#" class="item-link smart-select" data-open-in="popup" data-searchbar="true" data-searchbar-placeholder="搜索" data-searchbar-cancel="取消" data-back-on-select="true">
 							<select name="detailMaterial">
 								<option value="" selected disabled></option>
 								{{#each repository.materials}}
@@ -33,18 +33,29 @@
 					</li>
 
 					<li>
-						{{#each repository.materialLots}}
-						<a id="materialLots{{id}}" href="#" class="item-link smart-select material-lot" data-open-in="popup" data-back-template="" data-searchbar="true" data-searchbar-placeholder="搜索" data-searchbar-cancel="取消" data-back-on-select="true">
+						<a disabled id="materialLotNull" href="#" class="item-link smart-select material-lot">
 							<select name="detailMaterialLot">
 								<option value="" selected disabled></option>
+							</select>
+							<div class="item-content">
+								<div class="item-inner">
+									<div class="item-title">批号</div>
+								</div>
+							</div>
+						</a>
+						{{#each repository.materialLots}}
+						<a {{#unless materialLots.length}} disabled {{/unless}} id="materialLot{{id}}" href="#" class="item-link smart-select material-lot" data-open-in="popup" data-back-on-select="true">
+							<select name="detailMaterialLot">
 								{{#each materialLots}}
 								<option value="{{id}}">{{name}}</option>
+								{{else}}
+								<option value=""></option>
 								{{/each}}
 							</select>
 							<div class="item-content">
 								<div class="item-inner">
 									<div class="item-title">批号</div>
-									<div class="item-after"></div>
+									<div class="item-after">{{#if materialLots.length}} {{materialLots[0].name}} {{/if}}</div>
 								</div>
 							</div>
 						</a>
@@ -54,35 +65,12 @@
 						<div class="item-content">
 							<div class="item-inner" style="padding-top: 0; padding-bottom: 0;">
 								<div class="item-title label">等级</div>
-								<div class="input">
-									<select name="detailGrade">
+								<div class="item-input">
+									<select name="detailGrade" style="direction: rtl;">
 										<option value="AA" selected>AA</option>
 										<option value="A">A</option>
+										<option value="A-">A-</option>
 										<option value="B">B</option>
-									</select>
-								</div>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div class="item-content">
-							<div class="item-inner">
-								<div class="item-title label">数量</div>
-								<div class="item-input">
-									<input type="number" name="detailQuantity" placeholder="0" style="text-align: right">
-								</div>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div class="item-content">
-							<div class="item-inner" style="padding-top: 0; padding-bottom: 0;">
-								<div class="item-title label">单位</div>
-								<div class="input">
-									<select name="detailUnit">
-										<option value="1">公斤</option>
-										<option value="2">科重</option>
-										<option value="3" selected>包数</option>
 									</select>
 								</div>
 							</div>
@@ -94,6 +82,31 @@
 								<div class="item-title label">系数</div>
 								<div class="item-input">
 									<input type="number" name="detailConvert" placeholder="0" style="text-align: right">
+								</div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="item-content">
+							<div class="item-inner" style="padding-top: 0; padding-bottom: 0;">
+								<div class="item-title label">单位</div>
+								<div class="item-input">
+									<select name="detailUnit" style="direction: rtl;">
+										<option value="1">公斤</option>
+										<option value="2">科重</option>
+										<option value="3" selected>包数</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</li>
+
+					<li>
+						<div class="item-content">
+							<div class="item-inner">
+								<div class="item-title label">数量</div>
+								<div class="item-input">
+									<input type="number" name="detailQuantity" placeholder="0" style="text-align: right">
 								</div>
 							</div>
 						</div>
@@ -128,7 +141,7 @@
 							</div>
 						</div>
 					</li>
-					<li>
+					<li style="display: none">
 						<div class="item-content">
 							<div class="item-inner">
 								<div class="item-title label">备注</div>
@@ -138,24 +151,20 @@
 							</div>
 						</div>
 					</li>
-					<li>
-						<div class="item-content">
-							<div class="item-inner">
-								<div class="item-title label">总金额</div>
-								<div class="item-input">
-									<input type="number" name="totalPrice" value="0" style="text-align: right" disabled>
-								</div>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div>
-							<a href="#" class="indent-detail-submit-button button button-round button-fill ">保存</a>
-						</div>
-					</li>
 				</ul>
 			</div>
+			<div class="item-content total-price">
+				<p>
+					<span class="total-price-text">总金额</span>
+					<span class="total-price-value">0</span>
+				</p>
+			</div>
+			<div>
+				<a href="#" class="indent-detail-submit-button button button-round button-fill ">保存</a>
+			</div>
 		</div>
+
+	</div>
 	</div>
 
 </div>

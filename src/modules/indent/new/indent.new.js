@@ -4,15 +4,15 @@ var utils = require('../../core/utils');
 var api = require('../../core/api');
 var indentNewBaseModule = require('./indent.new.base.js');
 var indentNewDetailModule = require('./indent.new.detail.js');
-var indentNewBaseTemplate = require('./indent.new.base.tpl.html');
-var indentNewDetailTemplate = require('./indent.new.detail.tpl.html');
+// var indentNewBaseTemplate = require('./indent.new.base.tpl.html');
+// var indentNewDetailTemplate = require('./indent.new.detail.tpl.html');
 
 var indentNewModule = {
     pageBeforeInit: function () {
 		this.bindEvents();
 
-		this.initRenderNewBaseItem();
-		this.initRenderNewDetailItem();
+		// this.initRenderNewBaseItem();
+		// this.initRenderNewDetailItem();
 
 		indentNewBaseModule.init();
 		indentNewDetailModule.init();
@@ -40,19 +40,21 @@ var indentNewModule = {
 		utils.bindEvents(bindings);
 	},
 
-	initRenderNewBaseItem: function() {
-		var output = utils.renderTpl(indentNewBaseTemplate, {repository: gRepository});
-		$$('#tabBase').html(output);
-	},
-
-	initRenderNewDetailItem: function() {
-		var output = utils.renderTpl(indentNewDetailTemplate, {});
-		$$('#tabDetail').html(output);
-	},
+	// initRenderNewBaseItem: function() {
+	// 	var output = utils.renderTpl(indentNewBaseTemplate, {repository: gRepository});
+	// 	$$('#tabBase').html(output);
+    //
+     //    $$('.bill-companies').hide();
+     //    $$('#billCompanies0').show();
+	// },
+    //
+	// initRenderNewDetailItem: function() {
+	// 	var output = utils.renderTpl(indentNewDetailTemplate, {});
+	// 	$$('#tabDetail').html(output);
+	// },
 
 	refreshNewDetailItemAction: function() {
-		var output = utils.renderTpl(indentNewDetailTemplate, {detailItems: indentNewDetailModule.getDetailItems()});
-		$$('#tabDetail').html(output);
+        indentNewDetailModule.refreshDetailItems();
 	},
 
 	indentSaveAction: function () {

@@ -1,11 +1,18 @@
 var utils = require('../../core/utils');
 var api = require('../../core/api');
+var indentNewBaseTemplate = require('./indent.new.base.tpl.html');
 
 
 var indentNewBaseModule = {
     init: function () {
+        var output = utils.renderTpl(indentNewBaseTemplate, {repository: gRepository});
+
+        $$('#tabBase').html(output);
+
+        $$('.bill-company').hide();
+        $$('#billCompanyNull').show();
+
 		this.bindEvents();
-		this.refreshBillCompanies();
     },
 
 	bindEvents: function() {
@@ -22,9 +29,8 @@ var indentNewBaseModule = {
 	},
 
 	refreshBillCompanies: function () {
-    	$$('.bill-companies').hide();
-    	var dom = '#billCompanies' + gRepository.billCompanies[$$('select[name="company"]')[0].selectedIndex].id;
-		$$(dom).show();
+    	$$('.bill-company').hide();
+		$$('#billCompany' + gRepository.billCompanies[$$('select[name="company"]')[0].selectedIndex - 1].id).show();
 	},
 	
 	getBaseData: function () {
@@ -36,7 +42,7 @@ var indentNewBaseModule = {
 			billtrade_: $$('select[name="billCompany"]')[0].value,
 			billdate: moment().format('YYYY-MM-DD'),
 			payingway_: $$('select[name="payment"]')[0].value,
-			remark: $$('textarea[name="desc"]')[0].value
+			remark: $$('textarea[name="remark"]')[0].value
 		};
 
 		return data;

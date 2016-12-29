@@ -1,13 +1,13 @@
 <div class="content-block">
-	<div class="content-block-title">
+	<div class="content-block-title" style="margin-top: 15px;">
 		<p class="buttons-row">
-			<a id="detail-item-add" href="#" class="button color-blue">添加明细</a>
+			<a href="#" class="detail-item-add"><i class="icon hw-add"></i></a>
 		</p>
 	</div>
 	<div id="indentDetailItems" class="list-block">
-		<ul>
+		<ul style="background-color: transparent;">
 			{{#each detailItems}}
-			<li data-id="{{index}}" class="swipeout indent-item">
+			<li data-idx="{{index}}" class="swipeout indent-item">
 				<div class="swipeout-content item-content">
 					<div class="item-inner">
 						<div class="item-title-row">
