@@ -74,14 +74,21 @@ var indentNewDetailItemPopupModule = {
 
     addIndentDetailItemAction: function (e) {
         var lots = $$('#indentNewDetailItemPopup a.material-lot');
-        $$.each(lots, function (idx, item) {
-            log(item)
-        });
+        var materialLotId = 0;
+		var materialLotName = '';
+        for (var i = 0; i < lots.length; i++) {
+        	if ($$(lots[i]).css('display') == 'block') {
+				materialLotId = $$(lots[i]).find('select[name="detailMaterialLot"]')[0].value;
+				materialLotName = $$(lots[i]).find('select[name="detailMaterialLot"]')[0].selectedOptions[0].innerText;
+        		break;
+			}
+		}
 
         var data = {
             material_: $$('#indentNewDetailItemPopup select[name="detailMaterial"]')[0].value,
             materialName: $$('#indentNewDetailItemPopup select[name="detailMaterial"]')[0].selectedOptions[0].innerText,
-            materialLotName: $$('#indentNewDetailItemPopup select[name="detailMaterialLot"]')[0].selectedOptions[0].innerText,
+			material_lot_: materialLotId,
+            materialLotName: materialLotName,
             grade: $$('#indentNewDetailItemPopup select[name="detailGrade"]')[0].value,
             quantity: $$('#indentNewDetailItemPopup input[name="detailQuantity"]')[0].value,
             unit_: $$('#indentNewDetailItemPopup select[name="detailUnit"]')[0].value,
