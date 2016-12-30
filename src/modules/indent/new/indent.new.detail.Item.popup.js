@@ -43,38 +43,45 @@ var indentNewDetailItemPopupModule = {
             event: 'change',
             handler: self.detailUnitChangeAction
         }, {
+            element: '#indentNewDetailItemPopup',
+            selector: 'input[name="detailConvert"]',
+            event: 'input propertychange',
+            handler: self.detailConvertChangeAction
+        }, {
 			element: '#indentNewDetailItemPopup',
 			selector: 'input[name="detailQuantity"]',
 			event: 'input propertychange',
 			handler: self.detailQuantityChangeAction
 		}, {
 			element: '#indentNewDetailItemPopup',
-			selector: 'input[name="detailConvert"]',
-			event: 'change',
-			handler: self.detailConvertChangeAction
-		}, {
-			element: '#indentNewDetailItemPopup',
 			selector: 'input[name="detailKilo"]',
-			event: 'change',
+			event: 'input propertychange',
 			handler: self.detailKiloChangeAction
 		}, {
 			element: '#indentNewDetailItemPopup',
 			selector: 'input[name="detailPrice"]',
-			event: 'change',
+			event: 'input propertychange',
 			handler: self.detailPriceChangeAction
 		}, {
 			element: '#indentNewDetailItemPopup',
 			selector: 'input[name="detailFarePrice"]',
-			event: 'change',
+			event: 'input propertychange',
 			handler: self.detailFarePriceChangeAction
 		}];
 
         utils.bindEvents(bindings);
     },
 
-    addIndentDetailItemAction: function () {
+    addIndentDetailItemAction: function (e) {
+        var lots = $$('#indentNewDetailItemPopup a.material-lot');
+        $$.each(lots, function (idx, item) {
+            log(item)
+        });
+
         var data = {
             material_: $$('#indentNewDetailItemPopup select[name="detailMaterial"]')[0].value,
+            materialName: $$('#indentNewDetailItemPopup select[name="detailMaterial"]')[0].selectedOptions[0].innerText,
+            materialLotName: $$('#indentNewDetailItemPopup select[name="detailMaterialLot"]')[0].selectedOptions[0].innerText,
             grade: $$('#indentNewDetailItemPopup select[name="detailGrade"]')[0].value,
             quantity: $$('#indentNewDetailItemPopup input[name="detailQuantity"]')[0].value,
             unit_: $$('#indentNewDetailItemPopup select[name="detailUnit"]')[0].value,
@@ -117,102 +124,286 @@ var indentNewDetailItemPopupModule = {
             convert = materialObj.convert2;
         }
 
-        var quantity = $$('#indentNewDetailItemPopup input[name="detailQuantity"]')[0].valueAsNumber;
-        if (isNaN(quantity)) {
+        if (isNaN($$('#indentNewDetailItemPopup input[name="detailQuantity"]')[0].valueAsNumber)) {
             $$('#indentNewDetailItemPopup input[name="detailKilo"]')[0].value = '';
+            $$('#indentNewDetailItemPopup span.total-price-value').html(0);
             return;
         }
 
-        $$('#indentNewDetailItemPopup input[name="detailKilo"]')[0].value = quantity * convert;
+        $$('#indentNewDetailItemPopup input[name="detailKilo"]')[0].value = $$('#indentNewDetailItemPopup input[name="detailQuantity"]')[0].valueAsNumber * convert;
+
+        var detailKilo = $$('#indentNewDetailItemPopup input[name="detailKilo"]')[0].valueAsNumber;
+        var detailPrice = $$('#indentNewDetailItemPopup input[name="detailPrice"]')[0].valueAsNumber;
+        var detailFarePrice = $$('#indentNewDetailItemPopup input[name="detailFarePrice"]')[0].valueAsNumber;
+
+        if (isNaN(detailPrice)) {
+            if (isNaN(detailFarePrice)) {
+                $$('#indentNewDetailItemPopup span.total-price-value').html(0);
+            } else {
+                $$('#indentNewDetailItemPopup span.total-price-value').html(detailFarePrice * detailKilo);
+            }
+        } else {
+            if (isNaN(detailFarePrice)) {
+                $$('#indentNewDetailItemPopup span.total-price-value').html(detailPrice * detailKilo);
+            } else {
+                $$('#indentNewDetailItemPopup span.total-price-value').html(detailPrice * detailKilo + detailFarePrice * detailKilo);
+            }
+        }
+
+
     },
 
     detailGradeChangeAction: function (e) {
-        var grade = e.target.value;
-        if (grade == 'AA') {
-            $$('#indentNewDetailItemPopup input[name="detailConvert"]').attr('disabled', 'disabled');
-
-
-        } else {
+        if (e.target.value != 'AA') {
             $$('#indentNewDetailItemPopup input[name="detailConvert"]').removeAttr('disabled');
+            return;
+        }
+
+        $$('#indentNewDetailItemPopup input[name="detailConvert"]').attr('disabled', 'disabled');
+
+        var materialObj = {};
+        $$.each(gRepository.materials, function (idx, item) {
+            if (item.id == $$('#indentNewDetailItemPopup select[name="detailMaterial"]')[0].value) {
+                materialObj = item;
+            }
+        });
+
+        if (utils.isEmpty(materialObj)) {
+            $$('#indentNewDetailItemPopup input[name="detailConvert"]')[0].value = '';
+            return;
+        }
+
+        $$('#indentNewDetailItemPopup input[name="detailConvert"]')[0].value = materialObj.convert;
+
+        if (isNaN($$('#indentNewDetailItemPopup input[name="detailQuantity"]')[0].valueAsNumber)) {
+            $$('#indentNewDetailItemPopup input[name="detailKilo"]')[0].value = '';
+            $$('#indentNewDetailItemPopup span.total-price-value').html(0);
+            return;
+        }
+
+        $$('#indentNewDetailItemPopup input[name="detailKilo"]')[0].value = $$('#indentNewDetailItemPopup input[name="detailQuantity"]')[0].valueAsNumber * $$('#indentNewDetailItemPopup input[name="detailConvert"]')[0].valueAsNumber;
+
+        var detailKilo = $$('#indentNewDetailItemPopup input[name="detailKilo"]')[0].valueAsNumber;
+        var detailPrice = $$('#indentNewDetailItemPopup input[name="detailPrice"]')[0].valueAsNumber;
+        var detailFarePrice = $$('#indentNewDetailItemPopup input[name="detailFarePrice"]')[0].valueAsNumber;
+
+        if (isNaN(detailPrice)) {
+            if (isNaN(detailFarePrice)) {
+                $$('#indentNewDetailItemPopup span.total-price-value').html(0);
+            } else {
+                $$('#indentNewDetailItemPopup span.total-price-value').html(detailFarePrice * detailKilo);
+            }
+        } else {
+            if (isNaN(detailFarePrice)) {
+                $$('#indentNewDetailItemPopup span.total-price-value').html(detailPrice * detailKilo);
+            } else {
+                $$('#indentNewDetailItemPopup span.total-price-value').html(detailPrice * detailKilo + detailFarePrice * detailKilo);
+            }
         }
     },
 
     detailUnitChangeAction: function (e) {
-        // var materialObj = {};
-        // gRepository.materials.forEach(function (item, idx) {
-        //     if (item.id == $$('#indentNewDetailItemPopup select[name="detailMaterial"]')[0].value) {
-        //         materialObj = item;
-        //     }
-        // });
-        //
-        // if (utils.isEmpty(materialObj)) {
-        //     return;
-        // }
-        //
-        // var unit = $$('#indentNewDetailItemPopup select[name="detailUnit"]')[0].value;
-        // if (unit == 1) {
-        //     $$('#indentNewDetailItemPopup input[name="detailConvert"]').val(materialObj.convert);
-        // } else if (unit == 2) {
-        //     $$('#indentNewDetailItemPopup input[name="detailConvert"]').val(materialObj.convert1);
-        // } else if (unit == 3) {
-        //     $$('#indentNewDetailItemPopup input[name="detailConvert"]').val(materialObj.convert2);
-        // }
+        var materialObj = {};
+        $$.each(gRepository.materials, function (idx, item) {
+            if (item.id == $$('#indentNewDetailItemPopup select[name="detailMaterial"]')[0].value) {
+                materialObj = item;
+            }
+        });
+
+        if (utils.isEmpty(materialObj)) {
+            $$('#indentNewDetailItemPopup input[name="detailConvert"]')[0].value = '';
+            return;
+        }
+
+        var unit = $$('#indentNewDetailItemPopup select[name="detailUnit"]')[0].value;
+        var convert = 0;
+        if (unit == 1) {
+            $$('#indentNewDetailItemPopup input[name="detailConvert"]').val(materialObj.convert);
+            convert = materialObj.convert;
+        } else if (unit == 2) {
+            $$('#indentNewDetailItemPopup input[name="detailConvert"]').val(materialObj.convert1);
+            convert = materialObj.convert1;
+        } else if (unit == 3) {
+            $$('#indentNewDetailItemPopup input[name="detailConvert"]').val(materialObj.convert2);
+            convert = materialObj.convert2;
+        }
+
+        if (isNaN($$('#indentNewDetailItemPopup input[name="detailQuantity"]')[0].valueAsNumber)) {
+            $$('#indentNewDetailItemPopup input[name="detailKilo"]')[0].value = '';
+            $$('#indentNewDetailItemPopup span.total-price-value').html(0);
+            return;
+        }
+
+        $$('#indentNewDetailItemPopup input[name="detailKilo"]')[0].value = $$('#indentNewDetailItemPopup input[name="detailQuantity"]')[0].valueAsNumber * convert;
+
+        var detailKilo = $$('#indentNewDetailItemPopup input[name="detailKilo"]')[0].valueAsNumber;
+        var detailPrice = $$('#indentNewDetailItemPopup input[name="detailPrice"]')[0].valueAsNumber;
+        var detailFarePrice = $$('#indentNewDetailItemPopup input[name="detailFarePrice"]')[0].valueAsNumber;
+
+        if (isNaN(detailPrice)) {
+            if (isNaN(detailFarePrice)) {
+                $$('#indentNewDetailItemPopup span.total-price-value').html(0);
+            } else {
+                $$('#indentNewDetailItemPopup span.total-price-value').html(detailFarePrice * detailKilo);
+            }
+        } else {
+            if (isNaN(detailFarePrice)) {
+                $$('#indentNewDetailItemPopup span.total-price-value').html(detailPrice * detailKilo);
+            } else {
+                $$('#indentNewDetailItemPopup span.total-price-value').html(detailPrice * detailKilo + detailFarePrice * detailKilo);
+            }
+        }
+    },
+
+    detailConvertChangeAction: function (e) {
+        if (isNaN(e.target.valueAsNumber) || isNaN($$('#indentNewDetailItemPopup input[name="detailQuantity"]')[0].valueAsNumber)) {
+            $$('#indentNewDetailItemPopup input[name="detailKilo"]')[0].value = '';
+            $$('#indentNewDetailItemPopup span.total-price-value').html(0);
+            return;
+        }
+
+        if (isNaN($$('#indentNewDetailItemPopup input[name="detailQuantity"]')[0].valueAsNumber)) {
+            $$('#indentNewDetailItemPopup input[name="detailKilo"]')[0].value = '';
+            $$('#indentNewDetailItemPopup span.total-price-value').html(0);
+            return;
+        }
+
+        $$('#indentNewDetailItemPopup input[name="detailKilo"]')[0].value = $$('#indentNewDetailItemPopup input[name="detailQuantity"]')[0].valueAsNumber * e.target.valueAsNumber;
+
+        var detailKilo = $$('#indentNewDetailItemPopup input[name="detailKilo"]')[0].valueAsNumber;
+        var detailPrice = $$('#indentNewDetailItemPopup input[name="detailPrice"]')[0].valueAsNumber;
+        var detailFarePrice = $$('#indentNewDetailItemPopup input[name="detailFarePrice"]')[0].valueAsNumber;
+
+        if (isNaN(detailPrice)) {
+            if (isNaN(detailFarePrice)) {
+                $$('#indentNewDetailItemPopup span.total-price-value').html(0);
+            } else {
+                $$('#indentNewDetailItemPopup span.total-price-value').html(detailFarePrice * detailKilo);
+            }
+        } else {
+            if (isNaN(detailFarePrice)) {
+                $$('#indentNewDetailItemPopup span.total-price-value').html(detailPrice * detailKilo);
+            } else {
+                $$('#indentNewDetailItemPopup span.total-price-value').html(detailPrice * detailKilo + detailFarePrice * detailKilo);
+            }
+        }
     },
 
 	detailQuantityChangeAction: function (e) {
-        // var totalPriceDom = $$('#indentNewDetailItemPopup input[name="totalPrice"]');
-        // if (isNaN(e.target.valueAsNumber)) {
-    		// nrApp.alert('数量需输入数字');
-		// 	e.target.value = NaN;
-		// }
-        //
-		// var detailConvert = $$('#indentNewDetailItemPopup input[name="detailConvert"]')[0].valueAsNumber;
-        //
-		// if (isNaN(detailConvert)) {
-		// 	totalPriceDom.value = 0;
-		// 	return;
-		// }
-        //
-		// $$('#indentNewDetailItemPopup input[name="detailKilo"]')[0].value = e.target.valueAsNumber * detailConvert;
-        //
-		// var detailKilo = $$('#indentNewDetailItemPopup input[name="detailKilo"]')[0].valueAsNumber;
-		// if (isNaN(detailKilo)) {
-		// 	totalPriceDom.value = 0;
-		// 	return;
-		// }
-        //
-		// var detailPrice = $$('#indentNewDetailItemPopup input[name="detailPrice"]')[0].valueAsNumber;
-		// var detailFarePrice = $$('#indentNewDetailItemPopup input[name="detailFarePrice"]')[0].valueAsNumber;
-        //
-		// if (isNaN(detailPrice)) {
-		// 	if (isNaN(detailFarePrice)) {
-		// 		totalPriceDom.value = 0;
-		// 	} else {
-		// 		totalPriceDom.value = detailFarePrice * detailKilo;
-		// 	}
-		// } else {
-		// 	if (isNaN(detailFarePrice)) {
-		// 		totalPriceDom.value = detailPrice * detailKilo;
-		// 	} else {
-		// 		totalPriceDom.value = detailPrice * detailKilo + detailFarePrice * detailKilo;
-		// 	}
-		// }
-	},
+        if (isNaN(e.target.valueAsNumber) || isNaN($$('#indentNewDetailItemPopup input[name="detailConvert"]')[0].valueAsNumber)) {
+            $$('#indentNewDetailItemPopup input[name="detailKilo"]')[0].value = '';
+            $$('#indentNewDetailItemPopup span.total-price-value').html(0);
+            return;
+        }
 
-	detailConvertChangeAction: function (e) {
-		
+        $$('#indentNewDetailItemPopup input[name="detailKilo"]')[0].value = e.target.valueAsNumber * $$('#indentNewDetailItemPopup input[name="detailConvert"]')[0].valueAsNumber;
+
+        var detailKilo = $$('#indentNewDetailItemPopup input[name="detailKilo"]')[0].valueAsNumber;
+        var detailPrice = $$('#indentNewDetailItemPopup input[name="detailPrice"]')[0].valueAsNumber;
+        var detailFarePrice = $$('#indentNewDetailItemPopup input[name="detailFarePrice"]')[0].valueAsNumber;
+
+        if (isNaN(detailPrice)) {
+            if (isNaN(detailFarePrice)) {
+                $$('#indentNewDetailItemPopup span.total-price-value').html(0);
+            } else {
+                $$('#indentNewDetailItemPopup span.total-price-value').html(detailFarePrice * detailKilo);
+            }
+        } else {
+            if (isNaN(detailFarePrice)) {
+                $$('#indentNewDetailItemPopup span.total-price-value').html(detailPrice * detailKilo);
+            } else {
+                $$('#indentNewDetailItemPopup span.total-price-value').html(detailPrice * detailKilo + detailFarePrice * detailKilo);
+            }
+        }
 	},
 
 	detailKiloChangeAction: function (e) {
-		
+        if (isNaN(e.target.valueAsNumber)) {
+            $$('#indentNewDetailItemPopup span.total-price-value').html(0);
+            return;
+        }
+
+        var grade = $$('#indentNewDetailItemPopup select[name="detailGrade"]')[0].value;
+        var convert = $$('#indentNewDetailItemPopup input[name="detailConvert"]')[0].valueAsNumber;
+        var quantity = $$('#indentNewDetailItemPopup input[name="detailQuantity"]')[0].valueAsNumber;
+        if (grade == 'AA') {
+            if (convert > 0) {
+                $$('#indentNewDetailItemPopup input[name="detailQuantity"]')[0].value = e.target.valueAsNumber / convert;
+            }
+        } else {
+            if (!isNaN(quantity) && quantity > 0) {
+                $$('#indentNewDetailItemPopup input[name="detailConvert"]')[0].value = e.target.valueAsNumber / quantity;
+            }
+        }
+
+
+        var detailKilo = e.target.valueAsNumber;
+        var detailPrice = $$('#indentNewDetailItemPopup input[name="detailPrice"]')[0].valueAsNumber;
+        var detailFarePrice = $$('#indentNewDetailItemPopup input[name="detailFarePrice"]')[0].valueAsNumber;
+
+        if (isNaN(detailPrice)) {
+            if (isNaN(detailFarePrice)) {
+                $$('#indentNewDetailItemPopup span.total-price-value').html(0);
+            } else {
+                $$('#indentNewDetailItemPopup span.total-price-value').html(detailFarePrice * detailKilo);
+            }
+        } else {
+            if (isNaN(detailFarePrice)) {
+                $$('#indentNewDetailItemPopup span.total-price-value').html(detailPrice * detailKilo);
+            } else {
+                $$('#indentNewDetailItemPopup span.total-price-value').html(detailPrice * detailKilo + detailFarePrice * detailKilo);
+            }
+        }
 	},
 
 	detailPriceChangeAction: function (e) {
-		
+        if (isNaN($$('#indentNewDetailItemPopup input[name="detailKilo"]')[0].valueAsNumber)) {
+            totalPriceDom.html(0);
+            return;
+        }
+
+        var detailKilo = $$('#indentNewDetailItemPopup input[name="detailKilo"]')[0].valueAsNumber;
+        var detailPrice = $$('#indentNewDetailItemPopup input[name="detailPrice"]')[0].valueAsNumber;
+        var detailFarePrice = $$('#indentNewDetailItemPopup input[name="detailFarePrice"]')[0].valueAsNumber;
+
+        if (isNaN(detailPrice)) {
+            if (isNaN(detailFarePrice)) {
+                $$('#indentNewDetailItemPopup span.total-price-value').html(0);
+            } else {
+                $$('#indentNewDetailItemPopup span.total-price-value').html(detailFarePrice * detailKilo);
+            }
+        } else {
+            if (isNaN(detailFarePrice)) {
+                $$('#indentNewDetailItemPopup span.total-price-value').html(detailPrice * detailKilo);
+            } else {
+                $$('#indentNewDetailItemPopup span.total-price-value').html(detailPrice * detailKilo + detailFarePrice * detailKilo);
+            }
+        }
 	},
 
 	detailFarePriceChangeAction: function (e) {
-		
+        if (isNaN($$('#indentNewDetailItemPopup input[name="detailKilo"]')[0].valueAsNumber)) {
+            totalPriceDom.html(0);
+            return;
+        }
+
+        var detailKilo = $$('#indentNewDetailItemPopup input[name="detailKilo"]')[0].valueAsNumber;
+        var detailPrice = $$('#indentNewDetailItemPopup input[name="detailPrice"]')[0].valueAsNumber;
+        var detailFarePrice = $$('#indentNewDetailItemPopup input[name="detailFarePrice"]')[0].valueAsNumber;
+
+        if (isNaN(detailPrice)) {
+            if (isNaN(detailFarePrice)) {
+                $$('#indentNewDetailItemPopup span.total-price-value').html(0);
+            } else {
+                $$('#indentNewDetailItemPopup span.total-price-value').html(detailFarePrice * detailKilo);
+            }
+        } else {
+            if (isNaN(detailFarePrice)) {
+                $$('#indentNewDetailItemPopup span.total-price-value').html(detailPrice * detailKilo);
+            } else {
+                $$('#indentNewDetailItemPopup span.total-price-value').html(detailPrice * detailKilo + detailFarePrice * detailKilo);
+            }
+        }
 	}
 };
 
