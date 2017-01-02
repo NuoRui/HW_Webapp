@@ -73,6 +73,33 @@ var indentNewDetailItemPopupModule = {
     },
 
     addIndentDetailItemAction: function (e) {
+        var materialId = $$('#indentNewDetailItemPopup select[name="detailMaterial"]')[0].value;
+        var materialName = $$('#indentNewDetailItemPopup select[name="detailMaterial"]')[0].selectedOptions[0].innerText;
+        if (materialId === '') {
+            nrApp.alert('需要选择一种材料');
+            return;
+        }
+
+        var convert = $$('#indentNewDetailItemPopup input[name="detailConvert"]')[0].value;
+        if (convert === '') {
+            nrApp.alert('系数不能为空');
+            return;
+        }
+
+        var quantity = $$('#indentNewDetailItemPopup input[name="detailQuantity"]')[0].value;
+        if (quantity === '') {
+            nrApp.alert('数量不能为空');
+            return;
+        }
+
+        var gradeId = $$('#indentNewDetailItemPopup select[name="detailGrade"]')[0].value;
+        var unitId = $$('#indentNewDetailItemPopup select[name="detailUnit"]')[0].value;
+        var kilo = $$('#indentNewDetailItemPopup input[name="detailKilo"]')[0].value;
+        var price = $$('#indentNewDetailItemPopup input[name="detailPrice"]')[0].value;
+        var farePrice = $$('#indentNewDetailItemPopup input[name="detailFarePrice"]')[0].value;
+        var remark = '';
+        var totalPrice = $$('#indentNewDetailItemPopup span.total-price-value')[0].innerText;
+
         var lots = $$('#indentNewDetailItemPopup a.material-lot');
         var materialLotId = 0;
 		var materialLotName = '';
@@ -84,20 +111,22 @@ var indentNewDetailItemPopupModule = {
 			}
 		}
 
-        var data = {
-            material_: $$('#indentNewDetailItemPopup select[name="detailMaterial"]')[0].value,
-            materialName: $$('#indentNewDetailItemPopup select[name="detailMaterial"]')[0].selectedOptions[0].innerText,
-			material_lot_: materialLotId,
+		var data = {
+            materialId: materialId,
+            materialName: materialName,
+            materialLotId: materialLotId,
             materialLotName: materialLotName,
-            grade: $$('#indentNewDetailItemPopup select[name="detailGrade"]')[0].value,
-            quantity: $$('#indentNewDetailItemPopup input[name="detailQuantity"]')[0].value,
-            unit_: $$('#indentNewDetailItemPopup select[name="detailUnit"]')[0].value,
-            convert: $$('#indentNewDetailItemPopup input[name="detailConvert"]')[0].value,
-            kilo: $$('#indentNewDetailItemPopup input[name="detailKilo"]')[0].value,
-            price: $$('#indentNewDetailItemPopup input[name="detailPrice"]')[0].value,
-            fare_price: $$('#indentNewDetailItemPopup input[name="detailFarePrice"]')[0].value,
-            remark: $$('#indentNewDetailItemPopup textarea[name="detailRemark"]')[0].value
+            gradeId: gradeId,
+            unitId: unitId,
+            convert: convert,
+            quantity: quantity,
+            kilo: kilo,
+            price: price,
+            farePrice: farePrice,
+            remark: remark,
+            totalPrice: totalPrice
         };
+
 
         indentNewDetailModule.addDetailItem(data);
 

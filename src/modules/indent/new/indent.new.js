@@ -60,13 +60,26 @@ var indentNewModule = {
 	indentSaveAction: function () {
 		var baseData = indentNewBaseModule.getBaseData();
 		var detailItemsData = indentNewDetailModule.getDetailItems();
+        var saveItemsData = detailItemsData.map(function (data) {
+			return {
+				material_: data.materialId,
+				grade: data.gradeId,
+				quantity: data.quantity,
+				unit_: data.unitId,
+				convert: data.convert,
+				kilo: data.kilo,
+				price: data.price,
+				fare_price: data.farePrice,
+				remark: data.remark
+			}
+        });
 
 		api.saveIndent(function (data) {
 			nrApp.alert('订单保存成功', '', function () {
 				nrApp.getCurrentView().router.back();
 			});
 
-		}, gUser.employee_id, {data: baseData, items: JSON.stringify(detailItemsData)});
+		}, gUser.employee_id, {data: baseData, items: JSON.stringify(saveItemsData)});
 	}
 };
 

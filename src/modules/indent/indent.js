@@ -12,12 +12,14 @@ var indentModule = {
 
 		nrApp.hideToolbar('.main-toolbar');
 
-		utils.bindEvents([{
-			element: '#indentPage',
-			selector: '#indent-list div.item-content',
-			event: 'click',
-			handler: self.editIndentAction
-		}, {
+		utils.bindEvents([
+		// 	{
+		// 	element: '#indentPage',
+		// 	selector: '#indent-list div.item-content',
+		// 	event: 'click',
+		// 	handler: self.editIndentAction
+		// },
+			{
 			element: '#indentPage',
 			selector: '#indent-list .swipeout',
 			event: 'delete',
