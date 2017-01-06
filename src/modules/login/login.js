@@ -59,7 +59,11 @@ var loginModule = {
 		nrApp.confirm('你确定要退出登录吗？', function () {
 			storage.delUser();
 			repository.delRepository();
-			window.location.href = gConfig.root;
+            if (utils.isPhonegap()) {
+                window.location.reload();
+            } else {
+                window.location.href = gConfig.root;
+            }
 		});
 	}
 };
