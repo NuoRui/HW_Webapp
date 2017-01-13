@@ -60,7 +60,11 @@ var loginModule = {
 			storage.delUser();
 			repository.delRepository();
             if (utils.isPhonegap()) {
-                window.location.reload();
+                if (cordova.platformId == 'android') {
+                    navigator.app.exitApp();
+                } else {
+                    window.location.reload();
+                }
             } else {
                 window.location.href = gConfig.root;
             }
