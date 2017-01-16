@@ -95,6 +95,7 @@ var indentNewDetailItemPopupModule = {
         var gradeId = $$('#indentNewDetailItemPopup select[name="detailGrade"]')[0].value;
         var unitId = $$('#indentNewDetailItemPopup select[name="detailUnit"]')[0].value;
         var kilo = $$('#indentNewDetailItemPopup input[name="detailKilo"]')[0].value;
+        var inPrince = $$('#indentNewDetailItemPopup input[name="detailInPrice"]')[0].value;
         var price = $$('#indentNewDetailItemPopup input[name="detailPrice"]')[0].value;
         var farePrice = $$('#indentNewDetailItemPopup input[name="detailFarePrice"]')[0].value;
         var remark = '';
@@ -121,6 +122,7 @@ var indentNewDetailItemPopupModule = {
             convert: convert,
             quantity: quantity,
             kilo: kilo,
+            inPrice: price,
             price: price,
             farePrice: farePrice,
             remark: remark,

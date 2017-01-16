@@ -17,7 +17,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="#" class="item-link smart-select" data-back-on-select="true">
+				<a href="#" class="item-link smart-select" data-back-on-select="true" data-searchbar="true" data-searchbar-placeholder="搜索" data-searchbar-cancel="取消">
 					<select name="company">
 						<option value="" selected disabled></option>
 						{{#each repository.companies}}
@@ -82,9 +82,38 @@
 			<li>
 				<div class="item-content">
 					<div class="item-inner">
+						<div class="item-title label">返利</div>
+						<div class="input" style="width: 100%">
+							<select name="rebate" style="direction: rtl;">
+								<option value="1" selected>有返</option>
+								<option value="2">无返</option>
+								<option value="3">现返</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</li>
+
+			<li>
+				<div class="item-content">
+					<div class="item-inner">
+						<div class="item-title label">类型</div>
+						<div class="input" style="width: 100%">
+							<select name="type" style="direction: rtl;">
+								<option value="2" selected>现货</option>
+								<option value="3">合同</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</li>
+
+			<li>
+				<div class="item-content">
+					<div class="item-inner">
 						<div class="item-title label">付款方式</div>
-						<div class="input">
-							<select name="payment">
+						<div class="input" style="width: 100%">
+							<select name="payment" style="direction: rtl;">
 								{{#each repository.payments}}
 								<option value="{{id}}">{{name}}</option>
 								{{/each}}

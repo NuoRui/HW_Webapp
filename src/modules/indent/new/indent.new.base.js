@@ -41,6 +41,8 @@ var indentNewBaseModule = {
 			trade_: $$('select[name="tradeCompany"]')[0].value,
 			billtrade_: $$('select[name="billCompany"]')[0].value,
 			billdate: moment().format('YYYY-MM-DD'),
+            rebate: $$('select[name="rebate"]')[0].value,
+            type: $$('select[name="type"]')[0].value,
 			payingway_: $$('select[name="payment"]')[0].value,
 			remark: $$('textarea[name="remark"]')[0].value
 		};

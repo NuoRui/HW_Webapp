@@ -68,6 +68,7 @@ var indentNewModule = {
 				unit_: data.unitId,
 				convert: data.convert,
 				kilo: data.kilo,
+                in_price: data.inPrice,
 				price: data.price,
 				fare_price: data.farePrice,
 				remark: data.remark
