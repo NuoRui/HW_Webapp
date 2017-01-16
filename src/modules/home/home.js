@@ -24,12 +24,14 @@ var homeModule = {
 			selector: '.indent-selector',
 			event: 'click',
 			handler: this.indentSelector
-		},{
-			element: '#homePage',
-			selector: '.quotation-selector',
-			event: 'click',
-			handler: this.quotationSelector
-		}];
+		},
+		// 	{
+		// 	element: '#homePage',
+		// 	selector: '.quotation-selector',
+		// 	event: 'click',
+		// 	handler: this.quotationSelector
+		// }
+		];
 
 		utils.bindEvents(bindings);
 	},
