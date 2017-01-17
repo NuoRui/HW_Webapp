@@ -15,13 +15,18 @@ module.exports = {
 			storage.setCompanies(data);
 			repository['companies'] = storage.getCompanies();
 
-			data.forEach(function(company) {
-				api.getBillCompanies(function (data) {
-					storage.setBillCompanies(company.id, data);
+for (var i = 0; i < data.length; i++) {
+	(function(id) {
+		api.getBillCompanies(function (data1) {
+			log(id)
+			log(data1)
+				storage.setBillCompanies(id, data1);
 
-					repository['billCompanies'] = storage.getBillCompanies();
-				}, company.id, gUser.employee_id);
-			});
+				repository['billCompanies'] = storage.getBillCompanies();
+			}, id, gUser.employee_id);
+	})(data[i].id);
+}
+
 		}, gUser.employee_id);
 
 		api.getSuppliers(function (data) {

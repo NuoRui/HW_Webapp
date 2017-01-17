@@ -30,7 +30,7 @@ var indentNewBaseModule = {
 
 	refreshBillCompanies: function () {
     	$$('.bill-company').hide();
-		$$('#billCompany' + gRepository.billCompanies[$$('select[name="company"]')[0].selectedIndex - 1].id).show();
+		$$('#billCompany' + $$('select[name="company"]')[0].value).show();
 	},
 	
 	getBaseData: function () {
